@@ -4,7 +4,7 @@
 import os
 import argparse
 import multiprocessing as mp
-import neblio_ci_libs as nci
+import macpuffins_ci_libs as nci
 
 nci.setup_travis_or_gh_actions_env_vars()
 
@@ -82,28 +82,28 @@ nci.call_with_err_code('ccache -s')
 os.environ['PATH'] = '/usr/local/opt/ccache/libexec:' + os.environ['PATH']
 
 if (args.test):
-    nci.call_with_err_code('qmake "QMAKE_CXX=ccache clang++" "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" "DEFINES += UNITTEST_RUN_NTP_PARSE_TESTS" "NEBLIO_CONFIG += NoWallet" ../neblio-wallet.pro')
+    nci.call_with_err_code('qmake "QMAKE_CXX=ccache clang++" "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" "DEFINES += UNITTEST_RUN_NTP_PARSE_TESTS" "MACPUFFINS_CONFIG += NoWallet" ../macpuffins-wallet.pro')
     nci.call_with_err_code("make -j" + str(mp.cpu_count()))
     # download test data
-    nci.call_with_err_code('wget --progress=dot:giga https://files.nebl.io/test_data_mainnet.tar.xz -O ../wallet/test/data/test_data_mainnet.tar.xz')
-    nci.call_with_err_code('wget --progress=dot:giga https://files.nebl.io/test_data_testnet.tar.xz -O ../wallet/test/data/test_data_testnet.tar.xz')
+    nci.call_with_err_code('wget --progress=dot:giga https://files.macpuffins.com/test_data_mainnet.tar.xz -O ../wallet/test/data/test_data_mainnet.tar.xz')
+    nci.call_with_err_code('wget --progress=dot:giga https://files.macpuffins.com/test_data_testnet.tar.xz -O ../wallet/test/data/test_data_testnet.tar.xz')
     nci.call_with_err_code('tar -xJvf ../wallet/test/data/test_data_mainnet.tar.xz -C ../wallet/test/data')
     nci.call_with_err_code('tar -xJvf ../wallet/test/data/test_data_testnet.tar.xz -C ../wallet/test/data')
     nci.call_with_err_code('rm ../wallet/test/data/*.tar.xz')
     # run tests
-    nci.call_with_err_code("./wallet/test/neblio-Qt.app/Contents/MacOS/neblio-Qt")
+    nci.call_with_err_code("./wallet/test/macpuffins-Qt.app/Contents/MacOS/macpuffins-Qt")
 else:
-    nci.call_with_err_code('qmake "QMAKE_CXX=ccache clang++" "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" ../neblio-wallet.pro')
+    nci.call_with_err_code('qmake "QMAKE_CXX=ccache clang++" "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" ../macpuffins-wallet.pro')
     nci.call_with_err_code("make -j" + str(mp.cpu_count()))
     # build our .dmg
     nci.call_with_err_code('npm install -g appdmg')
     os.chdir("wallet")
-    nci.call_with_err_code('../../contrib/macdeploy/macdeployqtplus ./neblio-Qt.app -add-qt-tr da,de,es,hu,ru,uk,zh_CN,zh_TW -verbose 1 -rpath /usr/local/opt/qt/lib')
-    nci.call_with_err_code('appdmg ../../contrib/macdeploy/appdmg.json ./neblio-Qt.dmg')
+    nci.call_with_err_code('../../contrib/macdeploy/macdeployqtplus ./macpuffins-Qt.app -add-qt-tr da,de,es,hu,ru,uk,zh_CN,zh_TW -verbose 1 -rpath /usr/local/opt/qt/lib')
+    nci.call_with_err_code('appdmg ../../contrib/macdeploy/appdmg.json ./macpuffins-Qt.dmg')
 
-    file_name = '$(date +%Y-%m-%d)---' + os.environ['BRANCH'] + '-' + os.environ['COMMIT'][:7] + '---neblio-Qt---macOS.zip'
+    file_name = '$(date +%Y-%m-%d)---' + os.environ['BRANCH'] + '-' + os.environ['COMMIT'][:7] + '---macpuffins-Qt---macOS.zip'
 
-    nci.call_with_err_code('zip -j ' + file_name + ' ./neblio-Qt.dmg')
+    nci.call_with_err_code('zip -j ' + file_name + ' ./macpuffins-Qt.dmg')
     nci.call_with_err_code('mv ' + file_name + ' ' + deploy_dir)
     nci.call_with_err_code('echo "Binary package at ' + deploy_dir + file_name + '"')
     # set the SOURCE_DIR & SOURCE_PATH env vars, these point to the binary that will be uploaded
