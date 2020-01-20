@@ -28,7 +28,7 @@ jobs:
     - name: Set target_v env var
       run: |
         echo "::set-env name=target_v::linux_daemon"
-    - name: Build nebliod for Linux
+    - name: Build macpuffinsd for Linux
       run: |
         echo ::set-env name=GITHUB_REF::$(echo ${GITHUB_REF})
         python -u ci_scripts/test_linux-daemon-gui.py
@@ -60,7 +60,7 @@ jobs:
     - name: Set target_v env var
       run: |
         echo "::set-env name=target_v::linux_wallet"
-    - name: Build neblio-Qt for Linux
+    - name: Build macpuffins-Qt for Linux
       run: |
         python -u ci_scripts/test_linux-daemon-gui.py
         echo ::set-env name=RELEASE_TAG::$(echo ${GITHUB_REF:10})
@@ -91,7 +91,7 @@ jobs:
     - name: Set target_v env var
       run: |
         echo "::set-env name=target_v::linux_wallet_test"
-    - name: Build neblio-Qt for Linux and Run Tests
+    - name: Build macpuffins-Qt for Linux and Run Tests
       run: |
         python -u ci_scripts/test_linux-daemon-gui.py -t
 
@@ -107,7 +107,7 @@ jobs:
         key: ${{ runner.OS }}--windows_x86-${{ github.sha }}
         restore-keys: |
           ${{ runner.OS }}--windows_x86-
-    - name: Build neblio-Qt for Windows x86
+    - name: Build macpuffins-Qt for Windows x86
       run: |
         python -u ci_scripts/test_win_x86-gui_wallet.py
         echo ::set-env name=RELEASE_TAG::$(echo ${GITHUB_REF:10})
@@ -138,7 +138,7 @@ jobs:
     - name: Switch Xcode Version
       run: |
         sudo xcode-select -s /Applications/Xcode_11.2.1.app/Contents/Developer
-    - name: Build neblio-Qt for macOS
+    - name: Build macpuffins-Qt for macOS
       run: |
         python -u ci_scripts/test_osx-gui_wallet.py
         echo ::set-env name=RELEASE_TAG::$(echo ${GITHUB_REF:10})
@@ -172,7 +172,7 @@ jobs:
     - name: Switch Xcode Version
       run: |
         sudo xcode-select -s /Applications/Xcode_11.2.1.app/Contents/Developer
-    - name: Build neblio-Qt for macOS and Run Tests
+    - name: Build macpuffins-Qt for macOS and Run Tests
       run: |
         python -u ci_scripts/test_osx-gui_wallet.py -t
 
@@ -185,20 +185,20 @@ jobs:
       - name: Checkout Docker Files
         uses: actions/checkout@v1
         with:
-          repository: NeblioTeam/docker-nebliod
+          repository: macpuffin/docker-macpuffinsd
           ref: refs/heads/master
       - name: Move Docker Files
         run: |
           cd ..
-          rm -r neblio
-          mv docker-nebliod neblio
+          rm -r macpuffins
+          mv docker-macpuffinsd macpuffins
       - name: Build and Publish to Docker Repository
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: neblioteam/nebliod-build
+          name: macpuffin/macpuffinsd-build
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          workdir: docker-nebliod-build
+          workdir: docker-macpuffinsd-build
           buildargs: GITHUB_SHA
 
 
@@ -210,20 +210,20 @@ jobs:
       - name: Checkout Docker Files
         uses: actions/checkout@v1
         with:
-          repository: NeblioTeam/docker-nebliod
+          repository: macpuffin/docker-macpuffinsd
           ref: refs/heads/master
       - name: Move Docker Files
         run: |
           cd ..
-          rm -r neblio
-          mv docker-nebliod neblio
+          rm -r macpuffins
+          mv docker-macpuffinsd macpuffins
       - name: Build and Publish to Docker Repository
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: neblioteam/nebliod-build-rpi
+          name: macpuffin/macpuffinsd-build-rpi
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          workdir: docker-nebliod-build-rpi
+          workdir: docker-macpuffinsd-build-rpi
           buildargs: GITHUB_SHA
 
 
@@ -243,7 +243,7 @@ jobs:
     - name: Set target_v env var
       run: |
         echo "::set-env name=target_v::rpi_wallet"
-    - name: Build neblio-Qt for Raspberry Pi
+    - name: Build macpuffins-Qt for Raspberry Pi
       run: |
         python -u ci_scripts/test_rpi-daemon-gui.py
         echo ::set-env name=RELEASE_TAG::$(echo ${GITHUB_REF:10})
@@ -276,7 +276,7 @@ jobs:
     - name: Set target_v env var
       run: |
         echo "::set-env name=target_v::rpi_wallet_test"
-    - name: Build neblio-Qt for Raspberry Pi and Run Tests
+    - name: Build macpuffins-Qt for Raspberry Pi and Run Tests
       run: |
         python -u ci_scripts/test_rpi-daemon-gui.py -t
 
@@ -297,7 +297,7 @@ jobs:
     - name: Set target_v env var
       run: |
         echo "::set-env name=target_v::rpi_daemon"
-    - name: Build neblio-Qt for Raspberry Pi
+    - name: Build macpuffins-Qt for Raspberry Pi
       run: |
         python -u ci_scripts/test_rpi-daemon-gui.py
         echo ::set-env name=RELEASE_TAG::$(echo ${GITHUB_REF:10})
