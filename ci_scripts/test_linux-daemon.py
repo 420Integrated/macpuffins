@@ -3,7 +3,7 @@
 
 import os
 import multiprocessing as mp
-import neblio_ci_libs as nci
+import macpuffins_ci_libs as nci
 
 nci.setup_travis_or_gh_actions_env_vars()
 
@@ -57,11 +57,11 @@ nci.call_with_err_code('ccache -s')
 os.environ['PATH'] = '/usr/lib/ccache:' + os.environ['PATH']
 
 nci.call_with_err_code('make "CXX=ccache g++" "STATIC=1" -B -w -f makefile.unix -j' + str(mp.cpu_count()))
-nci.call_with_err_code('strip ./nebliod')
+nci.call_with_err_code('strip ./macpuffinsd')
 
-file_name = '$(date +%Y-%m-%d)---' + os.environ['BRANCH'] + '-' + os.environ['COMMIT'][:7] + '---nebliod---ubuntu16.04.tar.gz'
+file_name = '$(date +%Y-%m-%d)---' + os.environ['BRANCH'] + '-' + os.environ['COMMIT'][:7] + '---macpuffinsd---ubuntu16.04.tar.gz'
 
-nci.call_with_err_code('tar -zcvf "' + file_name + '" ./nebliod')
+nci.call_with_err_code('tar -zcvf "' + file_name + '" ./macpuffinsd')
 nci.call_with_err_code('mv ' + file_name + ' ' + deploy_dir)
 nci.call_with_err_code('echo "Binary package at ' + deploy_dir + file_name + '"')
 # set the SOURCE_DIR & SOURCE_PATH env vars, these point to the binary that will be uploaded
