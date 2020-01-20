@@ -1,7 +1,7 @@
 import os
 import urllib2
 import multiprocessing as mp
-import neblio_ci_libs as nci
+import macpuffins_ci_libs as nci
 
 nci.setup_travis_or_gh_actions_env_vars()
 
@@ -19,11 +19,11 @@ os.chdir(deploy_dir)
 build_target = ''
 build_target_alt = ''
 if(os.environ['target_v'] == "rpi_daemon"):
-  build_target = 'nebliod'
-  build_target_alt = 'nebliod'
+  build_target = 'macpuffinsd'
+  build_target_alt = 'macpuffinsd'
 elif(os.environ['target_v'] == "rpi_wallet_test"):
-  build_target = 'tests-neblio-qt'
-  build_target_alt = 'tests-neblio-Qt'
+  build_target = 'tests-macpuffins-qt'
+  build_target_alt = 'tests-macpuffins-Qt'
 else:
   build_target = 'neblio-qt'
   build_target_alt = 'neblio-Qt'
@@ -44,11 +44,11 @@ else:
   nci.mkdir_p(os.path.join(working_dir,'.ccache', ''))
   nci.call_with_err_code('mv ' + os.path.join(working_dir,'.ccache', '') + ' ' + os.path.join(deploy_dir,'.ccache', ''))
 
-# Start Docker Container to Build nebliod or neblio-Qt
+# Start Docker Container to Build macpuffinsd or macpuffins-Qt
 if (os.environ.get('TRAVIS_BUILD_DIR') is not None):
-  nci.call_with_err_code('timeout --signal=SIGKILL 42m sudo docker run -e BRANCH=' + os.environ['BRANCH'] + ' -e BUILD=' + build_target + ' -v ' + os.environ['BUILD_DIR'] + ':/root/vol -t neblioteam/nebliod-build-ccache-rpi')
+  nci.call_with_err_code('timeout --signal=SIGKILL 42m sudo docker run -e BRANCH=' + os.environ['BRANCH'] + ' -e BUILD=' + build_target + ' -v ' + os.environ['BUILD_DIR'] + ':/root/vol -t macpuffin/macpuffinsd-build-ccache-rpi')
 else:
-  nci.call_with_err_code('sudo docker run -e BRANCH=' + os.environ['BRANCH'] + ' -e BUILD=' + build_target + ' -v ' + os.environ['BUILD_DIR'] + ':/root/vol -t neblioteam/nebliod-build-ccache-rpi')
+  nci.call_with_err_code('sudo docker run -e BRANCH=' + os.environ['BRANCH'] + ' -e BUILD=' + build_target + ' -v ' + os.environ['BUILD_DIR'] + ':/root/vol -t macpuffin/macpuffinsd-build-ccache-rpi')
 nci.call_with_err_code('sleep 15 && sudo docker kill $(sudo docker ps -q);exit 0')
 
 # move .ccache folder back to travis ccache dir
@@ -91,4 +91,4 @@ if(os.path.isfile(build_target)):
 
 elif(os.environ.get('TRAVIS_BUILD_DIR') is not None):
   nci.call_with_err_code('echo "Binary not found, likely due to a timeout, starting new job..."')
-  nci.call_with_err_code('curl -X POST -H "Content-Type: application/json" -H "Travis-API-Version: 3" -H "Accept: application/json" -H "Authorization: token ' + os.environ["TRAVIS_API_TOKEN"] + '" -d \'{"request":{"message":"RPi ' + build_target_alt + ' Build Restart","branch":"' + os.environ["TRAVIS_BRANCH"] + '","config":{"merge_mode":"deep_merge","env":{"global":{"TRAVIS_DEPLOY_JOB_ID":"' + deploy_job_id + '"},"matrix":["target_v=' + os.environ["target_v"] + '"]}}}}\' \'https://api.travis-ci.org/repo/NeblioTeam%2Fneblio/requests\'')
+  nci.call_with_err_code('curl -X POST -H "Content-Type: application/json" -H "Travis-API-Version: 3" -H "Accept: application/json" -H "Authorization: token ' + os.environ["TRAVIS_API_TOKEN"] + '" -d \'{"request":{"message":"RPi ' + build_target_alt + ' Build Restart","branch":"' + os.environ["TRAVIS_BRANCH"] + '","config":{"merge_mode":"deep_merge","env":{"global":{"TRAVIS_DEPLOY_JOB_ID":"' + deploy_job_id + '"},"matrix":["target_v=' + os.environ["target_v"] + '"]}}}}\' \'https://api.travis-ci.org/repo/macpuffin%2Fmacpuffins/requests\'')
