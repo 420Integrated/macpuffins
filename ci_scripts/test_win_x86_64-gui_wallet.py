@@ -3,7 +3,7 @@
 
 import os
 import multiprocessing as mp
-import neblio_ci_libs as nci
+import macpuffins_ci_libs as nci
 
 nci.setup_travis_or_gh_actions_env_vars()
 
@@ -43,12 +43,12 @@ os.environ['PATH'] = '/usr/lib/ccache:' + os.environ['PATH']
 #Go to build dir and build
 nci.mkdir_p(build_dir)
 os.chdir(build_dir)
-nci.call_with_err_code('x86_64-w64-mingw32.static-qmake-qt5 "QMAKE_CXX=ccache x86_64-w64-mingw32.static-g++" "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" ../neblio-wallet.pro')
+nci.call_with_err_code('x86_64-w64-mingw32.static-qmake-qt5 "QMAKE_CXX=ccache x86_64-w64-mingw32.static-g++" "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" ../macpuffins-wallet.pro')
 nci.call_with_err_code("make -j" + str(mp.cpu_count()))
 
-file_name = '$(date +%Y-%m-%d)---' + os.environ['BRANCH'] + '-' + os.environ['COMMIT'][:7] + '---BETA-neblio-Qt---windows-x86_64.zip'
+file_name = '$(date +%Y-%m-%d)---' + os.environ['BRANCH'] + '-' + os.environ['COMMIT'][:7] + '---BETA-macpuffins-Qt---windows-x86_64.zip'
 
-nci.call_with_err_code('zip -j ' + file_name + ' ./wallet/release/neblio-qt.exe')
+nci.call_with_err_code('zip -j ' + file_name + ' ./wallet/release/macpuffins-qt.exe')
 nci.call_with_err_code('mv ' + file_name + ' ' + deploy_dir)
 nci.call_with_err_code('echo "Binary package at ' + deploy_dir + file_name + '"')
 # set the SOURCE_DIR & SOURCE_PATH env vars, these point to the binary that will be uploaded
