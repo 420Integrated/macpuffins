@@ -1,9 +1,9 @@
 wallet/*.exe
-wallet/neblio
-wallet/nebliod
-wallet/test_neblio
+wallet/macpuffins
+wallet/macpuffinsd
+wallet/macpuffins
 wallet/build.h
-wallet/qt/neblio-qt.*
+wallet/qt/macpuffins-qt.*
 wallet/leveldb/build_config.mk
 .*.swp
 *.*~*
@@ -15,14 +15,14 @@ wallet/leveldb/build_config.mk
 *.Debug
 *.Release
 debug
-.neblio
+ .macpuffins
 release/
 
 #compilation and Qt preprocessor part
 *.qm
 Makefile
-neblio-Qt.app
-neblio-Qt.dmg
+macpuffins-Qt.app
+macpuffins-Qt.dmg
 #resources cpp
 qrc_*.cpp
 
@@ -40,11 +40,11 @@ modifierIntervalCalc.rb
 !wallet/leveldb/Makefile
 hash.py
 
-neblio-qt
+macpuffins-qt
 
-neblio-qt_plugin_import\.cpp
+macpuffins-qt_plugin_import\.cpp
 
-nebliod
+macpuffinsd
 
 bits\.pyc
 
@@ -59,15 +59,15 @@ wallet/obj-test/
 
 wallet/restbed/build
 
-wallet/nebliorest\.cpp
+wallet/macpuffinsrest\.cpp
 
-wallet/nebliorest\.h
+wallet/macpuffinsrest\.h
 
 wallet/restbed/
 wallet/test/data/wallet.dat
 wallet/test/data/txs_ntp1tests_ntp1_txs.json
-wallet/test/data/txs_ntp1tests_raw_neblio_txs.json
+wallet/test/data/txs_ntp1tests_raw_macpuffins_txs.json
 wallet/test/data/txs_ntp1tests_ntp1_txs_testnet.json
-wallet/test/data/txs_ntp1tests_raw_neblio_txs_testnet.json
+wallet/test/data/txs_ntp1tests_raw_macpuffins_txs_testnet.json
 wallet/test/data/ntp1txids_to_test.txt
 wallet/test/data/ntp1txids_to_test_testnet.txt
