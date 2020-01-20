@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.2.0)
-project(Neblio)
+project(MacPuffins)
 
-option(NEBLIO_CMAKE "Enable buildig with cmake (to ensure this is for development)" OFF)
-if(NOT NEBLIO_CMAKE)
+option(MACPUFFINS_CMAKE "Enable buildig with cmake (to ensure this is for development)" OFF)
+if(NOT MACPUFFINS_CMAKE)
     message(FATAL_ERROR "This cmake file is only for development. Please use qmake to build the project.")
 endif()
 
@@ -17,8 +17,8 @@ if(WIN32)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wa,-mbig-obj")
 endif()
 
-option(COMPILE_GUI "Enable compiling neblio-qt" ON)
-option(COMPILE_DAEMON "Enable compiling nebliod" ON)
+option(COMPILE_GUI "Enable compiling macpuffins-qt" ON)
+option(COMPILE_DAEMON "Enable compiling macpuffinsd" ON)
 option(COMPILE_CURL "Download and compile libcurl (and OpenSSL) automatically (Not for Windows)" OFF)
 option(COMPILE_TESTS "Build tests" ON)
 option(USE_QRCODE "Enable QRCode" ON)
@@ -460,7 +460,7 @@ add_library(gui_lib STATIC
     wallet/qt/qtipcserver.cpp
     wallet/qt/rpcconsole.cpp
     wallet/qt/ClickableLabel.cpp
-    wallet/qt/neblioupdatedialog.cpp
+    wallet/qt/macpuffinsupdatedialog.cpp
     wallet/qt/messageboxwithtimer.cpp
     ${QRCODE_SOURCES}
     )
@@ -558,9 +558,9 @@ add_library(core_lib STATIC
     wallet/scrypt-x86_64.S
     wallet/scrypt.cpp
     wallet/pbkdf2.cpp
-    wallet/neblioupdater.cpp
-    wallet/neblioversion.cpp
-    wallet/neblioreleaseinfo.cpp
+    wallet/macpuffinsupdater.cpp
+    wallet/macpuffinsversion.cpp
+    wallet/macpuffinsreleaseinfo.cpp
     wallet/ThreadSafeMap.cpp
     wallet/ThreadSafeHashMap.cpp
     wallet/NetworkForks.cpp
@@ -692,7 +692,7 @@ endif()
 if(WIN32)
     if(COMPILE_GUI)
         add_executable(
-            neblio-qt
+            macpuffins-qt
             ${RESOURCE_ADDED}
             ${QM_FILES}
             # sources that depend on target as they have defs inside them
@@ -701,7 +701,7 @@ if(WIN32)
             wallet/init.cpp
             )
 
-        target_link_libraries(neblio-qt
+        target_link_libraries(macpuffins-qt
             gui_lib
             ui_lib
             ntp1_gui_lib
@@ -727,20 +727,20 @@ if(WIN32)
             ${OPENSSL_LIBS}
             ${ZLIB_LIBRARIES}
             )
-        target_compile_definitions(neblio-qt PRIVATE
+        target_compile_definitions(macpuffins-qt PRIVATE
             QT_GUI
             )
-        target_link_libraries(neblio-qt Qt5::QWindowsIntegrationPlugin)
+        target_link_libraries(macpuffins-qt Qt5::QWindowsIntegrationPlugin)
     endif()
     if(COMPILE_DAEMON)
         add_executable(
             # sources that depend on target as they have defs inside them
-            nebliod
+            macpuffinsd
             wallet/wallet.cpp
             wallet/init.cpp
             )
 
-        target_link_libraries(nebliod
+        target_link_libraries(macpuffinsd
             core_lib
             zerocoin_lib
             ntp1_lib
@@ -763,13 +763,13 @@ if(WIN32)
     endif()
 elseif(APPLE)
     add_executable(
-        neblio-qt
+        macpuffins-qt
         MACOSX_BUNDLE ${myApp_ICON}
         )
 else()
     if(COMPILE_GUI)
         add_executable(
-            neblio-qt
+            macpuffins-qt
             ${RESOURCE_ADDED}
             ${QM_FILES}
             # sources that depend on target as they have defs inside them
@@ -778,7 +778,7 @@ else()
             wallet/init.cpp
             )
 
-        target_link_libraries(neblio-qt
+        target_link_libraries(macpuffins-qt
             gui_lib
             ui_lib
             ntp1_gui_lib
@@ -802,20 +802,20 @@ else()
             ${OPENSSL_LIBS}
             ${ZLIB_LIBRARIES}
             )
-        target_compile_definitions(neblio-qt PRIVATE
+        target_compile_definitions(macpuffins-qt PRIVATE
             QT_GUI
             )
     endif()
 
     if(COMPILE_DAEMON)
         add_executable(
-            nebliod
+            macpuffinsd
             # sources that depend on target as they have defs inside them
             wallet/wallet.cpp
             wallet/init.cpp
             )
 
-        target_link_libraries(nebliod
+        target_link_libraries(macpuffinsd
             core_lib
             zerocoin_lib
             ntp1_lib
