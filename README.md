@@ -1,19 +1,12 @@
-[![GitHub Actions](https://img.shields.io/github/workflow/status/NeblioTeam/neblio/CICD?label=GitHub%20Actions&logo=Github&style=for-the-badge)](https://github.com/NeblioTeam/neblio/actions)
-[![Latest Release](https://img.shields.io/github/v/release/NeblioTeam/neblio?label=Latest%20Release&style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMC44IDE0LjY1Ij48ZGVmcz48c3R5bGU+LmNscy0xe2ZvbnQtc2l6ZToxMnB4O2ZpbGw6I2ZmZjtmb250LWZhbWlseTpPcGVuU2Fucy1FeHRyYUJvbGQsIE9wZW4gU2Fucztmb250LXdlaWdodDo4MDA7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT52PC90aXRsZT48dGV4dCB4PSItMjk2LjUiIHk9Ii0zNjUuNDYiLz48dGV4dCB4PSItMjk2LjUiIHk9Ii0zNjUuNDYiLz48dGV4dCBjbGFzcz0iY2xzLTEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMTEuMTQpIj52LjwvdGV4dD48L3N2Zz4=)](https://github.com/NeblioTeam/neblio/releases/latest)
-
-![Downloads](https://img.shields.io/github/downloads/NeblioTeam/neblio/total?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMjguNDkgMjU2LjgiPjxkZWZzPjxzdHlsZT4uY2xzLTF7ZmlsbDojNGY4OGNlO30uY2xzLTJ7ZmlsbDojM2JhM2QwO30uY2xzLTN7ZmlsbDojNDg5MWNmO30uY2xzLTR7ZmlsbDojMTljZWQ0O30uY2xzLTV7ZmlsbDojNmI2NWNiO30uY2xzLTZ7ZmlsbDojMWZjNmQzO30uY2xzLTd7ZmlsbDojNzE1ZGNhO30uY2xzLTh7ZmlsbDojNDI5YWNmO30uY2xzLTl7ZmlsbDojNzg1NGNhO30uY2xzLTEwe2ZpbGw6IzdmNGJjOTt9LmNscy0xMXtmaWxsOiM2NDZlY2M7fS5jbHMtMTJ7ZmlsbDojNTY4MGNkO30uY2xzLTEze2ZpbGw6IzJkYjRkMTt9LmNscy0xNHtmaWxsOiMxMmQ3ZDQ7fS5jbHMtMTV7ZmlsbDojMGJlMGQ1O30uY2xzLTE2e2ZpbGw6IzI2YmRkMjt9LmNscy0xN3tmaWxsOiMzNGFiZDE7fS5jbHMtMTh7ZmlsbDojNWQ3N2NkO308L3N0eWxlPjwvZGVmcz48dGl0bGU+TWFya19Db2xvcjwvdGl0bGU+PGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+PGcgaWQ9IkxheWVyXzEtMiIgZGF0YS1uYW1lPSJMYXllciAxIj48cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMTE0LjI1IDE4NC45NCAxNjMuMjEgMTU2LjY3IDE2My4yMSAxMDAuMTMgMTE0LjI1IDEyOC40IDExNC4yNSAxODQuOTQiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0yMjUuNDQsNjQuMmEyMi43MSwyMi43MSwwLDAsMC04LjMzLTguMzNMMTcxLjM3LDI5LjQ2LDEyNS42MiwzLjA1YTIyLjc0LDIyLjc0LDAsMCwwLTIyLjc1LDBMNTcuMTIsMjkuNDZoMGwtMzQuNTcsMjBMMTEuMzgsNTUuODdBMjIuNzYsMjIuNzYsMCwwLDAsMCw3NS41N1YxMjguNEgwdjUyLjgzYTIyLjc2LDIyLjc2LDAsMCwwLDExLjM4LDE5LjdsNDUuNzQsMjYuNDFoMGw0NS43NSwyNi40MWEyMi43NCwyMi43NCwwLDAsMCwyMi43NSwwbDQ1Ljc1LTI2LjQxLDQ1Ljc0LTI2LjQxYTIyLjc2LDIyLjc2LDAsMCwwLDExLjM4LTE5LjcxVjEyOC40aDBWNzUuNThBMjIuNjcsMjIuNjcsMCwwLDAsMjI1LjQ0LDY0LjJabS01NC4wNyw3MC4xdjI3LjA4bC01Ny4xMiwzMy01Ny4xMy0zM2gwdi02Nmw0Ny4zLTI3LjMxLDkuODMtNS42Nyw1Ny4xMiwzM1oiLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMTYzLjIxIDEwMC4xMyAxNjMuMjEgMTU2LjY3IDExNC4yNSAxMjguNCAxNjMuMjEgMTAwLjEzIi8+PHBvbHlnb24gY2xhc3M9ImNscy0zIiBwb2ludHM9IjE2My4yMSAxNTYuNjcgMTE0LjI1IDE4NC45NCAxMTQuMjUgMTI4LjQgMTYzLjIxIDE1Ni42NyIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtNCIgcG9pbnRzPSIxNzEuMzcgOTUuNDIgMTcxLjM3IDE2MS4zOCAyMjguNDkgMTI4LjQgMTcxLjM3IDk1LjQyIi8+PHBvbHlnb24gY2xhc3M9ImNscy0zIiBwb2ludHM9IjU3LjEyIDE2MS4zOCA1Ny4xMiAyMjcuMzQgMTE0LjI1IDE5NC4zNiA1Ny4xMiAxNjEuMzgiLz48cG9seWdvbiBjbGFzcz0iY2xzLTUiIHBvaW50cz0iNTcuMTIgMjkuNDYgNTcuMTIgOTUuNDIgMTE0LjI1IDYyLjQ0IDU3LjEyIDI5LjQ2Ii8+PHBvbHlnb24gY2xhc3M9ImNscy02IiBwb2ludHM9IjE3MS4zNyAxNjEuMzggMTE0LjI1IDE5NC4zNiAxNzEuMzcgMjI3LjM0IDE3MS4zNyAxNjEuMzgiLz48cG9seWdvbiBjbGFzcz0iY2xzLTciIHBvaW50cz0iNTcuMTIgOTUuNDIgMCAxMjguNCA1Ny4xMiAxNjEuMzggNTcuMTIgOTUuNDIiLz48cG9seWdvbiBjbGFzcz0iY2xzLTgiIHBvaW50cz0iMTcxLjM3IDI5LjQ2IDExNC4yNSA2Mi40NCAxNzEuMzcgOTUuNDIgMTcxLjM3IDI5LjQ2Ii8+PHBhdGggY2xhc3M9ImNscy05IiBkPSJNNTcuMTIsMjkuNDZsLTM0LjU3LDIwTDExLjM4LDU1Ljg3QTIyLjcxLDIyLjcxLDAsMCwwLDMuMDUsNjQuMkw1Ny4xMiw5NS40MloiLz48cGF0aCBjbGFzcz0iY2xzLTEwIiBkPSJNNTcuMTIsOTUuNDIsMy4wNSw2NC4yQTIyLjY2LDIyLjY2LDAsMCwwLDAsNzUuNTdWMTI4LjRaIi8+PHBhdGggY2xhc3M9ImNscy0xMSIgZD0iTTAsMTI4LjR2NTIuODNBMjIuNjYsMjIuNjYsMCwwLDAsMy4wNSwxOTIuNmw1NC4wNy0zMS4yMloiLz48cGF0aCBjbGFzcz0iY2xzLTEyIiBkPSJNNTcuMTIsMTYxLjM4LDMuMDUsMTkyLjZhMjIuNzksMjIuNzksMCwwLDAsOC4zMyw4LjMzbDQ1Ljc0LDI2LjQxWiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTU3LjEyLDIyNy4zNGw0NS43NSwyNi40MWEyMi43NywyMi43NywwLDAsMCwxMS4zOCwzLjA1VjE5NC4zNloiLz48cGF0aCBjbGFzcz0iY2xzLTEzIiBkPSJNMTE0LjI1LDI1Ni44YTIyLjc2LDIyLjc2LDAsMCwwLDExLjM3LTMuMDVsNDUuNzUtMjYuNDEtNTcuMTItMzNaIi8+PHBhdGggY2xhc3M9ImNscy0xNCIgZD0iTTE3MS4zNywxNjEuMzh2NjZsNDUuNzQtMjYuNDFhMjIuNzksMjIuNzksMCwwLDAsOC4zMy04LjMzWiIvPjxwYXRoIGNsYXNzPSJjbHMtMTUiIGQ9Ik0yMjUuNDQsMTkyLjZhMjIuNjcsMjIuNjcsMCwwLDAsMy4wNS0xMS4zOFYxMjguNGwtNTcuMTIsMzNaIi8+PHBhdGggY2xhc3M9ImNscy0xNiIgZD0iTTIyOC40OSwxMjguNFY3NS41OGEyMi42NywyMi42NywwLDAsMC0zLjA1LTExLjM4TDE3MS4zNyw5NS40MloiLz48cGF0aCBjbGFzcz0iY2xzLTE3IiBkPSJNMjI1LjQ0LDY0LjJhMjIuNzEsMjIuNzEsMCwwLDAtOC4zMy04LjMzTDE3MS4zNywyOS40NnY2NloiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0xNzEuMzcsMjkuNDYsMTI1LjYyLDMuMDVhMjIuNzYsMjIuNzYsMCwwLDAtMTEuMzctM1Y2Mi40NFoiLz48cGF0aCBjbGFzcz0iY2xzLTE4IiBkPSJNMTE0LjI1LDYyLjQ0VjBhMjIuNzcsMjIuNzcsMCwwLDAtMTEuMzgsMy4wNUw1Ny4xMiwyOS40NloiLz48L2c+PC9nPjwvc3ZnPg==)
-[![Discord](https://img.shields.io/discord/403302085749112834?label=Discord&logo=Discord&style=for-the-badge)](https://discord.gg/mrrj45a)
-
-# Open Source Repository for Neblio Nodes & Wallets
-More information here: https://nebl.io
-
+# Open Source Repository for MacPuffin Coin Nodes & Wallets
+More information here: https://macpuffins.com
 Alpha Builds for commits that pass testing can be found here:
-https://builds.nebl.io
+https://clients.macpuffins.com
 
 Pull Requests Welcome
 
 
-# Building Neblio
+# Building MacPuffins
 ## Linux (debian-based)
 ### Install the following dependencies
 ```
@@ -39,19 +32,19 @@ export BOOST_LIB_PATH=$PWD/boost_build/lib/
 ```
 cd wallet
 make "STATIC=1" -B -w -f makefile.unix -j4
-strip ./nebliod
+strip ./macpuffinsd
 ```
 
 ### Build neblio-Qt
 ```
-qmake "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" "OPENSSL_INCLUDE_PATH=$PWD/openssl_build/include/" "OPENSSL_LIB_PATH=$PWD/openssl_build/lib/" "PKG_CONFIG_PATH=$PWD/curl_build/lib/pkgconfig/" neblio-wallet.pro
+qmake "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" "OPENSSL_INCLUDE_PATH=$PWD/openssl_build/include/" "OPENSSL_LIB_PATH=$PWD/openssl_build/lib/" "PKG_CONFIG_PATH=$PWD/curl_build/lib/pkgconfig/" macpuffins-wallet.pro
 make -B -w -j4
 ```
 
 ## Windows
-We cross compile the windows binary on Linux using MXE (Ubuntu recommended)
+Cross compile the windows binary on Linux using MXE (Ubuntu recommended)
 
-### Download our pre-compiled MXE toolchain
+### Download a pre-compiled MXE toolchain
 ```
 https://files.nebl.io/dependencies/parts=12/mxe.tar.gz
 tar -xf mxe.tar.gz
@@ -59,9 +52,9 @@ sudo mv mxe /
 export PATH=/mxe/mxe/usr/bin:$PATH
 ```
 
-### Build neblio-Qt
+### Build macpuffins-Qt
 ```
-i686-w64-mingw32.static-qmake-qt5 "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" neblio-wallet.pro
+i686-w64-mingw32.static-qmake-qt5 "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" macpuffins-wallet.pro
 make -B -w -j4
 ```
 
@@ -89,33 +82,33 @@ brew unlink qrencode      && brew link --force --overwrite qrencode
 brew unlink libsodium     && brew link --force --overwrite libsodium
 ```
 
-### Build neblio-Qt
+### Build macpuffins-Qt
 ```
-qmake "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" neblio-wallet.pro
+qmake "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" macpuffins-wallet.pro
 make -B -w -j4
 ```
 
-### Prepare the .dmg file for release (optional)
+### Prepare the .dmg file for release 
 ```
-./contrib/macdeploy/macdeployqtplus ./neblio-Qt.app -add-qt-tr da,de,es,hu,ru,uk,zh_CN,zh_TW -verbose 1 -rpath /usr/local/opt/qt/lib
-appdmg ./contrib/macdeploy/appdmg.json ./neblio-Qt.dmg
+./contrib/macdeploy/macdeployqtplus ./macpuffins-Qt.app -add-qt-tr da,de,es,hu,ru,uk,zh_CN,zh_TW -verbose 1 -rpath /usr/local/opt/qt/lib
+appdmg ./contrib/macdeploy/appdmg.json ./macpuffins-Qt.dmg
 ```
 
 
-# Neblio Command Line Parameters
-These parameters can be passed to nebliod or neblio-Qt at runtime. They can also be hardcoded in a neblio.conf file located in the data directory.
+# MacPuffins Command Line Parameters
+These parameters can be passed to macpuffinsd or macpuffins-Qt at runtime. They can also be hardcoded in a macpuffins.conf file located in the data directory.
 
 ```
 Usage:
-  nebliod [options]
-  nebliod [options] <command> [params]  Send command to -server or nebliod
-  nebliod [options] help                List commands
-  nebliod [options] help <command>      Get help for a command
+  macpuffinsd [options]
+  macpuffinsd [options] <command> [params]  Send command to -server or nebliod
+  macpuffinsd [options] help                List commands
+  macpuffinsd [options] help <command>      Get help for a command
 
 Options:
   -?                     This help message
-  -conf=<file>           Specify configuration file (default: neblio.conf)
-  -pid=<file>            Specify pid file (default: nebliod.pid)
+  -conf=<file>           Specify configuration file (default: macpuffins.conf)
+  -pid=<file>            Specify pid file (default: macpuffins.pid)
   -datadir=<dir>         Specify data directory
   -wallet=<dir>          Specify wallet file (within data directory)
   -dbcache=<n>           Set database cache size in megabytes (default: 25)
@@ -185,23 +178,23 @@ SSL options:
 ```
 
 
-# Neblio RPC Commands
-RPC commands are used to interact with a running instance of nebliod or neblio-Qt. They are used via the command line with nebliod, or via the neblio-Qt Debug Console.
+# MacPuffins RPC Commands
+RPC commands are used to interact with a running instance of macpuffinsd or macpuffins-Qt. They are used via the command line with macpuffinsd, or via the macpuffins-Qt Debug Console.
 
 ```
 addmultisigaddress <nrequired> <'["key","key"]'> [account]
 addredeemscript <redeemScript> [account]
 backupwallet <destination>
 checkwallet
-createrawntp1transaction [{"txid":txid,"vout":n},...] {address:{tokenid/tokenName:tokenAmount},address:neblAmount,...} '{"userData":{"meta":[{"K1":"V1"},{},...]}}' [encrypt-metadata=false]
+createrawntp1transaction [{"txid":txid,"vout":n},...] {address:{tokenid/tokenName:tokenAmount},address:pfnAmount,...} '{"userData":{"meta":[{"K1":"V1"},{},...]}}' [encrypt-metadata=false]
 createrawtransaction [{"txid":txid,"vout":n},...] {address:amount,...}
 decoderawtransaction <hex string> [ignoreNTP1=false]
 decodescript <hex string>
-dumpprivkey <neblioaddress>
+dumpprivkey <macpuffinsaddress>
 dumpwallet <filename>
 encryptwallet <passphrase>
 exportblockchain <path-dir>
-getaccount <neblioaddress>
+getaccount <macpuffinsaddress>
 getaccountaddress <account>
 getaddressesbyaccount <account>
 getbalance [account] [minconf=1]
@@ -224,14 +217,14 @@ getpeerinfo
 getrawmempool
 getrawtransaction <txid> [verbose=0] [ignoreNTP1=false]
 getreceivedbyaccount <account> [minconf=1]
-getreceivedbyaddress <neblioaddress> [minconf=1]
+getreceivedbyaddress <macpuffinsaddress> [minconf=1]
 getstakinginfo
 getsubsidy [nTarget]
 gettransaction <txid> [ignoreNTP1=false]
 getwork [data]
 getworkex [data, coinbase]
 help [command]
-importprivkey <neblioprivkey> [label]
+importprivkey <macpuffinsprivkey> [label]
 importwallet <filename>
 keypoolrefill [new-size]
 listaccounts [minconf=1]
@@ -247,30 +240,30 @@ repairwallet
 resendtx
 reservebalance [<reserve> [amount]]
 sendalert <message> <privatekey> <minver> <maxver> <priority> <id> [cancelupto]
-sendfrom <fromaccount> <toneblioaddress> <amount> [minconf=1] [comment] [comment-to]
+sendfrom <fromaccount> <tomacpuffinsaddress> <amount> [minconf=1] [comment] [comment-to]
 sendmany <fromaccount (must be empty, unsupported)> {address:amount,...} [comment]
-sendntp1toaddress <neblioaddress> <amount> <tokenId/tokenName> '{"userData":{"meta":[{"K1":"V1"},{},...]}}' [encrypt-metadata=false] [comment] [comment-to]
+sendntp1toaddress <macpuffinsaddress> <amount> <tokenId/tokenName> '{"userData":{"meta":[{"K1":"V1"},{},...]}}' [encrypt-metadata=false] [comment] [comment-to]
 sendrawtransaction <hex string>
-sendtoaddress <neblioaddress> <amount> [comment] [comment-to]
-setaccount <neblioaddress> <account>
+sendtoaddress <macpuffinsaddress> <amount> [comment] [comment-to]
+setaccount <macpuffinsaddress> <account>
 settxfee <amount>
-signmessage <neblioaddress> <message>
+signmessage <macpuffinsaddress> <message>
 signrawtransaction <hex string> [{"txid":txid,"vout":n,"scriptPubKey":hex},...] [<privatekey1>,...] [sighashtype="ALL"]
 stop
 submitblock <hex data> [optional-params-obj]
-validateaddress <neblioaddress>
-validatepubkey <nebliopubkey>
-verifymessage <neblioaddress> <signature> <message>
+validateaddress <macpuffinsaddress>
+validatepubkey <macpuffinspubkey>
+verifymessage <macpuffinsaddress> <signature> <message>
 ```
 
 
 # Responsible Vulnerability Disclosure
 If you believe you've found a security issue in our product or service, we encourage you to notify us. We welcome working with skilled security researchers across the globe to resolve any issues promptly.
 
-This Bug Bounty program is an open offer to external individuals to receive compensation for reporting Neblio bugs, specifically related to security of the core functionality of the network.
+This Bug Bounty program is an open offer to external individuals to receive compensation for reporting MacPuffin Coin bugs, specifically related to security of the core functionality of the network.
 
 ## Submissions
-Submissions should be made through the following [contact page](https://nebl.io/contact)
+Submissions should be made through the following [contact page](https://macpuffins.com/contact)
 
 Include following in your report:
 1. Severity - Your opinion on the severity of the issue (e.g. high, moderate, low)
@@ -281,14 +274,14 @@ Include following in your report:
 6. Impact - What security impact could an attacker achieve?
 7. Your name and country.
 
-Please be available to cooperate with the Neblio Team to provide further information on the bug if needed.
+Please be available to cooperate with the MacPuffins Development Team to provide further information on the bug if needed.
 
 ## Rewards
-Rewards are at the discretion of Neblio, and we will not be awarding significant bounties for low severity bugs.
+Rewards are at the discretion of MacPuffins, and we will not be awarding significant bounties for low severity bugs.
 
 ## Examples of eligible bugs
 ### Critical
-- bugs which can take full control of Neblio nodes.
+- bugs which can take full control of MacPuffin Coin nodes.
 - bugs which can lead to private key leakage.
 - bugs which can lead to unauthorised transfer or generation of coins/NTP1 tokens.
 ### High
@@ -298,7 +291,7 @@ Rewards are at the discretion of Neblio, and we will not be awarding significant
 - bugs allowing unauthorized operations on user accounts.
 
 ## Program Rules
-- Vulnerabilities relating to this repository, the core software running the Neblio Network, are eligible for this program. Out-of-scope vulnerabilities impacting other software we release may be considered under this program at Neblio's discretion.
+- Vulnerabilities relating to this repository, the core software running the MacPuffins Network, are eligible for this program. Out-of-scope vulnerabilities impacting other software we release may be considered under this program at Neblio's discretion.
 - As this is a private program, please do not discuss this program or any vulnerabilities (even resolved ones) outside of the program without express consent from the organization.
 - Please provide detailed reports with reproducible steps. If the report is not detailed enough to reproduce the issue, the issue will not be eligible for a reward.
 - Submit vulnerabilities only for the latest release, vulnerabilities submitted for older versions are not eligible for a reward.
