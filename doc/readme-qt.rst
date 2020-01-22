@@ -1,4 +1,4 @@
-neblio-qt: Qt5 GUI for neblio
+macpuffins-qt: Qt5 GUI for macpuffins
 ===============================
 
 Build instructions
@@ -24,9 +24,9 @@ then execute the following:
     qmake
     make
 
-Alternatively, install Qt Creator and open the `neblio-qt.pro` file.
+Alternatively, install Qt Creator and open the `macpuffins-qt.pro` file.
 
-An executable named `neblio-qt` will be built.
+An executable named `macpuffins-qt` will be built.
 
 
 Windows
@@ -117,9 +117,9 @@ flag to qmake to control this:
 Berkely DB version warning
 ==========================
 
-A warning for people using the *static binary* version of neblio on a Linux/UNIX-ish system (tl;dr: **Berkely DB databases are not forward compatible**).
+A warning for people using the *static binary* version of macpuffins on a Linux/UNIX-ish system (tl;dr: **Berkely DB databases are not forward compatible**).
 
-The static binary version of neblio is linked against libdb 5.0 (see also `this Debian issue`_).
+The static binary version of macpuffins is linked against libdb 5.0 (see also `this Debian issue`_).
 
 Now the nasty thing is that databases from 5.X are not compatible with 4.X.
 
@@ -134,7 +134,7 @@ Ubuntu 11.10 warning
 ====================
 
 Ubuntu 11.10 has a package called 'qt-at-spi' installed by default.  At the time of writing, having that package
-installed causes neblio-qt to crash intermittently.  The issue has been reported as `launchpad bug 857790`_, but
+installed causes macpuffins-qt to crash intermittently.  The issue has been reported as `launchpad bug 857790`_, but
 isn't yet fixed.
 
 Until the bug is fixed, you can remove the qt-at-spi package to work around the problem, though this will presumably
