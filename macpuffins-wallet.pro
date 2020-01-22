@@ -1,17 +1,17 @@
-include(neblio-wallet.pri)
+include(macpuffins-wallet.pri)
 
 TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS += wallet
 
-#NEBLIO_CONFIG += Tests
+#MACPUFFINS_CONFIG += Tests
 
-contains( NEBLIO_CONFIG, Tests ) {
+contains( MACPUFFINS_CONFIG, Tests ) {
     SUBDIRS += wallet/test
 }
 
-contains( NEBLIO_CONFIG, NoWallet ) {
+contains( MACPUFFINS_CONFIG, NoWallet ) {
     SUBDIRS += wallet/test
     SUBDIRS -= wallet
 }
