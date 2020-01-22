@@ -160,9 +160,9 @@ std::string cURLTools::GetUserAgent()
 {
     std::string agent;
 #ifdef QT_GUI
-    agent += "Neblio-Qt";
+    agent += "MacPuffins-Qt";
 #else
-    agent += "Neblio";
+    agent += "MacPuffins";
 #endif
     std::string version =
         std::to_string(CLIENT_VERSION_MAJOR) + "." + std::to_string(CLIENT_VERSION_MINOR) + "." +
