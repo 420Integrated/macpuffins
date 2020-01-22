@@ -1,7 +1,7 @@
 """
 You can pipe clang-thread-sanitizer output to this program, and it'll filter it, removig false positives indicated in the blacklist file below
-You run neblio-qt with, as an example:
-neblio-qt --noquicksync 2<&1 | python tools/filter-thread-sanitizer-output.py | tee output.txt
+You run macpuffins-qt with, as an example:
+macpuffins-qt --noquicksync 2<&1 | python tools/filter-thread-sanitizer-output.py | tee output.txt
 """
 
 import sys
