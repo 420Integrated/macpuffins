@@ -136,7 +136,7 @@ void               ResendWalletTransactions(bool fForce = false);
 void SetBestChain(const CBlockLocator& loc);
 void UpdatedTransaction(const uint256& hashTx);
 
-/** given a neblio tx, get the corresponding NTP1 tx */
+/** given a macpuffins tx, get the corresponding NTP1 tx */
 void FetchNTP1TxFromDisk(std::pair<CTransaction, NTP1Transaction>& txPair, CTxDB& txdb,
                          bool recoverProtection, unsigned recurseDepth = 0);
 void WriteNTP1TxToDbAndDisk(const NTP1Transaction& ntp1tx, CTxDB& txdb);
