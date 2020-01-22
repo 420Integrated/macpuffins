@@ -87,7 +87,7 @@ map<uint256, set<uint256>> mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Neblio Signed Message:\n";
+const string strMessageMagic = "MacPuffins Signed Message:\n";
 
 // Settings
 int64_t nTransactionFee    = MIN_TX_FEE;
@@ -1010,7 +1010,7 @@ bool RecoverNTP1TxInDatabase(const CTransaction& tx, CTxDB& txdb, bool recoveryP
                     return false;
                 }
             } catch (std::exception& exIn) {
-                printf("Error: Failed to retrieve standard neblio tranasction %s; this happened in the "
+                printf("Error: Failed to retrieve standard macpuffins tranasction %s; this happened in the "
                        "context of recovering the NTP1 transaction: %s\n, making recovery not "
                        "possible. Error given: %s\n",
                        tx.GetHash().ToString().c_str(), in.prevout.hash.ToString().c_str(), exIn.what());
@@ -1478,7 +1478,7 @@ bool CheckDiskSpace(std::uintmax_t nAdditionalBytes)
         string strMessage = _("Warning: Disk space is low!");
         strMiscWarning    = strMessage;
         printf("*** %s\n", strMessage.c_str());
-        uiInterface.ThreadSafeMessageBox(strMessage, "neblio",
+        uiInterface.ThreadSafeMessageBox(strMessage, "macpuffins",
                                          CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION |
                                              CClientUIInterface::MODAL);
         StartShutdown();
@@ -1549,7 +1549,7 @@ bool LoadBlockIndex(bool fAllowNew)
         // block.nTime = 1500674579
         // block.nNonce = 8485
 
-        const char*  pszTimestamp = "21jul2017 - Neblio First Net Launches";
+        const char*  pszTimestamp = "22-jan-2020 China shuts down public transit in Wuhan -CNN";
         CTransaction txNew;
         txNew.nTime = 1500674579;
         txNew.vin.resize(1);
