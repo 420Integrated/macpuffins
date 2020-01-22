@@ -5,8 +5,8 @@
 #include "bitcoinrpc.h"
 #include "txdb.h"
 #include "walletdb.h"
-#ifdef NEBLIO_REST
-#include "nebliorest.h"
+#ifdef MACPUFFINS_REST
+#include "macpuffinsrest.h"
 #endif
 #include "checkpoints.h"
 #include "globals.h"
@@ -93,7 +93,7 @@ void Shutdown(void* /*parg*/)
     static bool             fTaken;
 
     // Make this thread recognisable as the shutdown thread
-    RenameThread("neblio-shutoff");
+    RenameThread("macpuffins-shutoff");
 
     bool fFirstThread = false;
     {
@@ -122,7 +122,7 @@ void Shutdown(void* /*parg*/)
         pwalletMain.reset();
         NewThread(ExitTimeout, NULL);
         MilliSleep(50);
-        printf("neblio exited\n\n");
+        printf("macpuffins exited\n\n");
         fExit = true;
 #ifndef QT_GUI
         // ensure non-UI client gets exited here, but let Bitcoin-Qt reach 'return 0;' in bitcoin.cpp
@@ -144,7 +144,7 @@ void HandleSIGHUP(int) { fReopenDebugLog = true; }
 //
 // Start
 //
-#if !defined(QT_GUI) && !defined(NEBLIO_UNITTESTS)
+#if !defined(QT_GUI) && !defined(MACPUFFINS_UNITTESTS)
 bool AppInit(int argc, char* argv[])
 {
     bool fRet = false;
@@ -163,11 +163,11 @@ bool AppInit(int argc, char* argv[])
         if (mapArgs.exists("-?") || mapArgs.exists("--help")) {
             // First part of help message is specific to bitcoind / RPC client
             std::string strUsage =
-                _("neblio version") + " " + FormatFullVersion() + "\n\n" + _("Usage:") + "\n" +
-                "  nebliod [options]                     " + "\n" +
-                "  nebliod [options] <command> [params]  " + _("Send command to -server or nebliod") +
-                "\n" + "  nebliod [options] help                " + _("List commands") + "\n" +
-                "  nebliod [options] help <command>      " + _("Get help for a command") + "\n";
+                _("macpuffins version") + " " + FormatFullVersion() + "\n\n" + _("Usage:") + "\n" +
+                "  macpuffinsd [options]                     " + "\n" +
+                "  macpuffinsd [options] <command> [params]  " + _("Send command to -server or macpuffinsd") +
+                "\n" + "  macpuffinsd [options] help                " + _("List commands") + "\n" +
+                "  macpuffinsd [options] help <command>      " + _("Get help for a command") + "\n";
 
             strUsage += "\n" + HelpMessage();
 
@@ -177,7 +177,7 @@ bool AppInit(int argc, char* argv[])
 
         // Command-line RPC
         for (int i = 1; i < argc; i++)
-            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "neblio:"))
+            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "macpuffins:"))
                 fCommandLine = true;
 
         if (fCommandLine) {
@@ -215,14 +215,14 @@ int         main(int argc, char* argv[])
 
 bool static InitError(const std::string& str)
 {
-    uiInterface.ThreadSafeMessageBox(str, _("neblio"),
+    uiInterface.ThreadSafeMessageBox(str, _("macpuffins"),
                                      CClientUIInterface::OK | CClientUIInterface::MODAL);
     return false;
 }
 
 bool static InitWarning(const std::string& str)
 {
-    uiInterface.ThreadSafeMessageBox(str, _("neblio"),
+    uiInterface.ThreadSafeMessageBox(str, _("macpuffins"),
                                      CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION |
                                          CClientUIInterface::MODAL);
     return true;
@@ -247,8 +247,8 @@ std::string HelpMessage()
     // clang-format off
     string strUsage = _("Options:") + "\n" +
         "  -?                     " + _("This help message") + "\n" +
-        "  -conf=<file>           " + _("Specify configuration file (default: neblio.conf)") + "\n" +
-        "  -pid=<file>            " + _("Specify pid file (default: nebliod.pid)") + "\n" +
+        "  -conf=<file>           " + _("Specify configuration file (default: macpuffins.conf)") + "\n" +
+        "  -pid=<file>            " + _("Specify pid file (default: macpuffins.pid)") + "\n" +
         "  -datadir=<dir>         " + _("Specify data directory") + "\n" +
         "  -wallet=<dir>          " + _("Specify wallet file (within data directory)") + "\n" +
         "  -dbcache=<n>           " + _("Set database cache size in megabytes (default: 25)") + "\n" +
@@ -516,7 +516,7 @@ bool AppInit2()
     // ********************************************************* Step 4: application initialization: dir
     // lock, daemonize, pidfile, debug log Sanity check
     if (!InitSanityCheck())
-        return InitError(_("Initialization sanity check failed. neblio is shutting down."));
+        return InitError(_("Initialization sanity check failed. MacPuffins is shutting down."));
 
     std::string strDataDir        = GetDataDir().string();
     std::string strWalletFileName = GetArg("-wallet", "wallet.dat");
@@ -536,7 +536,7 @@ bool AppInit2()
     static boost::interprocess::file_lock lock(pathLockFile.string().c_str());
     if (!lock.try_lock())
         return InitError(strprintf(
-            _("Cannot obtain a lock on data directory %s.  neblio is probably already running."),
+            _("Cannot obtain a lock on data directory %s.  MacPuffins is probably already running."),
             strDataDir.c_str()));
 
 #if !defined(WIN32) && !defined(QT_GUI)
@@ -561,7 +561,7 @@ bool AppInit2()
     if (GetBoolArg("-shrinkdebugfile", !fDebug))
         ShrinkDebugFile();
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    printf("neblio version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
+    printf("MacPuffins version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
     printf("Using OpenSSL version %s\n", SSLeay_version(SSLEAY_VERSION));
     if (!fLogTimestamps)
         printf("Startup time: %s\n", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
@@ -570,7 +570,7 @@ bool AppInit2()
     std::ostringstream strErrors;
 
     if (fDaemon)
-        fprintf(stdout, "neblio server starting\n");
+        fprintf(stdout, "MacPuffins server starting\n");
 
     int64_t nStart;
 
@@ -600,7 +600,7 @@ bool AppInit2()
                                      " your balance or transactions are incorrect you should"
                                      " restore from a backup."),
                                    strDataDir.c_str());
-            uiInterface.ThreadSafeMessageBox(msg, _("neblio"),
+            uiInterface.ThreadSafeMessageBox(msg, _("macpuffins"),
                                              CClientUIInterface::OK |
                                                  CClientUIInterface::ICON_EXCLAMATION |
                                                  CClientUIInterface::MODAL);
@@ -863,14 +863,14 @@ bool AppInit2()
             string msg(
                 _("Warning: error reading wallet.dat! All keys read correctly, but transaction data"
                   " or address book entries might be missing or incorrect."));
-            uiInterface.ThreadSafeMessageBox(msg, _("neblio"),
+            uiInterface.ThreadSafeMessageBox(msg, _("macpuffins"),
                                              CClientUIInterface::OK |
                                                  CClientUIInterface::ICON_EXCLAMATION |
                                                  CClientUIInterface::MODAL);
         } else if (nLoadWalletRet == DB_TOO_NEW)
-            strErrors << _("Error loading wallet.dat: Wallet requires newer version of neblio") << "\n";
+            strErrors << _("Error loading wallet.dat: Wallet requires newer version of macpuffins") << "\n";
         else if (nLoadWalletRet == DB_NEED_REWRITE) {
-            strErrors << _("Wallet needed to be rewritten: restart neblio to complete") << "\n";
+            strErrors << _("Wallet needed to be rewritten: restart macpuffins to complete") << "\n";
             printf("%s", strErrors.str().c_str());
             return InitError(strErrors.str());
         } else
@@ -977,7 +977,7 @@ bool AppInit2()
 
         // ********************************************************* Step 12: start rest listenser
 
-#ifdef NEBLIO_REST
+#ifdef MACPUFFINS_REST
     uiInterface.InitMessage(_("Starting RESTful API Listener"));
     printf("Starting RESTful API Listener\n");
     NewThread(ThreadRESTServer, NULL);
