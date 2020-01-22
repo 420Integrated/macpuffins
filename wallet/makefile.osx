@@ -3,8 +3,8 @@
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-# Mac OS X makefile for neblio
-# Originally by Laszlo Hanyecz (solar@heliacal.net)
+# Mac OS X makefile for macpuffins
+# Originally by Laszlo Hanyecz (solar@heliacal.net) for neblio
 
 CXX=llvm-g++
 DEPSDIR=/opt/local
@@ -24,7 +24,7 @@ USE_UPNP:=1
 LIBS= -dead_strip
 
 ifdef STATIC
-# Build STATIC if you are redistributing the nebliod binary
+# Build STATIC if you are redistributing the macpuffinsd binary
 LIBS += \
  $(DEPSDIR)/lib/db48/libdb_cxx-4.8.a \
  $(DEPSDIR)/lib/libboost_system-mt.a \
@@ -119,7 +119,7 @@ else
 endif
 endif
 
-all: nebliod
+all: macpuffinsd
 
 LIBS += $(CURDIR)/leveldb/libleveldb.a $(CURDIR)/leveldb/libmemenv.a
 DEFS += $(addprefix -I,$(CURDIR)/leveldb/include)
@@ -157,11 +157,11 @@ obj/scrypt-x86.o: scrypt-x86.S
 obj/scrypt-x86_64.o: scrypt-x86_64.S
 	$(CXX) -c $(xCXXFLAGS) -MMD -o $@ $<
 
-nebliod: $(OBJS:obj/%=obj/%)
+macpuffinsd: $(OBJS:obj/%=obj/%)
 	$(CXX) $(CFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
 
 clean:
-	-rm -f nebliod
+	-rm -f macpuffinsd
 	-rm -f obj/*.o
 	-rm -f obj/zerocoin/*.o
 	-rm -f obj/*.P
