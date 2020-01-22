@@ -49,8 +49,8 @@ else
 	LIBS += $(shell pkg-config libcurl --libs)
 endif
 
-ifdef NEBLIO_REST
-    DEFS += -DNEBLIO_REST=$(NEBLIO_REST)
+ifdef MACPUFFINS_REST
+    DEFS += -DMACPUFFINS_REST=$(MACPUFFINS_REST)
     # restbed
     LIBS += -L"$(CURDIR)/restbed/distribution/library"
     DEFS += -I"$(CURDIR)/restbed/distribution/include/"
@@ -79,7 +79,7 @@ LIBS += \
    -l z \
    -l sodium
 
-ifdef NEBLIO_REST
+ifdef MACPUFFINS_REST
    LIBS += -l restbed
 endif
 
@@ -238,11 +238,11 @@ OBJS= \
     obj/ntp1/ntp1v1_issuance_static_data.o    \
     obj/crypto_highlevel.o
 
-ifdef NEBLIO_REST
-    OBJS += obj/nebliorest.o
+ifdef MACPUFFINS_REST
+    OBJS += obj/macpuffinsrest.o
 endif
 
-all: nebliod
+all: macpuffinsd
 
 LIBS += $(CURDIR)/liblmdb/liblmdb.a
 DEFS += $(addprefix -I,$(CURDIR)/liblmdb)
@@ -296,7 +296,7 @@ obj/zerocoin/%.o: zerocoin/%.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-nebliod: $(OBJS:obj/%=obj/%)
+macpuffinsd: $(OBJS:obj/%=obj/%)
 	${MKDIR_P} obj obj/json
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
@@ -309,12 +309,12 @@ obj-test/%.o: test/%.cpp
 			-e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 		rm -f $(@:%.o=%.d)
 
-test_neblio: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
+test_macpuffins: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
 	$(CXX) $(xCXXFLAGS) -o $@ $(LIBPATHS) $^ -Wl,-B$(LMODE) -lboost_unit_test_framework $(xLDFLAGS) $(LIBS)
 
 clean:
-	-rm -f test_neblio
-	-rm -f nebliod
+	-rm -f test_macpuffins
+	-rm -f macpuffinsd
 	-rm -f obj/*.o
 	-rm -f obj-test/*.o
 	-rm -f obj/zerocoin/*.o
