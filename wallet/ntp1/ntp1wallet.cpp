@@ -44,7 +44,7 @@ const std::unordered_map<std::string, NTP1TokenMetaData>& NTP1Wallet::getTokenMe
 void NTP1Wallet::__getOutputs()
 {
     // this helps in persisting to get the wallet data when the application is launched for the first
-    // time and nebl wallet is null still the 100 number is just a protection against infinite waiting
+    // time and PFN wallet is null still the 100 number is just a protection against infinite waiting
 
     std::shared_ptr<CWallet> localWallet = std::atomic_load(&pwalletMain);
     for (int i = 0;
@@ -93,12 +93,12 @@ void NTP1Wallet::__getOutputs()
     int failedRetrievals = 0;
 
     for (unsigned long i = 0; i < vecOutputs.size(); i++) {
-        NTP1OutPoint output = ConvertNeblOutputToNTP1(vecOutputs[i]);
+        NTP1OutPoint output = ConvertPfnOutputToNTP1(vecOutputs[i]);
         uint256      txHash = output.getHash();
 
         // get the transaction from the wallet
-        CWalletTx neblTx;
-        if (!std::atomic_load(&localWallet)->GetTransaction(txHash, neblTx)) {
+        CWalletTx pfnTx;
+        if (!std::atomic_load(&localWallet)->GetTransaction(txHash, pfnTx)) {
             printf("Error: Although the output number %i of transaction %s belongs to you, it couldn't "
                    "be found in your wallet.\n",
                    vecOutputs[i].i, txHash.ToString().c_str());
@@ -107,19 +107,19 @@ void NTP1Wallet::__getOutputs()
 
         // NTP1 transactions strictly contain OP_RETURN in one of their vouts
         std::string opReturnArg;
-        if (!NTP1Transaction::IsTxNTP1(&neblTx, &opReturnArg)) {
+        if (!NTP1Transaction::IsTxNTP1(&pfnTx, &opReturnArg)) {
             continue;
         }
 
         // if output already exists, check if it's spent, if it's remove it
-        if (removeOutputIfSpent(output, neblTx))
+        if (removeOutputIfSpent(output, pfnTx))
             continue;
 
         NTP1Transaction ntp1tx;
         try {
             std::vector<std::pair<CTransaction, NTP1Transaction>> prevTxs =
-                NTP1Transaction::GetAllNTP1InputsOfTx(neblTx, true);
-            ntp1tx.readNTP1DataFromTx(neblTx, prevTxs);
+                NTP1Transaction::GetAllNTP1InputsOfTx(pfnTx, true);
+            ntp1tx.readNTP1DataFromTx(pfnTx, prevTxs);
         } catch (std::exception& ex) {
             printf("Unable to download transaction information. Error says: %s\n", ex.what());
             failedRetrievals++;
@@ -226,12 +226,12 @@ void NTP1Wallet::AddOutputToWalletBalance(const NTP1Transaction& tx, int outputI
     }
 }
 
-bool NTP1Wallet::removeOutputIfSpent(const NTP1OutPoint& output, const CWalletTx& neblTx)
+bool NTP1Wallet::removeOutputIfSpent(const NTP1OutPoint& output, const CWalletTx& pfnTx)
 {
     std::unordered_map<NTP1OutPoint, NTP1Transaction>::iterator outputIt =
         walletOutputsWithTokens.find(output);
     if (outputIt != walletOutputsWithTokens.end()) {
-        if (neblTx.IsSpent(output.getIndex())) {
+        if (pfnTx.IsSpent(output.getIndex())) {
             walletOutputsWithTokens.erase(outputIt);
         }
         return true;
@@ -248,12 +248,12 @@ void NTP1Wallet::scanSpentTransactions()
     for (std::unordered_map<NTP1OutPoint, NTP1Transaction>::iterator it =
              walletOutputsWithTokens.begin();
          it != walletOutputsWithTokens.end(); it++) {
-        CWalletTx      neblTx;
+        CWalletTx      pfnTx;
         int            outputIndex = it->first.getIndex();
         const uint256& txHash      = it->first.getHash();
-        if (!localWallet->GetTransaction(txHash, neblTx))
+        if (!localWallet->GetTransaction(txHash, pfnTx))
             continue;
-        if (neblTx.IsSpent(outputIndex)) {
+        if (pfnTx.IsSpent(outputIndex)) {
             // this, although the right way to do things, causes a crash. A safer plan is chosen
             // it = walletOutputsWithTokens.erase(it);
             toRemove.push_back(it->first);
@@ -274,7 +274,7 @@ void NTP1Wallet::scanSpentTransactions()
     }
 }
 
-NTP1OutPoint NTP1Wallet::ConvertNeblOutputToNTP1(const COutput& output)
+NTP1OutPoint NTP1Wallet::ConvertPfnOutputToNTP1(const COutput& output)
 {
     return NTP1OutPoint(output.tx->GetHash(), output.i);
 }
