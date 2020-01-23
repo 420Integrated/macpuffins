@@ -49,9 +49,9 @@ class NTP1Wallet : public boost::enable_shared_from_this<NTP1Wallet>
     // returns true if removed
     bool                removeOutputIfSpent(const NTP1OutPoint& output, const CWalletTx& neblTx);
     void                scanSpentTransactions();
-    static NTP1OutPoint ConvertNeblOutputToNTP1(const COutput& output);
+    static NTP1OutPoint ConvertPfnOutputToNTP1(const COutput& output);
 
-    // when scanning the neblio wallet, this is the number of relevant transactions found
+    // when scanning the MacPuffins wallet, this is the number of relevant transactions found
     int64_t lastTxCount;
     int64_t lastOutputsCount;
 
