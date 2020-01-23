@@ -328,13 +328,13 @@ unsigned int NTP1Transaction::CountTokenKindsInInputs(
     for (const auto& in : tx.vin) {
         auto it = GetPrevInputIt(tx, in.prevout.hash, inputsTxs);
 
-        const CTransaction&    neblInTx = it->first;
+        const CTransaction&    pfnInTx = it->first;
         const NTP1Transaction& ntp1InTx = it->second;
 
         if (in.prevout.n + 1 > ntp1InTx.getTxOutCount()) {
             throw std::runtime_error("Failed at retrieving the number of tokens from transaction " +
                                      tx.GetHash().ToString() + " at input " +
-                                     neblInTx.GetHash().ToString() +
+                                     pfnInTx.GetHash().ToString() +
                                      "; input: " + ToString(in.prevout.n) + " is out of range.");
         }
 
@@ -413,7 +413,7 @@ void NTP1Transaction::AmendStdTxWithNTP1(
 
     bool txContainsOpReturn = TxContainsOpReturn(&tx_);
 
-    // if no inputs contain NTP1 AND no OP_RETURN argument exists, then this is a pure NEBL transaction
+    // if no inputs contain NTP1 AND no OP_RETURN argument exists, then this is a pure PFN transaction
     // with no NTP1
     if (inputTokenKinds == 0) {
         return;
@@ -439,13 +439,13 @@ void NTP1Transaction::AmendStdTxWithNTP1(
             const auto& inIndex = tx_.vin[i].prevout.n;
             auto        it      = GetPrevInputIt(tx_, inHash, inputs);
 
-            const CTransaction&    inputTxNebl = it->first;
+            const CTransaction&    inputTxPfn = it->first;
             const NTP1Transaction& inputTxNTP1 = it->second;
 
             for (int j = 0; j < (int)inputTxNTP1.vout.at(inIndex).tokenCount(); j++) {
                 if (inputTxNTP1.vout.at(inIndex).getToken(j).getAmount() == 0) {
                     if (i == 0) {
-                        throw std::runtime_error("While amending a native neblio transactions, the "
+                        throw std::runtime_error("While amending a native MaPuffins transaction, the "
                                                  "first input is empty. This basically cannot be "
                                                  "amended. Inputs must be reordered to have tokens in "
                                                  "first inputs, and it seems that reordering failed");
@@ -453,10 +453,10 @@ void NTP1Transaction::AmendStdTxWithNTP1(
                     continue;
                 }
 
-                // prepare native Neblio output
+                // prepare native MacPuffins output
                 CTxDestination currentTokenAddress;
                 // get the current address where the token is
-                if (!ExtractDestination(inputTxNebl.vout.at(inIndex).scriptPubKey,
+                if (!ExtractDestination(inputTxPfn.vout.at(inIndex).scriptPubKey,
                                         currentTokenAddress)) {
                     throw std::runtime_error("Unable to extract address from previous output; tx: " +
                                              tx_.GetHash().ToString() + " and prevout: " +
@@ -689,7 +689,7 @@ void NTP1Transaction::readNTP1DataFromTx(
 
         int64_t feeProvided = static_cast<int64_t>(totalInput) - static_cast<int64_t>(totalOutput);
         if (feeProvided < static_cast<int64_t>(IssuanceFee)) {
-            throw std::runtime_error("Issuance fee is less than 10 nebls. You provided only: " +
+            throw std::runtime_error("Issuance fee is less than 10 PFNs. You provided only: " +
                                      FormatMoney(feeProvided));
         }
 
