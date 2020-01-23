@@ -1,16 +1,16 @@
-#include "neblioversion.h"
+#include "macpuffinsversion.h"
 #include "util.h"
 #include "clientversion.h"
 
 #include <stdexcept>
 
-void NeblioVersion::checkInitialization()
+void MacpuffinsVersion::checkInitialization()
 {
     if(major < 0 || minor < 0 || revision < 0 || build < 0)
-        throw std::runtime_error("NeblioVersion object is not initialized.");
+        throw std::runtime_error("MacpuffinsVersion object is not initialized.");
 }
 
-NeblioVersion::NeblioVersion(int Major, int Minor, int Revision, int Build)
+MacpuffinsVersion::MacpuffinsVersion(int Major, int Minor, int Revision, int Build)
 {
     major = Major;
     minor = Minor;
@@ -18,7 +18,7 @@ NeblioVersion::NeblioVersion(int Major, int Minor, int Revision, int Build)
     build = Build;
 }
 
-bool NeblioVersion::operator>(const NeblioVersion &rhs)
+bool MacpuffinsVersion::operator>(const MacpuffinsVersion &rhs)
 {
     checkInitialization();
     if(this->major > rhs.major)
@@ -44,22 +44,22 @@ bool NeblioVersion::operator>(const NeblioVersion &rhs)
     return false;
 }
 
-bool NeblioVersion::operator<(const NeblioVersion &rhs)
+bool MacpuffinsVersion::operator<(const MacpuffinsVersion &rhs)
 {
     return (!(*this > rhs) && !(*this == rhs));
 }
 
-bool NeblioVersion::operator>=(const NeblioVersion &rhs)
+bool MacpuffinsVersion::operator>=(const MacpuffinsVersion &rhs)
 {
     return !(*this < rhs);
 }
 
-bool NeblioVersion::operator<=(const NeblioVersion &rhs)
+bool MacpuffinsVersion::operator<=(const MacpuffinsVersion &rhs)
 {
     return !(*this > rhs);
 }
 
-bool NeblioVersion::operator==(const NeblioVersion &rhs)
+bool MacpuffinsVersion::operator==(const MacpuffinsVersion &rhs)
 {
     return (major    == rhs.major &&
             minor    == rhs.minor &&
@@ -67,12 +67,12 @@ bool NeblioVersion::operator==(const NeblioVersion &rhs)
             build    == rhs.build);
 }
 
-bool NeblioVersion::operator!=(const NeblioVersion &rhs)
+bool MacpuffinsVersion::operator!=(const MacpuffinsVersion &rhs)
 {
     return !(*this == rhs);
 }
 
-std::string NeblioVersion::toString()
+std::string MacpuffinsVersion::toString()
 {
     return ToString(major)    + "." +
            ToString(minor)    + "." +
@@ -81,54 +81,54 @@ std::string NeblioVersion::toString()
 
 }
 
-void NeblioVersion::clear()
+void MacpuffinsVersion::clear()
 {
     *this = NeblioVersion();
 }
 
-void NeblioVersion::setMajor(int value)
+void MacpuffinsVersion::setMajor(int value)
 {
     major = value;
 }
 
-void NeblioVersion::setMinor(int value)
+void MacpuffinsVersion::setMinor(int value)
 {
     minor = value;
 }
 
-void NeblioVersion::setRevision(int value)
+void MacpuffinsVersion::setRevision(int value)
 {
     revision = value;
 }
 
-void NeblioVersion::setBuild(int value)
+void MacpuffinsVersion::setBuild(int value)
 {
     build = value;
 }
 
-int NeblioVersion::getMajor() const
+int MacpuffinsVersion::getMajor() const
 {
     return major;
 }
 
-int NeblioVersion::getMinor() const
+int MacpuffinsVersion::getMinor() const
 {
     return minor;
 }
 
-int NeblioVersion::getRevision() const
+int MacpuffinsVersion::getRevision() const
 {
     return revision;
 }
 
-int NeblioVersion::getBuild() const
+int MacpuffinsVersion::getBuild() const
 {
     return build;
 }
 
-NeblioVersion NeblioVersion::GetCurrentNeblioVersion()
+MacpuffinsVersion MacpuffinsVersion::GetCurrentMacpuffinsVersion()
 {
-    return NeblioVersion(CLIENT_VERSION_MAJOR,
+    return MacpuffinsVersion(CLIENT_VERSION_MAJOR,
                          CLIENT_VERSION_MINOR,
                          CLIENT_VERSION_REVISION,
                          CLIENT_VERSION_BUILD);
