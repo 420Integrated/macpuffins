@@ -1,17 +1,17 @@
-#ifndef NEBLIOUPDATER_H
-#define NEBLIOUPDATER_H
+#ifndef MACPUFFINSUPDATER_H
+#define MACPUFFINSUPDATER_H
 
 #include <string>
 #include <boost/thread/future.hpp>
 
 #include "version.h"
 #include "clientversion.h"
-#include "neblioversion.h"
-#include "neblioreleaseinfo.h"
+#include "macpuffinsversion.h"
+#include "macpuffinsreleaseinfo.h"
 
 #include "curltools.h"
 
-class NeblioUpdater
+class MacpuffinsUpdater
 {
 
 public:
@@ -19,10 +19,10 @@ public:
     static const std::string ReleasesInfoURL;
     static const std::string LatestReleaseURL;
 
-    NeblioUpdater() = default;
-    void checkIfUpdateIsAvailable(boost::promise<bool> &updateIsAvailablePromise, NeblioReleaseInfo &lastRelease);
+    MacpuffinsUpdater() = default;
+    void checkIfUpdateIsAvailable(boost::promise<bool> &updateIsAvailablePromise, MacpuffinsReleaseInfo &lastRelease);
 
-    static NeblioVersion ParseVersion(const std::string& versionFile);
+    static MacpuffinsVersion ParseVersion(const std::string& versionFile);
     static std::string GetDefineFromCFile(const std::string& fileData, const std::string &fieldName);
     static std::string RemoveCFileComments(const std::string& fileData);
 };
@@ -35,13 +35,13 @@ struct RemovePreReleaseFunctor
     }
 };
 
-struct NeblioReleaseVersionGreaterComparator
+struct MacpuffinsReleaseVersionGreaterComparator
 {
-    bool operator() (const NeblioReleaseInfo& r1, const NeblioReleaseInfo& r2)
+    bool operator() (const MacpuffinsReleaseInfo& r1, const MacpuffinsReleaseInfo& r2)
     {
         return r1.getVersion() > r2.getVersion();
     }
 };
 
 
-#endif // NEBLIOUPDATER_H
+#endif // MACPUFFINSUPDATER_H
