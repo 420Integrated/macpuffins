@@ -1,4 +1,4 @@
-#include "neblioupdater.h"
+#include "macpuffinsupdater.h"
 #include "util.h"
 
 #include <iostream>
@@ -7,28 +7,28 @@
 #include <sstream>
 #include <boost/algorithm/string.hpp>
 
-const std::string NeblioUpdater::ClientVersionSrcFileLink  = "https://raw.githubusercontent.com/NeblioTeam/neblio/master/src/clientversion.h";
-const std::string NeblioUpdater::ReleasesInfoURL = "https://api.github.com/repos/NeblioTeam/neblio/releases";
-const std::string NeblioUpdater::LatestReleaseURL = "https://github.com/NeblioTeam/neblio/releases/latest";
+const std::string MacpuffinsUpdater::ClientVersionSrcFileLink  = "https://raw.githubusercontent.com/macpuffin/macpuffins/master/src/clientversion.h";
+const std::string MacpuffinsUpdater::ReleasesInfoURL = "https://api.github.com/repos/macpuffin/macpuffins/releases";
+const std::string MacpuffinsUpdater::LatestReleaseURL = "https://github.com/macpuffin/macpuffins/releases/latest";
 
-void NeblioUpdater::checkIfUpdateIsAvailable(boost::promise<bool> &updateIsAvailablePromise, NeblioReleaseInfo& lastRelease)
+void MacpuffinsUpdater::checkIfUpdateIsAvailable(boost::promise<bool> &updateIsAvailablePromise, MacpuffinsReleaseInfo& lastRelease)
 {
-    NeblioReleaseInfo remoteRelease;
-    NeblioVersion localVersion;
+    MacpuffinsReleaseInfo remoteRelease;
+    MacpuffinsVersion localVersion;
     std::string releaseData;
-    std::vector<NeblioReleaseInfo> neblioReleases;
+    std::vector<MacpuffinsReleaseInfo> macpuffinsReleases;
     try {
         releaseData = cURLTools::GetFileFromHTTPS(ReleasesInfoURL, 30, 0);
-        neblioReleases = NeblioReleaseInfo::ParseAllReleaseDataFromJSON(releaseData);
+        macpuffinsReleases = MacpuffinsReleaseInfo::ParseAllReleaseDataFromJSON(releaseData);
 
         // remove prerelease versions
-        neblioReleases.erase(std::remove_if(neblioReleases.begin(), neblioReleases.end(),
-                RemovePreReleaseFunctor()), neblioReleases.end());
-//        std::for_each(neblioReleases.begin(), neblioReleases.end(), [](const NeblioReleaseInfo& v) {std::cout<<v.versionStr<<std::endl;});
+        macpuffinsReleases.erase(std::remove_if(macpuffinsReleases.begin(), macpuffinsReleases.end(),
+                RemovePreReleaseFunctor()), macpuffinsReleases.end());
+//        std::for_each(macpuffinsReleases.begin(), macpuffinsReleases.end(), [](const MacpuffinsReleaseInfo& v) {std::cout<<v.versionStr<<std::endl;});
         // sort in descending order
-        std::sort(neblioReleases.begin(), neblioReleases.end(), NeblioReleaseVersionGreaterComparator());
-//        std::for_each(neblioReleases.begin(), neblioReleases.end(), [](const NeblioReleaseInfo& v) {std::cout<<v.versionStr<<std::endl;});
-        if(neblioReleases.size() <= 0) {
+        std::sort(macpuffinsReleases.begin(), macpuffinsReleases.end(), MacpuffinsReleaseVersionGreaterComparator());
+//        std::for_each(macpuffinsReleases.begin(), macpuffinsReleases.end(), [](const MacpuffinsReleaseInfo& v) {std::cout<<v.versionStr<<std::endl;});
+        if(macpuffinsReleases.size() <= 0) {
             throw std::length_error("The list of releases retrieved is empty.");
         }
     } catch (std::exception& ex) {
@@ -39,8 +39,8 @@ void NeblioUpdater::checkIfUpdateIsAvailable(boost::promise<bool> &updateIsAvail
     }
 
     try {
-        remoteRelease = neblioReleases[0]; // get highest version
-        localVersion  = NeblioVersion::GetCurrentNeblioVersion();
+        remoteRelease = macpuffinsReleases[0]; // get highest version
+        localVersion  = MacpuffinsVersion::GetCurrentMacpuffinsVersion();
     } catch (std::exception& ex) {
         std::stringstream msg;
         msg << "Unable to parse version data during update check: " << ex.what() << std::endl;
@@ -52,16 +52,16 @@ void NeblioUpdater::checkIfUpdateIsAvailable(boost::promise<bool> &updateIsAvail
     updateIsAvailablePromise.set_value(remoteRelease.getVersion() > localVersion);
 }
 
-NeblioVersion NeblioUpdater::ParseVersion(const std::string &versionFile)
+MacpuffinsVersion MacpuffinsUpdater::ParseVersion(const std::string &versionFile)
 {
     int majorVersion    = FromString<int>(GetDefineFromCFile(versionFile, "CLIENT_VERSION_MAJOR"));
     int minorVersion    = FromString<int>(GetDefineFromCFile(versionFile, "CLIENT_VERSION_MINOR"));
     int revisionVersion = FromString<int>(GetDefineFromCFile(versionFile, "CLIENT_VERSION_REVISION"));
     int buildVersion    = FromString<int>(GetDefineFromCFile(versionFile, "CLIENT_VERSION_BUILD"));
-    return NeblioVersion(majorVersion, minorVersion, revisionVersion, buildVersion);
+    return MacpuffinsVersion(majorVersion, minorVersion, revisionVersion, buildVersion);
 }
 
-std::string NeblioUpdater::GetDefineFromCFile(const std::string &fileData, const std::string& fieldName)
+std::string MacpuffinsUpdater::GetDefineFromCFile(const std::string &fileData, const std::string& fieldName)
 {
     //regex of define in one or multiple lines
     const std::string regex_str = ".*\\s*#define\\s+" + fieldName + "\\s+[\\s*|(\\n)]+([^\\s]+)\\s*.*";
@@ -78,7 +78,7 @@ std::string NeblioUpdater::GetDefineFromCFile(const std::string &fileData, const
     return piece;
 }
 
-std::string NeblioUpdater::RemoveCFileComments(const std::string &fileData)
+std::string MacpuffinsUpdater::RemoveCFileComments(const std::string &fileData)
 {
     std::string result = fileData;
 
