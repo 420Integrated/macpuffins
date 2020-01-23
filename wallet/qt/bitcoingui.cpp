@@ -73,7 +73,7 @@ BitcoinGUI::BitcoinGUI(QWidget* parent)
       changePassphraseAction(0), unlockWalletAction(0), lockWalletAction(0), aboutQtAction(0),
       trayIcon(0), notificator(0), rpcConsole(0), nWeight(0)
 {
-    setWindowTitle(tr("neblio") + " - " + tr("Wallet"));
+    setWindowTitle(tr("macpuffins") + " - " + tr("Wallet"));
     qApp->setStyleSheet("QMainWindow { background-color: white;border:none;font-family:'Open "
                         "Sans,sans-serif'; } QStatusBar::item { border: 0px;} QDialog { "
                         "background-color: white;border:none;font-family:'Open "
@@ -149,7 +149,7 @@ BitcoinGUI::BitcoinGUI(QWidget* parent)
     animationStopperTimerTimeout = 2 * 60 * 1000; // stop animations in 2 minutes
     setupUpdateControls();
     updateCheckTimer->start(updateCheckTimerTimeout);
-    checkForNeblioUpdates();
+    checkForMacpuffinsUpdates();
 
     // backup alert timers
     backupCheckerTimer       = new QTimer(this);
@@ -279,7 +279,7 @@ void BitcoinGUI::createActions()
     tabGroup->addAction(ntp1tokensAction);
 
     sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send tokens"), this);
-    sendCoinsAction->setToolTip(tr("Send tokens to a neblio address"));
+    sendCoinsAction->setToolTip(tr("Send tokens to a MacPuffins address"));
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
     tabGroup->addAction(sendCoinsAction);
@@ -319,14 +319,14 @@ void BitcoinGUI::createActions()
     quitAction->setToolTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About neblio"), this);
-    aboutAction->setToolTip(tr("Show information about neblio"));
+    aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About MacPuffins"), this);
+    aboutAction->setToolTip(tr("Show information about MacPuffins"));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutQtAction = new QAction(QIcon(":/icons/about_qt"), tr("About &Qt"), this);
     aboutQtAction->setToolTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
-    optionsAction->setToolTip(tr("Modify configuration options for neblio"));
+    optionsAction->setToolTip(tr("Modify configuration options for MacPuffins"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
     toggleHideAction    = new QAction(QIcon(":/icons/bitcoin"), tr("&Show / Hide"), this);
     encryptWalletAction = new QAction(QIcon(":/icons/lock_closed"), tr("&Encrypt Wallet..."), this);
@@ -440,7 +440,7 @@ void BitcoinGUI::setClientModel(ClientModel* clientModel)
             MacDockIconHandler::instance()->setIcon(QIcon(":icons/bitcoin_testnet"));
 #endif
             if (trayIcon) {
-                trayIcon->setToolTip(tr("neblio client") + QString(" ") + tr("[testnet]"));
+                trayIcon->setToolTip(tr("MacPuffins client") + QString(" ") + tr("[testnet]"));
                 trayIcon->setIcon(QIcon(":/icons/toolbar_testnet"));
             }
 
@@ -504,7 +504,7 @@ void BitcoinGUI::createTrayIcon()
 #ifndef Q_OS_MAC
     trayIcon = new QSystemTrayIcon(this);
 
-    trayIcon->setToolTip(tr("neblio client"));
+    trayIcon->setToolTip(tr("MacPuffins client"));
     trayIcon->setIcon(QIcon(":/icons/toolbar"));
     trayIcon->show();
 #endif
@@ -602,7 +602,7 @@ void BitcoinGUI::setNumConnections(int count)
         break;
     }
     labelConnectionsIcon->setPixmap(QIcon(icon).pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to neblio network", "", count));
+    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to MacPuffins network", "", count));
 }
 
 void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
@@ -969,8 +969,8 @@ void BitcoinGUI::dropEvent(QDropEvent* event)
             gotoSendCoinsPage();
         else
             notificator->notify(Notificator::Warning, tr("URI handling"),
-                                tr("URI can not be parsed! This can be caused by an invalid neblio "
-                                   "address or malformed URI parameters."));
+                                tr("URI can not be parsed! This can be caused by an invalid  "
+                                   "MacPuffins address or malformed URI parameters."));
     }
 
     event->acceptProposedAction();
@@ -984,7 +984,7 @@ void BitcoinGUI::handleURI(QString strURI)
         gotoSendCoinsPage();
     } else
         notificator->notify(Notificator::Warning, tr("URI handling"),
-                            tr("URI can not be parsed! This can be caused by an invalid neblio address "
+                            tr("URI can not be parsed! This can be caused by an invalid MacPuffins address "
                                "or malformed URI parameters."));
 }
 
@@ -1052,7 +1052,7 @@ void BitcoinGUI::backupWallet()
         QMessageBox::StandardButton answer;
         answer = QMessageBox::question(
             this, "Wallet is still locked!",
-            tr("Unlocking your wallet will help Neblio Wallet notify you when the next backup is "
+            tr("Unlocking your wallet will help MacPuffins Wallet notify you when the next backup is "
                "necessary. Are you sure you want to keep the wallet locked before the backup process?"),
             QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
         if (answer == QMessageBox::No) {
@@ -1273,7 +1273,7 @@ void BitcoinGUI::updateCheckAnimation_frameChanged(int frameNumber)
     }
 }
 
-void BitcoinGUI::checkForNeblioUpdates()
+void BitcoinGUI::checkForMacpuffinsUpdates()
 {
     if (!isUpdateRunning && appInitiated) {
         printf("Checking for updates...\n");
@@ -1283,7 +1283,7 @@ void BitcoinGUI::checkForNeblioUpdates()
         latestRelease.clear();
         updateAvailablePromise = boost::promise<bool>();
         updateAvailableFuture  = updateAvailablePromise.get_future();
-        boost::thread updaterThread(boost::bind(&NeblioUpdater::checkIfUpdateIsAvailable, &neblioUpdater,
+        boost::thread updaterThread(boost::bind(&MacpuffinsUpdater::checkIfUpdateIsAvailable, &macpuffinsUpdater,
                                                 boost::ref(updateAvailablePromise),
                                                 boost::ref(latestRelease)));
         updaterThread.detach();
@@ -1292,7 +1292,7 @@ void BitcoinGUI::checkForNeblioUpdates()
     }
 }
 
-void BitcoinGUI::finishCheckForNeblioUpdates()
+void BitcoinGUI::finishCheckForMacpuffinsUpdates()
 {
     if (isUpdateRunning && updateAvailableFuture.is_ready()) {
         printf("Concluding update check...\n");
@@ -1301,13 +1301,13 @@ void BitcoinGUI::finishCheckForNeblioUpdates()
             if (updateAvailable) {
                 updaterLabel->setMovie(updaterUpdateExistsMovie);
                 updaterUpdateExistsMovie->start();
-                updaterLabel->setToolTip("A new neblio wallet version exists! Please click here for "
+                updaterLabel->setToolTip("A new MacPuffins wallet version exists! Please click here for "
                                          "release notes and a download link");
 
                 // change the action of clicking on the update icon to show the dialog
                 disconnect(updaterLabel, &ClickableLabel::clicked, this,
-                           &BitcoinGUI::checkForNeblioUpdates);
-                connect(updaterLabel, &ClickableLabel::clicked, updateDialog, &NeblioUpdateDialog::show);
+                           &BitcoinGUI::checkForMacpuffinsUpdates);
+                connect(updaterLabel, &ClickableLabel::clicked, updateDialog, &MacpuffinsUpdateDialog::show);
 
                 updateDialog->setUpdateRelease(latestRelease);
                 animationStopperTimer->start(animationStopperTimerTimeout);
@@ -1317,7 +1317,7 @@ void BitcoinGUI::finishCheckForNeblioUpdates()
             } else {
                 updaterLabel->setMovie(updaterCheckMovie);
                 updaterCheckMovie->start();
-                updaterLabel->setToolTip("Your Neblio wallet application is up-to-date.");
+                updaterLabel->setToolTip("Your MacPuffins client is up-to-date.");
             }
         } catch (std::exception& ex) {
             updaterLabel->setMovie(updaterErrorMovie);
@@ -1401,16 +1401,16 @@ void BitcoinGUI::setupUpdateControls()
 
     updaterSpinnerMovie = new QMovie(":images/update-spinner", QByteArray(), this->statusBar());
 
-    updateDialog = new NeblioUpdateDialog(this);
+    updateDialog = new MacpuffinsUpdateDialog(this);
 
     connect(updaterCheckMovie, &QMovie::frameChanged, this,
             &BitcoinGUI::updateCheckAnimation_frameChanged);
 
-    connect(updaterLabel, &ClickableLabel::clicked, this, &BitcoinGUI::checkForNeblioUpdates);
+    connect(updaterLabel, &ClickableLabel::clicked, this, &BitcoinGUI::checkForMacpuffinsUpdates);
 
-    connect(updateConcluderTimer, &QTimer::timeout, this, &BitcoinGUI::finishCheckForNeblioUpdates);
+    connect(updateConcluderTimer, &QTimer::timeout, this, &BitcoinGUI::finishCheckForMacpuffinsUpdates);
 
-    connect(updateCheckTimer, &QTimer::timeout, this, &BitcoinGUI::checkForNeblioUpdates);
+    connect(updateCheckTimer, &QTimer::timeout, this, &BitcoinGUI::checkForMacpuffinsUpdates);
 
     connect(animationStopperTimer, &QTimer::timeout, this, &BitcoinGUI::stopAnimations);
 }
