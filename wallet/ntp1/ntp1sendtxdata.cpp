@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <random>
 
-const std::string NTP1SendTxData::NEBL_TOKEN_ID = "NEBL";
+const std::string NTP1SendTxData::PFN_TOKEN_ID = "PFN";
 // token id of new non-existent token (placeholder)
 const std::string NTP1SendTxData::TO_ISSUE_TOKEN_ID = "NEW";
 
@@ -108,14 +108,14 @@ std::map<std::string, NTP1Int> GetAvailableTokenBalances(boost::shared_ptr<NTP1W
     return balancesMap;
 }
 
-int64_t CalculateTotalNeblsInInputs(std::vector<NTP1OutPoint> inputs)
+int64_t CalculateTotalPfnsInInputs(std::vector<NTP1OutPoint> inputs)
 {
     {
         std::unordered_set<NTP1OutPoint> inputsSet(inputs.begin(), inputs.end());
         inputs = std::vector<NTP1OutPoint>(inputsSet.begin(), inputsSet.end());
     }
 
-    int64_t currentTotalNeblsInSelectedInputs = 0;
+    int64_t currentTotalPfnsInSelectedInputs = 0;
     for (const auto& input : inputs) {
         auto it = pwalletMain->mapWallet.find(input.getHash());
         if (it == pwalletMain->mapWallet.end()) {
@@ -128,9 +128,9 @@ int64_t CalculateTotalNeblsInInputs(std::vector<NTP1OutPoint> inputs)
             throw std::runtime_error("An invalid output index: " + ::ToString(input.getIndex()) +
                                      " of transaction " + input.getHash().ToString() + " was used.");
         }
-        currentTotalNeblsInSelectedInputs += static_cast<int64_t>(tx.vout.at(input.getIndex()).nValue);
+        currentTotalPfnsInSelectedInputs += static_cast<int64_t>(tx.vout.at(input.getIndex()).nValue);
     }
-    return currentTotalNeblsInSelectedInputs;
+    return currentTotalPfnsInSelectedInputs;
 }
 
 void NTP1SendTxData::selectNTP1Tokens(boost::shared_ptr<NTP1Wallet>                      wallet,
@@ -173,10 +173,10 @@ void NTP1SendTxData::selectNTP1Tokens(boost::shared_ptr<NTP1Wallet>             
     recipientsList.clear();
     usedWallet.reset();
 
-    // remove non-NTP1 recipients (nebl recipients)
+    // remove non-NTP1 recipients (PFN recipients)
     recipients.erase(std::remove_if(recipients.begin(), recipients.end(),
                                     [](const NTP1SendTokensOneRecipientData& r) {
-                                        return (r.tokenId == NTP1SendTxData::NEBL_TOKEN_ID);
+                                        return (r.tokenId == NTP1SendTxData::PFN_TOKEN_ID);
                                     }),
                      recipients.end());
 
@@ -197,8 +197,8 @@ void NTP1SendTxData::selectNTP1Tokens(boost::shared_ptr<NTP1Wallet>             
 
     // check whether the required amounts can be covered by the available balances
     for (const auto& required_amount : targetAmounts) {
-        if (required_amount.first == NTP1SendTxData::NEBL_TOKEN_ID) {
-            // ignore nebls, deal only with tokens
+        if (required_amount.first == NTP1SendTxData::PFN_TOKEN_ID) {
+            // ignore PFNs, deal only with tokens
             continue;
         }
         if (required_amount.first == NTP1SendTxData::TO_ISSUE_TOKEN_ID) {
@@ -531,8 +531,8 @@ void NTP1SendTxData::selectNTP1Tokens(boost::shared_ptr<NTP1Wallet>             
 
     // make sure that all recipients have received their tokens
     for (const auto r : recps) {
-        // we don't select nebls
-        if (r.tokenId == NTP1SendTxData::NEBL_TOKEN_ID) {
+        // we don't select PFNs
+        if (r.tokenId == NTP1SendTxData::PFN_TOKEN_ID) {
             continue;
         }
         // we ignore tokens to issue, those are to be minted
@@ -584,15 +584,15 @@ boost::shared_ptr<NTP1Wallet> NTP1SendTxData::getWallet() const
 
 std::vector<IntermediaryTI> NTP1SendTxData::getIntermediaryTIs() const { return intermediaryTIs; }
 
-int64_t NTP1SendTxData::__addInputsThatCoversNeblAmount(uint64_t neblAmount)
+int64_t NTP1SendTxData::__addInputsThatCoversPfnAmount(uint64_t pfnAmount)
 {
 
-    // get nebls that fulfill the fee (if required)
+    // get PFNs that fulfill the fee (if required)
 
-    uint64_t currentTotalNeblsInSelectedInputs = CalculateTotalNeblsInInputs(tokenSourceInputs);
+    uint64_t currentTotalPfnsInSelectedInputs = CalculateTotalPfnsInInputs(tokenSourceInputs);
 
     // check if the total amount in selected addresses is sufficient for the amount
-    if (neblAmount > currentTotalNeblsInSelectedInputs) {
+    if (pfnAmount > currentTotalPfnsInSelectedInputs) {
         std::vector<COutput> availableOutputs;
         pwalletMain->AvailableCoins(availableOutputs);
 
@@ -612,14 +612,14 @@ int64_t NTP1SendTxData::__addInputsThatCoversNeblAmount(uint64_t neblAmount)
                 continue;
             }
             tokenSourceInputs.push_back(outPoint);
-            currentTotalNeblsInSelectedInputs = CalculateTotalNeblsInInputs(tokenSourceInputs);
-            if (currentTotalNeblsInSelectedInputs >= neblAmount) {
+            currentTotalPfnsInSelectedInputs = CalculateTotalPfnsInInputs(tokenSourceInputs);
+            if (currentTotalPfnsInSelectedInputs >= pfnAmount) {
                 break;
             }
         }
     }
 
-    return currentTotalNeblsInSelectedInputs;
+    return currentTotalPfnsInSelectedInputs;
 }
 
 bool NTP1SendTxData::hasNTP1Tokens() const
@@ -631,7 +631,7 @@ bool NTP1SendTxData::hasNTP1Tokens() const
     return (total != 0);
 }
 
-uint64_t NTP1SendTxData::getRequiredNeblsForOutputs() const
+uint64_t NTP1SendTxData::getRequiredPfnsForOutputs() const
 {
     if (!ready)
         throw std::runtime_error("NTP1SendTxData not ready; cannot get required fees");
