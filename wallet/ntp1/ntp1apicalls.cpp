@@ -25,7 +25,7 @@ bool NTP1APICalls::RetrieveData_AddressContainsNTP1Tokens(const std::string& add
     }
 }
 
-uint64_t NTP1APICalls::RetrieveData_TotalNeblsExcludingNTP1(const std::string& address, bool testnet)
+uint64_t NTP1APICalls::RetrieveData_TotalPfnsExcludingNTP1(const std::string& address, bool testnet)
 {
     try {
         std::string addressNTPInfoURL = NTP1Tools::GetURL_AddressInfo(address, testnet);
