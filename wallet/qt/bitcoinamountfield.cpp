@@ -37,7 +37,7 @@ BitcoinAmountField::BitcoinAmountField(bool EnableNTP1Tokens, QWidget* parent)
 
     if (enableNTP1Tokens) {
         tokenKindsComboBox = new QComboBox;
-        tokenKindsComboBox->addItem(QIcon(QStringLiteral(":/icons/bitcoin")), "NEBL");
+        tokenKindsComboBox->addItem(QIcon(QStringLiteral(":/icons/bitcoin")), "PFN");
         layout->addWidget(tokenKindsComboBox);
 
         refreshTokensButton = new QToolButton;
@@ -140,7 +140,7 @@ void BitcoinAmountField::slot_updateTokensList()
 
         // update the combobox
         tokenKindsComboBox->clear();
-        tokenKindsComboBox->addItem(QIcon(QStringLiteral(":/icons/bitcoin")), "NEBL");
+        tokenKindsComboBox->addItem(QIcon(QStringLiteral(":/icons/bitcoin")), "PFN");
         for (unsigned i = 0; i < tokenKindsList.size(); i++) {
             tokenKindsComboBox->addItem(tokenKindsList[i].icon,
                                         tokenKindsList[i].name + " (" +
@@ -206,9 +206,9 @@ QString BitcoinAmountField::getSelectedTokenId() const
     if (enableNTP1Tokens && tokenKindsComboBox->count() > 0) {
         int selectedIndex = tokenKindsComboBox->currentIndex();
         if (selectedIndex == 0) {
-            return QString::fromStdString(NTP1SendTxData::NEBL_TOKEN_ID);
+            return QString::fromStdString(NTP1SendTxData::PFN_TOKEN_ID);
         } else {
-            return tokenKindsList.at(selectedIndex - 1).tokenId; // element 0 is NEBL
+            return tokenKindsList.at(selectedIndex - 1).tokenId; // element 0 is PFN
         }
     }
     return "";
