@@ -65,7 +65,7 @@ class NTP1Transaction
                           bool                                                         burnOutput31);
 
 public:
-    static const uint64_t IssuanceFee = 1000000000; // 10 nebls
+    static const uint64_t IssuanceFee = 10000000000; // 100 PFN
 
     // clang-format off
     IMPLEMENT_SERIALIZE(
@@ -163,7 +163,7 @@ public:
      * it's not possible to set token information without prev inputs information; for that, use the
      * non-minimal version
      * @brief readNTP1DataFromTx_minimal
-     * @param tx the source Neblio transcation
+     * @param tx the source MacPuffins transaction
      */
     void readNTP1DataFromTx_minimal(const CTransaction& tx);
 
@@ -192,7 +192,7 @@ public:
         const std::map<uint256, CTxIndex>& queuedAcceptedTxs = std::map<uint256, CTxIndex>(),
         int                                recursionCount    = 0);
 
-    /** Take a list of standard neblio transactions and return pairs of neblio and NTP1 transactions */
+    /** Take a list of standard MacPuffins transactions and return pairs of PFN and NTP1 transactions */
     static std::vector<std::pair<CTransaction, NTP1Transaction>> StdFetchedInputTxsToNTP1(
         const CTransaction& tx, const MapPrevTx& mapInputs, CTxDB& txdb, bool recoverProtection,
         const std::map<uint256, CTxIndex>& queuedAcceptedTxs = std::map<uint256, CTxIndex>(),
