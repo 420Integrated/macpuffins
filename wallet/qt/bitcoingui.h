@@ -13,8 +13,8 @@
 
 #include <stdint.h>
 
-#include "neblioupdatedialog.h"
-#include "neblioupdater.h"
+#include "macpuffinsupdatedialog.h"
+#include "macpuffinsupdater.h"
 
 class TransactionTableModel;
 class ClientModel;
@@ -47,8 +47,8 @@ class BitcoinGUI : public QMainWindow
     Q_OBJECT
 
     ClickableLabel*            updaterLabel;
-    NeblioUpdater              neblioUpdater;
-    NeblioReleaseInfo          latestRelease;
+    MacpuffinsUpdater          macpuffinsUpdater;
+    MacpuffinsReleaseInfo      latestRelease;
     boost::promise<bool>       updateAvailablePromise;
     boost::unique_future<bool> updateAvailableFuture;
     QTimer*                    updateConcluderTimer;
@@ -57,7 +57,7 @@ class BitcoinGUI : public QMainWindow
     int                        updateCheckTimerTimeout;
     QTimer*                    animationStopperTimer;
     int                        animationStopperTimerTimeout;
-    NeblioUpdateDialog*        updateDialog;
+    MacpuffinsUpdateDialog*    updateDialog;
 
     bool isUpdateRunning; // since update check is asynchronous, this is true while checking is running
     // The following are the images that can show up in the updater
@@ -289,9 +289,9 @@ private slots:
     // Stop the animation after playing once
     void updateCheckAnimation_frameChanged(int frameNumber);
     // This function calls the update check asynchronously
-    void checkForNeblioUpdates();
+    void checkForMacpuffinsUpdates();
     // Called periodically to asynchronously check if the update process is finished
-    void finishCheckForNeblioUpdates();
+    void finishCheckForMacpuffinsUpdates();
 
     void stopAnimations();
 
