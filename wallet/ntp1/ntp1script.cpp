@@ -902,14 +902,14 @@ std::string NTP1Script::EncryptMetadataBeforeSend(const StringViewT ntp1metadata
     if (!pubKeyCKey.SetPubKey(pubKeyRaw)) {
         throw std::runtime_error("The public key for the address " + addr +
                                  " was found, but it seems to be invalid. Please try another address. "
-                                 "Also please consider reporting this to the Neblio Team.");
+                                 "Also please consider reporting this to the MacPuffins Develpment Team.");
     }
     CBitcoinAddress addrRecalc(pubKeyCKey.GetPubKey().GetID());
     if (addr != addrRecalc.ToString()) {
         throw std::runtime_error("The public key for the address " + addr +
                                  " was found, but failed to reproduce the same address. This indicates "
                                  "that the public key is invalid. Please try another address, and "
-                                 "consider reporting this to the Neblio Team.");
+                                 "consider reporting this to the MacPuffins Development Team.");
     }
     try {
         result = NTP1Script::EncryptMetadata(
@@ -936,7 +936,7 @@ std::string RawNTP1MetadataBeforeSend::applyMetadataEncryption(
         if (keys.empty()) {
             throw std::runtime_error("An unexpected error happened. A key that was used "
                                      "in the input was not found in the wallet. Please "
-                                     "report this to neblio develoers.");
+                                     "report this to MacPuffins developers.");
         }
         CKey inputPrivateKey = keys.front();
 
