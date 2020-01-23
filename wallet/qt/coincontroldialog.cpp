@@ -739,7 +739,7 @@ void CoinControlDialog::updateView()
                 itemOutput->setText(COLUMN_LABEL, sLabel);
             }
 
-            // TODO: check if big amounts of nebls are stored with the tokens
+            // TODO: check if big amounts of macpuffins are stored with the tokens
             // figure out token type
             QString sTokenType        = "";
             QString sTokenId          = "";
@@ -751,12 +751,12 @@ void CoinControlDialog::updateView()
                     std::vector<std::pair<CTransaction, NTP1Transaction>> prevTxs =
                         NTP1Transaction::GetAllNTP1InputsOfTx(*out.tx, false);
                     ntp1tx.readNTP1DataFromTx(*out.tx, prevTxs);
-                    bool considerNeblsToo = (out.tx->vout[out.i].nValue > MIN_TX_FEE);
-                    if (considerNeblsToo) {
-                        sTokenType += "NEBL";
+                    bool considerPfnsToo = (out.tx->vout[out.i].nValue > MIN_TX_FEE);
+                    if (considerPfnsToo) {
+                        sTokenType += "PFN";
                         sNTP1TokenAmounts +=
                             BitcoinUnits::format(nDisplayUnit, out.tx->vout[out.i].nValue);
-                        sTokenId += QString::fromStdString(NTP1SendTxData::NEBL_TOKEN_ID);
+                        sTokenId += QString::fromStdString(NTP1SendTxData::PFN_TOKEN_ID);
                     }
 
                     const NTP1TxOut& ntp1txOut = ntp1tx.getTxOut(out.i);
@@ -764,7 +764,7 @@ void CoinControlDialog::updateView()
                         if (ntp1txOut.getToken(i).getAmount() == 0) {
                             continue;
                         }
-                        if (i > 0 || considerNeblsToo) {
+                        if (i > 0 || considerPfnsToo) {
                             // +'s are kept because we're not sure that all Qt versions support new lines
                             sTokenType += "+\n";
                             sNTP1TokenAmounts += "+\n";
@@ -784,12 +784,12 @@ void CoinControlDialog::updateView()
                 }
             } else {
                 sTokenId   = QString::fromStdString(NTP1SendTxData::NEBL_TOKEN_ID);
-                sTokenType = "NEBL";
+                sTokenType = "PFN";
             }
-            // in case it's not a token, then it's nebls
+            // in case it's not a token, then it's macpuffins
             if (sTokenId.isEmpty() && sTokenType.isEmpty() && sNTP1TokenAmounts.isEmpty()) {
-                sTokenId   = QString::fromStdString(NTP1SendTxData::NEBL_TOKEN_ID);
-                sTokenType = "NEBL";
+                sTokenId   = QString::fromStdString(NTP1SendTxData::PFN_TOKEN_ID);
+                sTokenType = "PFN";
             }
 
             itemOutput->setText(COLUMN_LABEL, sTokenType);
