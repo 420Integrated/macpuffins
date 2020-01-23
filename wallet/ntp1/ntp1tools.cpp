@@ -2,11 +2,11 @@
 
 #include "util.h"
 
-const std::string NTP1Tools::NTPAPI_base_url_mainnet_local = "https://ntp1node.nebl.io/ntp1/";
-const std::string NTP1Tools::NTPAPI_base_url_testnet_local = "https://ntp1node.nebl.io/testnet/ntp1/";
+const std::string NTP1Tools::NTPAPI_base_url_mainnet_local = "https://ntp1node.macpuffins.com/ntp1/";
+const std::string NTP1Tools::NTPAPI_base_url_testnet_local = "https://ntp1node.macpuffins.com/testnet/ntp1/";
 
-const std::string NTP1Tools::NTPAPI_base_url_mainnet_remote = "https://ntp1node.nebl.io/ntp1/";
-const std::string NTP1Tools::NTPAPI_base_url_testnet_remote = "https://ntp1node.nebl.io/testnet/ntp1/";
+const std::string NTP1Tools::NTPAPI_base_url_mainnet_remote = "https://ntp1node.macpuffins.com/ntp1/";
+const std::string NTP1Tools::NTPAPI_base_url_testnet_remote = "https://ntp1node.macpuffins.com/testnet/ntp1/";
 
 const std::string NTP1Tools::NTPAPI_addressInfo     = "addressinfo/";
 const std::string NTP1Tools::NTPAPI_transactionInfo = "transactioninfo/";
@@ -15,8 +15,8 @@ const std::string NTP1Tools::NTPAPI_tokenMetaData   = "tokenmetadata/";
 const std::string NTP1Tools::NTPAPI_stakeHolders    = "stakeholders/";
 const std::string NTP1Tools::NTPAPI_sendTokens      = "sendtoken/";
 
-const std::string NTP1Tools::EXPLORER_base_url_testnet = "https://testnet-explorer.nebl.io/";
-const std::string NTP1Tools::EXPLORER_base_url_mainnet = "https://explorer.nebl.io/";
+const std::string NTP1Tools::EXPLORER_base_url_testnet = "https://testnet-explorer.macpuffins.com/";
+const std::string NTP1Tools::EXPLORER_base_url_mainnet = "https://explorer.macpuffins.com/";
 
 const std::string NTP1Tools::EXPLORER_tokenInfo       = "token/";
 const std::string NTP1Tools::EXPLORER_transactionInfo = "tx/";
@@ -67,7 +67,7 @@ int64_t NTP1Tools::GetInt64Field(const json_spirit::Object& data, const std::str
 
 std::string NTP1Tools::GetURL_APIBase(bool testnet)
 {
-#ifdef NEBLIO_REST
+#ifdef MACPUFFINS_REST
     return (testnet ? NTPAPI_base_url_testnet_local : NTPAPI_base_url_mainnet_local);
 #else
     return (testnet ? NTPAPI_base_url_testnet_remote : NTPAPI_base_url_mainnet_remote);
