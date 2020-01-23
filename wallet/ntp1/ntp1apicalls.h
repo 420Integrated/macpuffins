@@ -10,7 +10,7 @@ class NTP1APICalls
 public:
     NTP1APICalls();
     static bool     RetrieveData_AddressContainsNTP1Tokens(const std::string& address, bool testnet);
-    static uint64_t RetrieveData_TotalNeblsExcludingNTP1(const std::string& address, bool testnet);
+    static uint64_t RetrieveData_TotalPfnsExcludingNTP1(const std::string& address, bool testnet);
     static NTP1TokenMetaData RetrieveData_NTP1TokensMetaData(const std::string& tokenId,
                                                              const std::string& tx, int outputIndex,
                                                              bool testnet);
