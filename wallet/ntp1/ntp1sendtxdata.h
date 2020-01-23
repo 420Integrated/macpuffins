@@ -45,7 +45,7 @@ class NTP1SendTxData
     std::vector<NTP1SendTokensOneRecipientData> recipientsList;
     boost::shared_ptr<NTP1Wallet>               usedWallet;
 
-    int64_t __addInputsThatCoversNeblAmount(uint64_t neblAmount);
+    int64_t __addInputsThatCoversPfnAmount(uint64_t pfnAmount);
     bool    ready = false;
 
     boost::optional<IssueTokenData> tokenToIssueData;
@@ -58,7 +58,7 @@ public:
      * @param inputs: inputs to be used; if no inputs provided, everything in the wallet will be used
      * @param recipients
      * @param recalculateFee
-     * @param neblAmount amount to be sent with the transaction
+     * @param pfnAmount amount to be sent with the transaction
      */
     void selectNTP1Tokens(boost::shared_ptr<NTP1Wallet> wallet, std::vector<NTP1OutPoint> inputs,
                           std::vector<NTP1SendTokensOneRecipientData> recipients,
@@ -71,7 +71,7 @@ public:
     boost::optional<IssueTokenData> getNTP1TokenIssuanceData() const;
     bool                            getWhetherIssuanceExists() const;
 
-    static const std::string NEBL_TOKEN_ID;
+    static const std::string PFN_TOKEN_ID;
     static const std::string TO_ISSUE_TOKEN_ID;
 
     // returns the total balance in the selected addresses (tokenSourceAddresses)
@@ -85,7 +85,7 @@ public:
     std::map<std::string, NTP1Int> getChangeTokens() const;
     std::map<std::string, NTP1Int> getTotalTokensInInputs() const;
     bool                           isReady() const;
-    // list of recipients after removing Nebl recipients
+    // list of recipients after removing PFN recipients
     std::vector<NTP1SendTokensOneRecipientData> getNTP1TokenRecipientsList() const;
     boost::shared_ptr<NTP1Wallet>               getWallet() const;
 
@@ -95,7 +95,7 @@ public:
      * @return true if the resulting inputs have NTP1 tokens
      */
     bool     hasNTP1Tokens() const;
-    uint64_t getRequiredNeblsForOutputs() const;
+    uint64_t getRequiredPfnsForOutputs() const;
 
     static void FixTIsChangeOutputIndex(std::vector<NTP1Script::TransferInstruction>& TIs,
                                         int                                           changeOutputIndex);
