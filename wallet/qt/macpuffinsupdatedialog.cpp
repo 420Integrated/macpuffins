@@ -1,6 +1,6 @@
-#include "neblioupdatedialog.h"
+#include "macpuffinsupdatedialog.h"
 
-NeblioUpdateDialog::NeblioUpdateDialog(QWidget *parent) : QDialog(parent)
+MacpuffinsUpdateDialog::MacpuffinsUpdateDialog(QWidget *parent) : QDialog(parent)
 {
     mainLayout = new QGridLayout(this);
     updateInfoText = new QTextBrowser(this);
@@ -32,22 +32,22 @@ NeblioUpdateDialog::NeblioUpdateDialog(QWidget *parent) : QDialog(parent)
     this->setStyleSheet("QDialog { background-color: white;border:none; font-family:'Open Sans,sans-serif'; }");
 }
 
-void NeblioUpdateDialog::setRemoteVersion(const QString &version)
+void MacpuffinsUpdateDialog::setRemoteVersion(const QString &version)
 {
     remoteVesionContentLabel->setText(version);
 }
 
-void NeblioUpdateDialog::setCurrentVersion(const QString &version)
+void MacpuffinsUpdateDialog::setCurrentVersion(const QString &version)
 {
     currentVersionContentLabel->setText(version);
 }
 
-void NeblioUpdateDialog::setBodyText(const QString &bodyText)
+void MacpuffinsUpdateDialog::setBodyText(const QString &bodyText)
 {
     updateInfoText->setText(bodyText);
 }
 
-void NeblioUpdateDialog::setDownloadLink(const QString &link)
+void MacpuffinsUpdateDialog::setDownloadLink(const QString &link)
 {
     QString text = QString("<a href=\"") + link + "/\">Click Here to go visit the download page</a>";
     downloadLinkLabel->setText(text);
@@ -56,7 +56,7 @@ void NeblioUpdateDialog::setDownloadLink(const QString &link)
     downloadLinkLabel->setOpenExternalLinks(true);
 }
 
-void NeblioUpdateDialog::setUpdateRelease(const NeblioReleaseInfo& rel)
+void MacpuffinsUpdateDialog::setUpdateRelease(const NeblioReleaseInfo& rel)
 {
     this->setCurrentVersion(QString::fromStdString(NeblioVersion::GetCurrentNeblioVersion().toString()));
     this->setRemoteVersion(QString::fromStdString(rel.getVersion().toString()));
