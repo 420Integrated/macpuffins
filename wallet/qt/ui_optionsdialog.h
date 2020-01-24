@@ -406,15 +406,15 @@ public:
         reserveBalanceLabel->setText(QApplication::translate("OptionsDialog", "Reserve", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         bitcoinAtStartup->setToolTip(QApplication::translate(
-            "OptionsDialog", "Automatically start neblio after logging in to the system.", Q_NULLPTR));
+            "OptionsDialog", "Automatically start macpuffins after logging in to the system.", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         bitcoinAtStartup->setText(
-            QApplication::translate("OptionsDialog", "&Start neblio on system login", Q_NULLPTR));
+            QApplication::translate("OptionsDialog", "&Start macpuffins on system login", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tabMain),
                               QApplication::translate("OptionsDialog", "&Main", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         mapPortUpnp->setToolTip(QApplication::translate("OptionsDialog",
-                                                        "Automatically open the neblio client port on "
+                                                        "Automatically open the macpuffins client port on "
                                                         "the router. This only works when your router "
                                                         "supports UPnP and it is enabled.",
                                                         Q_NULLPTR));
@@ -424,7 +424,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         connectSocks->setToolTip(QApplication::translate(
             "OptionsDialog",
-            "Connect to the neblio network through a SOCKS proxy (e.g. when connecting through Tor).",
+            "Connect to the macpuffins network through a SOCKS proxy (e.g. when connecting through Tor).",
             Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         connectSocks->setText(
@@ -469,7 +469,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         lang->setToolTip(QApplication::translate("OptionsDialog",
                                                  "The user interface language can be set here. This "
-                                                 "setting will take effect after restarting neblio.",
+                                                 "setting will take effect after restarting macpuffins.",
                                                  Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         unitLabel->setText(
@@ -482,7 +482,7 @@ public:
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_TOOLTIP
         displayAddresses->setToolTip(QApplication::translate(
-            "OptionsDialog", "Whether to show neblio addresses in the transaction list or not.",
+            "OptionsDialog", "Whether to show macpuffins addresses in the transaction list or not.",
             Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         displayAddresses->setText(QApplication::translate(
