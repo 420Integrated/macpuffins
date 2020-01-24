@@ -1,14 +1,14 @@
-#ifndef NEBLIOUPDATEDIALOG_H
-#define NEBLIOUPDATEDIALOG_H
+#ifndef MACPUFFINSUPDATEDIALOG_H
+#define MACPUFFINSUPDATEDIALOG_H
 
 #include <QDialog>
 #include <QTextBrowser>
 #include <QGridLayout>
 #include <QLabel>
 
-#include "neblioupdater.h"
+#include "macpuffinsupdater.h"
 
-class NeblioUpdateDialog : public QDialog
+class MacpuffinsUpdateDialog : public QDialog
 {
     Q_OBJECT
 
@@ -26,13 +26,13 @@ class NeblioUpdateDialog : public QDialog
     void setDownloadLink(const QString& link);
 
 public:
-    explicit NeblioUpdateDialog(QWidget *parent = 0);
+    explicit MacpuffinsUpdateDialog(QWidget *parent = 0);
 
-    void setUpdateRelease(const NeblioReleaseInfo &rel);
+    void setUpdateRelease(const MacpuffinsReleaseInfo &rel);
 
 signals:
 
 public slots:
 };
 
-#endif // NEBLIOUPDATEDIALOG_H
+#endif // MACPUFFINSUPDATEDIALOG_H
