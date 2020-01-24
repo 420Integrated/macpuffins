@@ -80,7 +80,7 @@ public:
         left_logo_label->setLineWidth(0);
 //        logo_label->setFrameStyle(QFrame::StyledPanel);
 
-        left_logo_pix = QPixmap(":images/neblio_vertical");
+        left_logo_pix = QPixmap(":images/macpuffins_vertical");
         left_logo_pix = left_logo_pix.scaledToHeight(OverviewPage->height()*3./4., Qt::SmoothTransformation);
         left_logo_label->setPixmap(left_logo_pix);
         left_logo_label->setAlignment(Qt::AlignCenter);
@@ -92,7 +92,7 @@ public:
 
         main_layout->addLayout(left_logo_layout, 0, 0, 1, 1);
 
-        bottom_logo_pix = QPixmap(":images/neblio_horizontal");
+        bottom_logo_pix = QPixmap(":images/macpuffins_horizontal");
         bottom_bar_widget = new QWidget(OverviewPage);
         bottom_layout = new QGridLayout(bottom_bar_widget);
         bottom_bar_logo_label = new QLabel(bottom_bar_widget);
@@ -179,7 +179,7 @@ public:
         font2.setWeight(75);
         spendable_value_label->setFont(font2);
         spendable_value_label->setCursor(QCursor(Qt::IBeamCursor));
-        spendable_value_label->setText(QStringLiteral("0 NEBL"));
+        spendable_value_label->setText(QStringLiteral("0 PFN"));
         spendable_value_label->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         balance_layout->addWidget(spendable_value_label, 0, 1);
@@ -194,7 +194,7 @@ public:
         stake_value_label->setObjectName(QStringLiteral("labelStake"));
         stake_value_label->setFont(font2);
         stake_value_label->setCursor(QCursor(Qt::IBeamCursor));
-        stake_value_label->setText(QStringLiteral("0 NEBL"));
+        stake_value_label->setText(QStringLiteral("0 PFN"));
         stake_value_label->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         balance_layout->addWidget(stake_value_label, 1, 1);
@@ -209,7 +209,7 @@ public:
         unconfirmed_value_label->setObjectName(QStringLiteral("labelUnconfirmed"));
         unconfirmed_value_label->setFont(font2);
         unconfirmed_value_label->setCursor(QCursor(Qt::IBeamCursor));
-        unconfirmed_value_label->setText(QStringLiteral("0 NEBL"));
+        unconfirmed_value_label->setText(QStringLiteral("0 PFN"));
         unconfirmed_value_label->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         balance_layout->addWidget(unconfirmed_value_label, 2, 1);
@@ -223,7 +223,7 @@ public:
         immature_value_label = new QLabel(wallet_contents_frame);
         immature_value_label->setObjectName(QStringLiteral("labelImmature"));
         immature_value_label->setFont(font2);
-        immature_value_label->setText(QStringLiteral("0 NEBL"));
+        immature_value_label->setText(QStringLiteral("0 PFN"));
         immature_value_label->setTextInteractionFlags(Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse);
 
         balance_layout->addWidget(immature_value_label, 3, 1);
@@ -268,10 +268,10 @@ public:
         OverviewPage->setWindowTitle(QApplication::translate("OverviewPage", "Form", Q_NULLPTR));
         recent_tx_label->setText(QApplication::translate("OverviewPage", "<b>Recent transactions</b>", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        labelTransactionsStatus->setToolTip(QApplication::translate("OverviewPage", "The displayed information may be out of date. Your wallet automatically synchronizes with the neblio network after a connection is established, but this process has not completed yet.", Q_NULLPTR));
+        labelTransactionsStatus->setToolTip(QApplication::translate("OverviewPage", "The displayed information may be out of date. Your wallet automatically synchronizes with the macpuffins network after a connection is established, but this process has not completed yet.", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_TOOLTIP
-        labelWalletStatus->setToolTip(QApplication::translate("OverviewPage", "The displayed information may be out of date. Your wallet automatically synchronizes with the neblio network after a connection is established, but this process has not completed yet.", Q_NULLPTR));
+        labelWalletStatus->setToolTip(QApplication::translate("OverviewPage", "The displayed information may be out of date. Your wallet automatically synchronizes with the macpuffins network after a connection is established, but this process has not completed yet.", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         wallet_label->setText(QApplication::translate("OverviewPage", "Wallet", Q_NULLPTR));
         spendable_title_label->setText(QApplication::translate("OverviewPage", "Spendable:", Q_NULLPTR));
