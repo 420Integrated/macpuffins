@@ -144,7 +144,7 @@ public:
     void retranslateUi(QWidget *AddressBookPage)
     {
         AddressBookPage->setWindowTitle(QApplication::translate("AddressBookPage", "Address Book", Q_NULLPTR));
-        labelExplanation->setText(QApplication::translate("AddressBookPage", "These are your neblio addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.", Q_NULLPTR));
+        labelExplanation->setText(QApplication::translate("AddressBookPage", "These are your macpuffins addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         tableView->setToolTip(QApplication::translate("AddressBookPage", "Double-click to edit address or label", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
@@ -158,11 +158,11 @@ public:
         copyToClipboard->setText(QApplication::translate("AddressBookPage", "&Copy Address", Q_NULLPTR));
         showQRCode->setText(QApplication::translate("AddressBookPage", "Show &QR Code", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        signMessage->setToolTip(QApplication::translate("AddressBookPage", "Sign a message to prove you own a neblio address", Q_NULLPTR));
+        signMessage->setToolTip(QApplication::translate("AddressBookPage", "Sign a message to prove you own a macpuffins address", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         signMessage->setText(QApplication::translate("AddressBookPage", "Sign &Message", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        verifyMessage->setToolTip(QApplication::translate("AddressBookPage", "Verify a message to ensure it was signed with a specified neblio address", Q_NULLPTR));
+        verifyMessage->setToolTip(QApplication::translate("AddressBookPage", "Verify a message to ensure it was signed with a specified macpuffins address", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         verifyMessage->setText(QApplication::translate("AddressBookPage", "&Verify Message", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
