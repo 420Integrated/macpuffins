@@ -127,11 +127,12 @@ public:
 
     void retranslateUi(QDialog *AboutDialog)
     {
-        AboutDialog->setWindowTitle(QApplication::translate("AboutDialog", "About neblio", Q_NULLPTR));
-        label->setText(QApplication::translate("AboutDialog", "<b>neblio</b> version", Q_NULLPTR));
+        AboutDialog->setWindowTitle(QApplication::translate("AboutDialog", "About MacPuffins", Q_NULLPTR));
+        label->setText(QApplication::translate("AboutDialog", "<b>macpuffins</b> version", Q_NULLPTR));
         copyrightLabel->setText(QApplication::translate("AboutDialog", "Copyright \302\251 2009-2014 The Bitcoin developers\n"
 "Copyright \302\251 2012-2014 The NovaCoin developers\n"
-"Copyright \302\251 2017-2019 The Neblio developers", Q_NULLPTR));
+"Copyright \302\251 2017-2019 The Neblio developers",
+"Copyright \302\251 2019-2020 The MacPuffins Development Team", Q_NULLPTR));
         label_2->setText(QApplication::translate("AboutDialog", "\n"
 "This is experimental software.\n"
 "\n"
