@@ -47,7 +47,7 @@ void IssueNewNTP1TokenDialog::createWidgets()
     costLabel = new QLabel(this);
     costLabel->setText("Issuing a token will cost " +
                        QString::number(NTP1Transaction::IssuanceFee / COIN) +
-                       " NEBL. NTP1 outputs cannot be used.");
+                       " PFN. NTP1 outputs cannot be used.");
     costLabel->setAlignment(Qt::AlignHCenter);
     paymentSeparator = new QFrame(this);
     paymentSeparator->setFrameShape(QFrame::HLine);
@@ -309,7 +309,7 @@ void IssueNewNTP1TokenDialog::slot_doIssueToken()
         int64_t nBalance = pwalletMain->GetBalance();
         if (minAmount > nBalance)
             throw std::runtime_error(
-                "You don't have enough NEBLs to issue this token. You need at least: " +
+                "You don't have enough Macpuffins to issue this token. You need at least: " +
                 FormatMoney(minAmount) +
                 ". It may even be slightly more depending on the size of the metadata.");
 
@@ -359,7 +359,7 @@ void IssueNewNTP1TokenDialog::slot_doIssueToken()
                                 "One or more of the inputs chosen in coin control is an NTP1 output. "
                                 "\n\nFor "
                                 "issuance, you cannot choose NTP1 outputs. Please choose outputs that "
-                                "contain only NEBLs");
+                                "contain only PFNs");
                             return;
                         }
                     } catch (std::exception& ex) {
@@ -375,7 +375,7 @@ void IssueNewNTP1TokenDialog::slot_doIssueToken()
 
             if (totalInInputs < minAmount) {
                 throw std::runtime_error(
-                    "You have not selected enough NEBLs from coin control to issue "
+                    "You have not selected enough Macpuffins from coin control to issue "
                     "this token. You need at least: " +
                     FormatMoney(minAmount) +
                     ". It may even be slightly more depending on the size of the metadata.");
@@ -415,7 +415,7 @@ void IssueNewNTP1TokenDialog::slot_doIssueToken()
         QMessageBox::StandardButton answer = QMessageBox::question(
             this, "Do you want to proceed?",
             "Creating this token will cost " + QString::fromStdString(FormatMoney(nFeeRequired)) +
-                " NEBL. Are you sure you want to proceed? \n\n This is irreversible, "
+                " MacPuffins (PFN). Are you sure you want to proceed? \n\n This is irreversible, "
                 "and none of the data chosen for the token can be changed in the "
                 "future.");
 
@@ -433,7 +433,7 @@ void IssueNewNTP1TokenDialog::slot_doIssueToken()
             printf("An invalid NTP1 transaction was created; an exception was thrown: %s\n", ex.what());
             throw std::runtime_error(
                 "Unable to create the transaction. The transaction created would result in an invalid "
-                "transaction. Please report your transaction details to the Neblio team. The "
+                "transaction. Please report your transaction details to the MacPuffins Development Team. The "
                 "error is: " +
                 std::string(ex.what()));
         }
