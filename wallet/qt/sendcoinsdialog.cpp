@@ -39,7 +39,7 @@ SendCoinsDialog::SendCoinsDialog(QWidget* parent)
 #if QT_VERSION >= 0x040700
     /* Do not move this to the XML file, Qt before 4.7 will choke on it */
     ui->lineEditCoinControlChange->setPlaceholderText(
-        tr("Enter a neblio address (e.g. 8dpZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)"));
+        tr("Enter a macpuffins address (e.g. 8dpZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)"));
 #endif
 
     addEntry();
@@ -162,13 +162,13 @@ void SendCoinsDialog::on_sendButton_clicked()
     // allow metadata only with NTP1 transactions
     RawNTP1MetadataBeforeSend ntp1metadata;
     {
-        bool allTokensNebl = true;
+        bool allTokensPfn = true;
         for (const auto& r : recipients) {
-            bool isNebl   = (r.tokenId.toStdString() == NTP1SendTxData::NEBL_TOKEN_ID);
+            bool isNebl   = (r.tokenId.toStdString() == NTP1SendTxData::PFN_TOKEN_ID);
             allTokensNebl = allTokensNebl && isNebl;
         }
 
-        if (allTokensNebl && ui->editMetadataDialog->jsonDataExists()) {
+        if (allTokensNeblNebl && ui->editMetadataDialog->jsonDataExists()) {
             QMessageBox::warning(
                 this, "Metadata in non-NTP1 transaction",
                 "We found metadata set. NTP1 metadata requires an NTP1 transaction. Please "
@@ -278,7 +278,7 @@ void SendCoinsDialog::on_sendButton_clicked()
         QMessageBox::warning(
             this, tr("Send Coins - NTP1 tokens problem"),
             "Error: One of the addresses chosen as an input for this transaction contains NTP1 tokens. "
-            "You should NOT send NEBL from these addresses or the NTP1 tokens could be permanently "
+            "You should NOT send PFN from these addresses or the NTP1 tokens could be permanently "
             "burned. "
             "This address contains NTP1 tokens: " +
                 sendstatus.address +
@@ -296,7 +296,7 @@ void SendCoinsDialog::on_sendButton_clicked()
             "Error: Unable to check whether your addresses contain NTP1 tokens (for address: " +
                 sendstatus.address +
                 ")\n"
-                "Sending NEBL from an address that contains NTP1 tokens could result in those tokens "
+                "Sending PFN from an address that contains NTP1 tokens could result in those tokens "
                 "being permanently burned. "
                 "Sweep your NTP1 tokens back to an Orion address using the Orion wallet. "
                 "If you would like to proceed with this at your own risk, "
@@ -307,7 +307,7 @@ void SendCoinsDialog::on_sendButton_clicked()
         QMessageBox::warning(this, tr("Send Coins - NTP1 tokens problem"),
                              "Error: Unable to check whether your addresses contain NTP1 tokens "
                              "(Decoding scriptPubKey failed) "
-                             "Sending NEBL from an address that contains NTP1 tokens could result in "
+                             "Sending PFN from an address that contains NTP1 tokens could result in "
                              "those tokens being permanently burned. "
                              "Sweep your NTP1 tokens back to an Orion address using the Orion wallet. "
                              "If you would like to proceed with this at your own risk, "
@@ -318,7 +318,7 @@ void SendCoinsDialog::on_sendButton_clicked()
         QMessageBox::warning(this, tr("Send Coins - NTP1 tokens problem"),
                              "Error: Unable to check whether your addresses contain NTP1 tokens "
                              "(Reference input transaction not found in the wallet) "
-                             "Sending NEBL from an address that contains NTP1 tokens could result in "
+                             "Sending PFN from an address that contains NTP1 tokens could result in "
                              "those tokens being permanently burned. "
                              "Sweep your NTP1 tokens back to an Orion address using the Orion wallet. "
                              "If you would like to proceed with this at your own risk, "
@@ -329,7 +329,7 @@ void SendCoinsDialog::on_sendButton_clicked()
         QMessageBox::warning(this, tr("Send Coins - NTP1 tokens problem"),
                              "Error: Unable to check whether your addresses contain NTP1 tokens (number "
                              "of outputs in the transaction used for input is wrong) "
-                             "Sending NEBL from an address that contains NTP1 tokens could result in "
+                             "Sending PFN from an address that contains NTP1 tokens could result in "
                              "those tokens being permanently burned. "
                              "Sweep your NTP1 tokens back to an Orion address using the Orion wallet. "
                              "If you would like to proceed with this at your own risk, "
@@ -601,7 +601,7 @@ void SendCoinsDialog::coinControlChangeEdited(const QString& text)
             ui->labelCoinControlChangeLabel->setText("");
         else if (!CBitcoinAddress(text.toStdString()).IsValid()) {
             ui->labelCoinControlChangeLabel->setStyleSheet("QLabel{color:red;}");
-            ui->labelCoinControlChangeLabel->setText(tr("WARNING: Invalid neblio address"));
+            ui->labelCoinControlChangeLabel->setText(tr("WARNING: Invalid MacPuffins address"));
         } else {
             QString associatedLabel = model->getAddressTableModel()->labelForAddress(text);
             if (!associatedLabel.isEmpty())
