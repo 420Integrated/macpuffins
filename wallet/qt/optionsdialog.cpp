@@ -198,7 +198,7 @@ void OptionsDialog::showRestartWarning_Proxy()
 {
     if (!fRestartWarningDisplayed_Proxy) {
         QMessageBox::warning(this, tr("Warning"),
-                             tr("This setting will take effect after restarting neblio."),
+                             tr("This setting will take effect after restarting MacPuffins."),
                              QMessageBox::Ok);
         fRestartWarningDisplayed_Proxy = true;
     }
@@ -208,7 +208,7 @@ void OptionsDialog::showRestartWarning_Lang()
 {
     if (!fRestartWarningDisplayed_Lang) {
         QMessageBox::warning(this, tr("Warning"),
-                             tr("This setting will take effect after restarting neblio."),
+                             tr("This setting will take effect after restarting MacPuffins."),
                              QMessageBox::Ok);
         fRestartWarningDisplayed_Lang = true;
     }
@@ -247,7 +247,7 @@ void OptionsDialog::slot_clearNTP1DataCache()
             QMessageBox::StandardButton reply;
             reply = QMessageBox::question(
                 this, "Clear NTP1 cache?",
-                "This will require closing neblio-qt. Are you sure you want to proceed?",
+                "This will require closing macpuffins-qt. Are you sure you want to proceed?",
                 QMessageBox::Yes | QMessageBox::No);
             if (reply == QMessageBox::Yes) {
                 ptr->clearNTP1Wallet();
