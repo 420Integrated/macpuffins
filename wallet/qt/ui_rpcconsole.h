@@ -342,8 +342,8 @@ public:
 
     void retranslateUi(QDialog *RPCConsole)
     {
-        RPCConsole->setWindowTitle(QApplication::translate("RPCConsole", "neblio - Debug window", Q_NULLPTR));
-        label_9->setText(QApplication::translate("RPCConsole", "neblio Core", Q_NULLPTR));
+        RPCConsole->setWindowTitle(QApplication::translate("RPCConsole", "macpuffins - Debug window", Q_NULLPTR));
+        label_9->setText(QApplication::translate("RPCConsole", "macpuffins Core", Q_NULLPTR));
         label_5->setText(QApplication::translate("RPCConsole", "Client name", Q_NULLPTR));
         clientName->setText(QApplication::translate("RPCConsole", "N/A", Q_NULLPTR));
         label_6->setText(QApplication::translate("RPCConsole", "Client version", Q_NULLPTR));
@@ -369,14 +369,14 @@ public:
         labelDebugLogfile->setText(QApplication::translate("RPCConsole", "Debug log file", Q_NULLPTR));
         labelShowDataDir->setText(QApplication::translate("RPCConsole", "Show data directory", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        openDebugLogfileButton->setToolTip(QApplication::translate("RPCConsole", "Open the neblio debug log file from the current data directory. This can take a few seconds for large log files.", Q_NULLPTR));
-        openDataDirButton->setToolTip(QApplication::translate("RPCConsole", "Show the data directory of Neblio, that includes the blockchain, the wallet and configuration files, the logs and more.", Q_NULLPTR));
+        openDebugLogfileButton->setToolTip(QApplication::translate("RPCConsole", "Open the macpuffins debug log file from the current data directory. This can take a few seconds for large log files.", Q_NULLPTR));
+        openDataDirButton->setToolTip(QApplication::translate("RPCConsole", "Show the data directory of macpuffins, that includes the blockchain, the wallet and configuration files, the logs and more.", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         openDebugLogfileButton->setText(QApplication::translate("RPCConsole", "&View", Q_NULLPTR));
         openDataDirButton->setText(QApplication::translate("RPCConsole", "&Open", Q_NULLPTR));
         labelCLOptions->setText(QApplication::translate("RPCConsole", "Command-line options", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        showCLOptionsButton->setToolTip(QApplication::translate("RPCConsole", "Show the neblio-Qt help message to get a list with possible neblio command-line options.", Q_NULLPTR));
+        showCLOptionsButton->setToolTip(QApplication::translate("RPCConsole", "Show the macpuffins-Qt help message to get a list with possible neblio command-line options.", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         showCLOptionsButton->setText(QApplication::translate("RPCConsole", "&Show", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab_info), QApplication::translate("RPCConsole", "&Information", Q_NULLPTR));
