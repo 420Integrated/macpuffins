@@ -12,7 +12,7 @@ void NTP1SendTokensFeeWidget::createWidgets()
     mainLayout->addWidget(autoCalculateFeeCheckbox, 0, 0, 1, 1);
     mainLayout->addWidget(feeAmountLineEdit, 0, 1, 1, 1);
 
-    feeAmountLineEdit->setPlaceholderText("Choose your fee in nebl, e.g., 0.0001");
+    feeAmountLineEdit->setPlaceholderText("Choose your fee in MacPuffins (PFN), e.g., 0.0001");
 
     feeAmountLineEdit->setValidator(new QDoubleValidator(0, 100000000, 8));
     autoCalculateFeeCheckbox->setText("Automatically calculate the fee");
