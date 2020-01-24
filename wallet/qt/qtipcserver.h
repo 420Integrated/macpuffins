@@ -2,7 +2,7 @@
 #define QTIPCSERVER_H
 
 // Define neblio-Qt message queue name
-#define BITCOINURI_QUEUE_NAME "neblioURI"
+#define BITCOINURI_QUEUE_NAME "macpuffinsURI"
 
 void ipcScanRelay(int argc, char *argv[]);
 void ipcInit(int argc, char *argv[]);
