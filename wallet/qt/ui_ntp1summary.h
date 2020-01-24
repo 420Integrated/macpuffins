@@ -80,7 +80,7 @@ public:
         left_logo_label->setLineWidth(0);
         //        logo_label->setFrameStyle(QFrame::StyledPanel);
 
-        left_logo_pix = QPixmap(":images/neblio_vertical");
+        left_logo_pix = QPixmap(":images/macpuffins_vertical");
         left_logo_pix =
             left_logo_pix.scaledToHeight(NTP1SummaryPage->height() * 3. / 4., Qt::SmoothTransformation);
         left_logo_label->setPixmap(left_logo_pix);
@@ -101,7 +101,7 @@ public:
 
         main_layout->addLayout(left_logo_layout, 0, 0, 1, 1);
 
-        bottom_logo_pix             = QPixmap(":images/neblio_horizontal");
+        bottom_logo_pix             = QPixmap(":images/macpuffins_horizontal");
         bottom_bar_widget           = new QWidget(NTP1SummaryPage);
         bottom_layout               = new QGridLayout(bottom_bar_widget);
         bottom_bar_logo_label       = new QLabel(bottom_bar_widget);
@@ -192,7 +192,7 @@ public:
         labelBlockchainSyncStatus->setToolTip(
             QApplication::translate("NTP1Summary",
                                     "The displayed information may be out of date. Your wallet "
-                                    "automatically synchronizes with the neblio network after a "
+                                    "automatically synchronizes with the macpuffins network after a "
                                     "connection is established, but this process has not completed yet.",
                                     Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
