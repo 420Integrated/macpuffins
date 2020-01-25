@@ -146,7 +146,7 @@ Value getnewaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
         throw runtime_error("getnewaddress [account]\n"
-                            "Returns a new neblio address for receiving payments.  "
+                            "Returns a new macpuffins address for receiving payments.  "
                             "If [account] is specified, it is added to the address book "
                             "so payments received with the address will be credited to [account].");
 
@@ -210,7 +210,7 @@ Value getaccountaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getaccountaddress <account>\n"
-            "Returns the current neblio address for receiving payments to this account.");
+            "Returns the current macpuffins address for receiving payments to this account.");
 
     // Parse the account first so we don't generate a key if there's an error
     string strAccount = AccountFromValue(params[0]);
@@ -225,12 +225,12 @@ Value getaccountaddress(const Array& params, bool fHelp)
 Value setaccount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error("setaccount <neblioaddress> <account>\n"
+        throw runtime_error("setaccount <macpuffinsaddress> <account>\n"
                             "Sets the account associated with the given address.");
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid neblio address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid macpuffins address");
 
     string strAccount;
     if (params.size() > 1)
@@ -252,12 +252,12 @@ Value setaccount(const Array& params, bool fHelp)
 Value getaccount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
-        throw runtime_error("getaccount <neblioaddress>\n"
+        throw runtime_error("getaccount <macpuffinsaddress>\n"
                             "Returns the account associated with the given address.");
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid neblio address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid macpuffins address");
 
     string                                strAccount;
     map<CTxDestination, string>::iterator mi = pwalletMain->mapAddressBook.find(address.Get());
@@ -288,13 +288,13 @@ Value getaddressesbyaccount(const Array& params, bool fHelp)
 Value sendtoaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 2 || params.size() > 4)
-        throw runtime_error("sendtoaddress <neblioaddress> <amount> [comment] [comment-to]\n"
+        throw runtime_error("sendtoaddress <macpuffinsaddress> <amount> [comment] [comment-to]\n"
                             "<amount> is a real and is rounded to the nearest 0.000001" +
                             HelpRequiringPassphrase());
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid neblio address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid macpuffins address");
 
     // Amount
     int64_t nAmount = AmountFromValue(params[1]);
@@ -320,13 +320,13 @@ Value sendtoaddress(const Array& params, bool fHelp)
 Value sendntp1toaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 3 || params.size() > 7)
-        throw runtime_error("sendntp1toaddress <neblioaddress> <amount> <tokenId/tokenName> [NTP1 "
+        throw runtime_error("sendntp1toaddress <macpuffinsaddress> <amount> <tokenId/tokenName> [NTP1 "
                             "metadata=\"\"] [encrypt-meta-data=false] [comment] [comment-to]\n" +
                             HelpRequiringPassphrase());
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid neblio address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid macpuffins address");
 
     // Amount
     int64_t nAmount = params[1].get_int64();
@@ -482,7 +482,7 @@ Value listaddressgroupings(const Array& /*params*/, bool fHelp)
 Value signmessage(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 2)
-        throw runtime_error("signmessage <neblioaddress> <message>\n"
+        throw runtime_error("signmessage <macpuffinsaddress> <message>\n"
                             "Sign a message with the private key of an address");
 
     EnsureWalletIsUnlocked();
@@ -516,7 +516,7 @@ Value signmessage(const Array& params, bool fHelp)
 Value verifymessage(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 3)
-        throw runtime_error("verifymessage <neblioaddress> <signature> <message>\n"
+        throw runtime_error("verifymessage <macpuffinsaddress> <signature> <message>\n"
                             "Verify a signed message");
 
     string strAddress = params[0].get_str();
@@ -551,15 +551,15 @@ Value verifymessage(const Array& params, bool fHelp)
 Value getreceivedbyaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error("getreceivedbyaddress <neblioaddress> [minconf=1]\n"
-                            "Returns the total amount received by <neblioaddress> in transactions with "
+        throw runtime_error("getreceivedbyaddress <macpuffinsaddress> [minconf=1]\n"
+                            "Returns the total amount received by <macpuffinsaddress> in transactions with "
                             "at least [minconf] confirmations.");
 
     // Bitcoin address
     CBitcoinAddress address = CBitcoinAddress(params[0].get_str());
     CScript         scriptPubKey;
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid neblio address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid macpuffins address");
     scriptPubKey.SetDestination(address.Get());
     if (!IsMine(*pwalletMain, scriptPubKey))
         return (double)0.0;
@@ -849,14 +849,14 @@ Value sendfrom(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 3 || params.size() > 6)
         throw runtime_error(
-            "sendfrom <fromaccount> <toneblioaddress> <amount> [minconf=1] [comment] [comment-to]\n"
+            "sendfrom <fromaccount> <tomacpuffinsaddress> <amount> [minconf=1] [comment] [comment-to]\n"
             "<amount> is a real and is rounded to the nearest 0.000001" +
             HelpRequiringPassphrase());
 
     string          strAccount = AccountFromValue(params[0]);
     CBitcoinAddress address(params[1].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid neblio address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid macpuffins address");
     int64_t nAmount = AmountFromValue(params[2]);
 
     int nMinDepth = 1;
@@ -914,7 +914,7 @@ Value sendmany(const Array& params, bool fHelp)
     for (const Pair& s : sendTo) {
         CBitcoinAddress address(s.name_);
         if (!address.IsValid())
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid neblio address: ") + s.name_);
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid macpuffins address: ") + s.name_);
 
         CScript scriptPubKey;
         scriptPubKey.SetDestination(address.Get());
@@ -960,7 +960,7 @@ Value sendmany(const Array& params, bool fHelp)
         printf("An invalid NTP1 transaction was created; an exception was thrown: %s\n", ex.what());
         throw std::runtime_error(
             "Unable to create the transaction. The transaction created would result in an invalid "
-            "transaction. Please report your transaction details to the Neblio team. The "
+            "transaction. Please report your transaction details to the macpuffins team. The "
             "error is: " +
             std::string(ex.what()));
     }
@@ -975,7 +975,7 @@ Value addmultisigaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() < 2 || params.size() > 3) {
         string msg = "addmultisigaddress <nrequired> <'[\"key\",\"key\"]'> [account]\n"
                      "Add a nrequired-to-sign multisignature address to the wallet\"\n"
-                     "each key is a neblio address or hex-encoded public key\n"
+                     "each key is a macpuffins address or hex-encoded public key\n"
                      "If [account] is specified, assign address to [account].";
         throw runtime_error(msg);
     }
@@ -1545,7 +1545,7 @@ Value keypoolrefill(const Array& params, bool fHelp)
 void ThreadTopUpKeyPool(void* /*parg*/)
 {
     // Make this thread recognisable as the key-topping-up thread
-    RenameThread("neblio-key-top");
+    RenameThread("macpuffins-key-top");
 
     pwalletMain->TopUpKeyPool();
 }
@@ -1553,7 +1553,7 @@ void ThreadTopUpKeyPool(void* /*parg*/)
 void ThreadCleanWalletPassphrase(void* parg)
 {
     // Make this thread recognisable as the wallet relocking thread
-    RenameThread("neblio-lock-wa");
+    RenameThread("macpuffins-lock-wa");
 
     int64_t nMyWakeTime = GetTimeMillis() + *((int64_t*)parg) * 1000;
 
@@ -1729,7 +1729,7 @@ Value encryptwallet(const Array& params, bool fHelp)
     // slack space in .dat files; that is bad if the old data is
     // unencrypted private keys. So:
     StartShutdown();
-    return "wallet encrypted; neblio server stopping, restart to run with encrypted wallet.  The "
+    return "wallet encrypted; macpuffins server stopping, restart to run with encrypted wallet.  The "
            "keypool has been flushed, you need to make a new backup.";
 }
 
@@ -1774,8 +1774,8 @@ public:
 Value validateaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
-        throw runtime_error("validateaddress <neblioaddress>\n"
-                            "Return information about <neblioaddress>.");
+        throw runtime_error("validateaddress <macpuffinsaddress>\n"
+                            "Return information about <macpuffinsaddress>.");
 
     CBitcoinAddress address(params[0].get_str());
     bool            isValid = address.IsValid();
@@ -1801,8 +1801,8 @@ Value validateaddress(const Array& params, bool fHelp)
 Value validatepubkey(const Array& params, bool fHelp)
 {
     if (fHelp || !params.size() || params.size() > 2)
-        throw runtime_error("validatepubkey <nebliopubkey>\n"
-                            "Return information about <nebliopubkey>.");
+        throw runtime_error("validatepubkey <macpuffinspubkey>\n"
+                            "Return information about <macpuffinspubkey>.");
 
     std::vector<unsigned char> vchPubKey = ParseHex(params[0].get_str());
     CPubKey                    pubKey(vchPubKey);
