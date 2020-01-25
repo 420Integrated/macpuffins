@@ -1,6 +1,6 @@
 include_directories(../..)
 
-add_executable(neblio-tests
+add_executable(macpuffins-tests
     accounting_tests.cpp
     allocator_tests.cpp
     base32_tests.cpp
@@ -34,7 +34,7 @@ add_executable(neblio-tests
     ${CMAKE_SOURCE_DIR}/wallet/init.cpp
     )
 
-target_link_libraries(neblio-tests
+target_link_libraries(macpuffins-tests
     gtest
     core_lib
     zerocoin_lib
@@ -58,32 +58,32 @@ target_link_libraries(neblio-tests
     ${ZLIB_LIBRARIES}
     )
 
-set_target_properties(neblio-tests PROPERTIES COMPILE_FLAGS -Wno-unused-function)
+set_target_properties(macpuffins-tests PROPERTIES COMPILE_FLAGS -Wno-unused-function)
 
-target_compile_definitions(neblio-tests PRIVATE
+target_compile_definitions(macpuffins-tests PRIVATE
     TEST_ROOT_PATH=\"${CMAKE_CURRENT_SOURCE_DIR}\"
-    NEBLIO_UNITTESTS
+    MACPUFFINS_UNITTESTS
     )
 
-option(NEBLIO_DOWNLOAD_AND_TEST_ALL_TXS "[Unit-tests]: Enable downloading and testing all transactions" ON)
-option(NEBLIO_DOWNLOAD_TX_DATA "[Unit-tests]: Enable downloading transaction data" OFF)
-option(NEBLIO_RUN_NTP_PARSE_TESTS "[Unit-tests]: Enable NTP1 parsing tests" OFF)
+option(MACPUFFINS_DOWNLOAD_AND_TEST_ALL_TXS "[Unit-tests]: Enable downloading and testing all transactions" ON)
+option(MACPUFFINS_DOWNLOAD_TX_DATA "[Unit-tests]: Enable downloading transaction data" OFF)
+option(MACPUFFINS_RUN_NTP_PARSE_TESTS "[Unit-tests]: Enable NTP1 parsing tests" OFF)
 
-if(NEBLIO_DOWNLOAD_AND_TEST_ALL_TXS)
-    target_compile_definitions(neblio-tests PRIVATE UNITTEST_DOWNLOAD_PREMADE_TX_DATA_AND_RUN_PARSE_TESTS)
+if(MACPUFFINS_DOWNLOAD_AND_TEST_ALL_TXS)
+    target_compile_definitions(macpuffins-tests PRIVATE UNITTEST_DOWNLOAD_PREMADE_TX_DATA_AND_RUN_PARSE_TESTS)
 endif()
 
-if(NEBLIO_DOWNLOAD_TX_DATA)
-    target_compile_definitions(neblio-tests PRIVATE UNITTEST_DOWNLOAD_TX_DATA)
+if(MACPUFFINS_DOWNLOAD_TX_DATA)
+    target_compile_definitions(macpuffins-tests PRIVATE UNITTEST_DOWNLOAD_TX_DATA)
 endif()
 
-if(NEBLIO_RUN_NTP_PARSE_TESTS)
-    target_compile_definitions(neblio-tests PRIVATE UNITTEST_RUN_NTP_PARSE_TESTS)
+if(MACPUFFINS_RUN_NTP_PARSE_TESTS)
+    target_compile_definitions(macpuffins-tests PRIVATE UNITTEST_RUN_NTP_PARSE_TESTS)
 endif()
 
 add_test(
-    NAME neblio-core-tests
-    COMMAND neblio-core-tests
+    NAME macpuffins-core-tests
+    COMMAND macpuffins-core-tests
     --datadir ${CMAKE_CURRENT_SOURCE_DIR}
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     )
