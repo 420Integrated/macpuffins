@@ -576,7 +576,7 @@ bool EvalScript(vector<vector<unsigned char> >& stack, const CScript& script, co
                 case OP_CHECKSEQUENCEVERIFY:
                 {
                     // Not implemented
-                    // treat as a NOP3 for now as BIP68 is not implemented in Neblio
+                    // treat as a NOP3 for now as BIP68 is not implemented in macpuffins
                     break;
 
                     if (stack.size() < 1)
