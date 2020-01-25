@@ -1479,9 +1479,9 @@ TEST(ntp1_tests, parsig_ntp1_from_ctransaction_burn_with_transfer_1)
 std::string GetRawTxURL(const std::string& txid, bool testnet)
 {
     if (!testnet) {
-        return "https://ntp1node.nebl.io/ins/rawtx/" + txid;
+        return "https://ntp1node.macpuffin.coms/ins/rawtx/" + txid;
     } else {
-        return "https://ntp1node.nebl.io/testnet/ins/rawtx/" + txid;
+        return "https://ntp1node.macpuffins.com/testnet/ins/rawtx/" + txid;
     }
 }
 
@@ -1573,12 +1573,12 @@ std::string NTP1Tests_GetTxidListFileName(bool testnet)
     }
 }
 
-std::string NTP1Tests_GetRawNeblioTxsFileName(bool testnet)
+std::string NTP1Tests_GetRawMacpuffinsTxsFileName(bool testnet)
 {
     if (!testnet) {
-        return "txs_ntp1tests_raw_neblio_txs.json";
+        return "txs_ntp1tests_raw_macpuffins_txs.json";
     } else {
-        return "txs_ntp1tests_raw_neblio_txs_testnet.json";
+        return "txs_ntp1tests_raw_macpuffins_txs_testnet.json";
     }
 }
 
@@ -1766,7 +1766,7 @@ void TestNTP1TxParsing(const std::string& txid, bool testnet)
 }
 
 void TestSingleNTP1TxParsingLocally(const CTransaction&                                 tx,
-                                    const std::unordered_map<std::string, std::string>& nebltxs_map,
+                                    const std::unordered_map<std::string, std::string>& pfntxs_map,
                                     const std::unordered_map<std::string, std::string>& ntp1txs_map)
 {
     const std::string& txid           = tx.GetHash().ToString();
@@ -1784,7 +1784,7 @@ void TestSingleNTP1TxParsingLocally(const CTransaction&                         
 
     for (int i = 0; i < (int)tx.vin.size(); i++) {
         std::string  inputTxid  = tx.vin[i].prevout.hash.ToString();
-        std::string  inputRawTx = nebltxs_map.find(inputTxid)->second;
+        std::string  inputRawTx = pfntxs_map.find(inputTxid)->second;
         CTransaction inputTx    = TxFromHex(inputRawTx);
 
         const std::string inputNTP1TxStr = ntp1txs_map.find(inputTxid)->second;
@@ -1864,15 +1864,15 @@ void TestSingleNTP1TxParsingLocally(const CTransaction&                         
 }
 
 void TestSingleNTP1TxParsingLocally(const std::string&                                  txid,
-                                    const std::unordered_map<std::string, std::string>& nebltxs_map,
+                                    const std::unordered_map<std::string, std::string>& pfntxs_map,
                                     const std::unordered_map<std::string, std::string>& ntp1txs_map)
 {
-    const std::string  rawTx = nebltxs_map.find(txid)->second;
+    const std::string  rawTx = pfntxs_map.find(txid)->second;
     const CTransaction tx    = TxFromHex(rawTx);
 
     if (NTP1Transaction::IsTxNTP1(&tx)) {
         try {
-            TestSingleNTP1TxParsingLocally(tx, nebltxs_map, ntp1txs_map);
+            TestSingleNTP1TxParsingLocally(tx, pfntxs_map, ntp1txs_map);
         } catch (...) {
             std::cerr << "Error with transaction: " << tx.GetHash().ToString() << std::endl;
             throw;
@@ -1886,7 +1886,7 @@ void TestNTP1TxParsingLocally(bool testnet)
     std::unique_ptr<bool, void (*)(bool*)> temp(&fTestNet, [](bool*) { fTestNet = false; });
 
     std::unordered_map<std::string, std::string> ntp1txs_map;
-    std::unordered_map<std::string, std::string> nebltxs_map;
+    std::unordered_map<std::string, std::string> pfntxs_map;
 
     std::vector<std::string> txids = read_line_by_line(NTP1Tests_GetTxidListFileName(testnet));
 
@@ -1895,7 +1895,7 @@ void TestNTP1TxParsingLocally(bool testnet)
         json_spirit::Object nebltxs = read_json_obj(NTP1Tests_GetRawNeblioTxsFileName(testnet));
         json_spirit::Object ntp1txs = read_json_obj(NTP1Tests_GetNTP1RawTxsFileName(testnet));
 
-        for (const auto& el : nebltxs) {
+        for (const auto& el : pfntxs) {
             nebltxs_map[el.name_] = el.value_.get_str();
         }
         for (const auto& el : ntp1txs) {
@@ -1915,7 +1915,7 @@ void TestNTP1TxParsingLocally(bool testnet)
             if (excluded_txs_mainnet.exists(uint256(txid)))
                 continue;
         }
-        TestSingleNTP1TxParsingLocally(txid, nebltxs_map, ntp1txs_map);
+        TestSingleNTP1TxParsingLocally(txid, pfntxs_map, ntp1txs_map);
     }
 }
 
@@ -1934,7 +1934,7 @@ void DownloadData(bool testnet)
 {
     std::vector<std::string> txids = read_line_by_line(NTP1Tests_GetTxidListFileName(testnet));
 
-    std::unordered_map<std::string, std::string> rawNeblioTxsMap;
+    std::unordered_map<std::string, std::string> rawMacpuffinsTxsMap;
     std::unordered_map<std::string, std::string> ntp1TxsMap;
 
     json_spirit::Object rawNeblioTxs;
@@ -1947,7 +1947,7 @@ void DownloadData(bool testnet)
         CTransaction      tx         = TxFromHex(rawTx);
         const std::string ntp1tx_ref = NTP1APICalls::RetrieveData_TransactionInfo_Str(txids[i], testnet);
 
-        rawNeblioTxsMap[txids[i]] = rawTx;
+        rawMacpuffinsTxsMap[txids[i]] = rawTx;
         ntp1TxsMap[txids[i]]      = boost::algorithm::hex(ntp1tx_ref);
 
         for (int i = 0; i < (int)tx.vin.size(); i++) {
@@ -1962,25 +1962,25 @@ void DownloadData(bool testnet)
 
             std::string inputNTP1Tx = NTP1APICalls::RetrieveData_TransactionInfo_Str(inputTxid, testnet);
 
-            rawNeblioTxsMap[inputTxid] = inputRawTx;
+            rawMacpuffinsTxsMap[inputTxid] = inputRawTx;
             ntp1TxsMap[inputTxid]      = boost::algorithm::hex(inputNTP1Tx);
         }
     }
 
-    for (const auto& el : rawNeblioTxsMap) {
-        rawNeblioTxs.push_back(json_spirit::Pair(el.first, el.second));
+    for (const auto& el : rawMacpuffinsTxsMap) {
+        rawMacpuffinsTxs.push_back(json_spirit::Pair(el.first, el.second));
     }
     for (const auto& el : ntp1TxsMap) {
         ntp1Txs.push_back(json_spirit::Pair(el.first, el.second));
     }
 
-    std::string f1 = NTP1Tests_GetRawNeblioTxsFileName(testnet);
+    std::string f1 = NTP1Tests_GetRawMacpuffinsTxsFileName(testnet);
     std::string f2 = NTP1Tests_GetNTP1RawTxsFileName(testnet);
 
     std::remove(f1.c_str());
     std::remove(f2.c_str());
 
-    write_json_file(rawNeblioTxs, f1);
+    write_json_file(rawMacpuffinsTxs, f1);
     write_json_file(ntp1Txs, f2);
 }
 
@@ -1993,14 +1993,14 @@ void DownloadPreMadeData(bool testnet)
 
     std::vector<std::string> files;
     files.push_back(NTP1Tests_GetTxidListFileName(testnet));
-    files.push_back(NTP1Tests_GetRawNeblioTxsFileName(testnet));
+    files.push_back(NTP1Tests_GetRawMacpuffinsTxsFileName(testnet));
     files.push_back(NTP1Tests_GetNTP1RawTxsFileName(testnet));
 
     for (uint64_t i = 0; i < (uint64_t)files.size(); i++) {
         std::cout << "Downloading test data file " << files[i] << std::endl;
         EXPECT_NO_THROW(boost::filesystem::remove(Path(TEST_ROOT_PATH) / Path("/data/" + files[i])));
         std::string content = cURLTools::GetFileFromHTTPS(
-            "https://files.nebl.io/" + files[i], 10000, 0);
+            "https://files.macpuffins.com/" + files[i], 10000, 0);
         fs::path testFile = testRootPath / "data" / files[i];
         std::ofstream os(testFile.string().c_str());
         os << content;
@@ -2564,7 +2564,7 @@ TEST(ntp1_tests, metadata_decompression_issuance)
     ASSERT_NE(pd, nullptr);
 
     std::string expected =
-        R"({"data":{"tokenName":"ROMAP","description":"Neblio Roadmap","issuer":"NeblioTeam","urls":[{"name":"icon","url":"https://ntp1-icons.ams3.digitaloceanspaces.com/6789b550f714e34e8b98a6ed706c99f9276ffea9.png","mimeType":"image/png"}],"userData":{"meta":[{"key":"Feb 2017","value":"The market shows a need for simple blockchain solutions for business and the idea of Neblio is born. Blockchain is seen as an immensely valuable technology for businesses small and large. However the tools and solutions available are too complicated for wide adoption. Neblio was born to bring simple blockchain-based tools and services to the market to drive adoption of the technology in the business world.","type":"String"},{"key":"1st Half of Q3 2017","value":"Neblio is publicly announced. Neblio is announced publicly for the first time. GUI wallet applications for Windows, MacOS, and Linux are available on day one. The Neblio Wallet source code is also publicly available on GitHub. The Neblio Blockchain Network goes live on the day of the announcement.","type":"String"},{"key":"2nd Half of Q3 2017","value":"Acquire Top Talent to Build Out the Neblio Core Development and Operations Teams. We’re hiring the best and brightest minds to join both our core development and operations teams. Are you a senior developer with years of experience in C++, .NET, Python, or advanced API implementations? Or do you want to market and deliver true business value based upon the blockchain technology you are so passionate about, while working with brilliant co-workers? If so, drop us a line and include your resume, we’ll be in touch soon!","type":"String"},{"key":"1st Half of Q4 2017","value":"Electrum Lite Wallets along with official Android & iOS Apps. Rounding out the Neblio wallet application line up, we plan to launch Electrum-based wallets in Q4. Electrum based wallets, also known as “lite wallets”, provide a variety of benefits over the standard Neblio wallet. Electrum wallets offload much of the normal processing that a wallet must do up to servers that we run in the cloud, making them faster, in many cases more secure, and much lighter on your computer to run. We will also be launching official Android & iOS applications this quarter. Giving you control over your Neblio Coins (NEBL) anywhere and anytime. Neblio coins will be able to be sent and received on virtually every platform!","type":"String"},{"key":"2nd Half of Q4 2017","value":"Staking Wallets for Raspberry Pi and Docker. We will release staking wallets for both the Raspberry Pi and as a Docker image. Either of these unique solutions will give Neblio users the ability to stake their coins on the Neblio network on a low-power and efficient platform to earn stake rewards with their coins without running one of our traditional wallets on a PC fulltime. Learn more about staking and how to stake your coins here.","type":"String"},{"key":"Q1 2018","value":"RESTful APIs for Interacting with the Neblio Network. We believe that the first step in unlocking the potential of  the Neblio Blockchain in the enterprise world is to make the technology easier to consume. Through the use of a set of uniform and open-source RESTful APIs in a variety of languages (Python, Go, JS, Ruby, .NET, Java, Node.js) businesses large and small will rapidly deploy next-gen applications on the Neblio Blockchain Network like never before seen in the blockchain ecosystem.","type":"String"},{"key":"Q2 2018","value":"Marketing Campaign Launch. Enterprise marketing campaign creation to drive the initial adoption of Neblio blockchain technology in the business environment. Continuation of current strategies in addition to enhancing focus towards formation of market relationships for enterprise-wide blockchain solutions.","type":"String"},{"key":"Q3 2018","value":"Enterprise GO TO MARKET AND NEBLIO APIV2 BETA LAUNCH. Identify and target niche areas of the market that can benefit from the simplification of blockchain technology. Examples include Healthcare records management, Supply Chain contract negotiation and validation, and online identity management applications. Based upon user-feedback and enterprise driven customer design requirements we are targeting the beta release of our Neblio API Suite v2. Driving further innovation in blockchain protocol simplification and business adoption.","type":"String"},{"key":"Q4 2018","value":"IMPLEMENTATION AND DELIVERY OF NEBLIO API SUITE V2 FOR ENTERPRISE CUSTOMERS. Focus will be on improving design requirements with our business partners to ensure enterprise customer adoption is seamlessly integrated with current enterprise processes. Iterative-based development work will continue throughout Q4 to ensure customer satisfaction and innovation in improving  business results in the wide variety of markets where our blockchain-based solutions provide inherent business value.","type":"String"},{"key":"2019+","value":"Iterative Innovation & Industry-Wide Adoption. The secure and decentralized exchange of information, credentials, records and tokens of value are all afforded to our users by the Neblio platform. Learning from 2017 and 2018 successes and missteps, we will scale the delivery of our enterprise technology beyond niche markets, integrating into a multitude of world-wide opportunities that finally bring blockchain technology to the mainstream.","type":"String"}]}}})";
+        R"({"data":{"tokenName":"ROMAP","description":"Macpuffins Roadmap","issuer":"MacpuffinsTeam","urls":[{"name":"icon","url":"https://ntp1-icons.ams3.digitaloceanspaces.com/6789b550f714e34e8b98a6ed706c99f9276ffea9.png","mimeType":"image/png"}],"userData":{"meta":[{"key":"Feb 2017","value":"The market shows a need for simple blockchain solutions for business and the idea of Neblio is born. Blockchain is seen as an immensely valuable technology for businesses small and large. However the tools and solutions available are too complicated for wide adoption. Neblio was born to bring simple blockchain-based tools and services to the market to drive adoption of the technology in the business world.","type":"String"},{"key":"1st Half of Q3 2017","value":"Neblio is publicly announced. Neblio is announced publicly for the first time. GUI wallet applications for Windows, MacOS, and Linux are available on day one. The Neblio Wallet source code is also publicly available on GitHub. The Neblio Blockchain Network goes live on the day of the announcement.","type":"String"},{"key":"2nd Half of Q3 2017","value":"Acquire Top Talent to Build Out the Neblio Core Development and Operations Teams. We’re hiring the best and brightest minds to join both our core development and operations teams. Are you a senior developer with years of experience in C++, .NET, Python, or advanced API implementations? Or do you want to market and deliver true business value based upon the blockchain technology you are so passionate about, while working with brilliant co-workers? If so, drop us a line and include your resume, we’ll be in touch soon!","type":"String"},{"key":"1st Half of Q4 2017","value":"Electrum Lite Wallets along with official Android & iOS Apps. Rounding out the Neblio wallet application line up, we plan to launch Electrum-based wallets in Q4. Electrum based wallets, also known as “lite wallets”, provide a variety of benefits over the standard Neblio wallet. Electrum wallets offload much of the normal processing that a wallet must do up to servers that we run in the cloud, making them faster, in many cases more secure, and much lighter on your computer to run. We will also be launching official Android & iOS applications this quarter. Giving you control over your Neblio Coins (NEBL) anywhere and anytime. Neblio coins will be able to be sent and received on virtually every platform!","type":"String"},{"key":"2nd Half of Q4 2017","value":"Staking Wallets for Raspberry Pi and Docker. We will release staking wallets for both the Raspberry Pi and as a Docker image. Either of these unique solutions will give Neblio users the ability to stake their coins on the Neblio network on a low-power and efficient platform to earn stake rewards with their coins without running one of our traditional wallets on a PC fulltime. Learn more about staking and how to stake your coins here.","type":"String"},{"key":"Q1 2018","value":"RESTful APIs for Interacting with the Neblio Network. We believe that the first step in unlocking the potential of  the Neblio Blockchain in the enterprise world is to make the technology easier to consume. Through the use of a set of uniform and open-source RESTful APIs in a variety of languages (Python, Go, JS, Ruby, .NET, Java, Node.js) businesses large and small will rapidly deploy next-gen applications on the Neblio Blockchain Network like never before seen in the blockchain ecosystem.","type":"String"},{"key":"Q2 2018","value":"Marketing Campaign Launch. Enterprise marketing campaign creation to drive the initial adoption of Neblio blockchain technology in the business environment. Continuation of current strategies in addition to enhancing focus towards formation of market relationships for enterprise-wide blockchain solutions.","type":"String"},{"key":"Q3 2018","value":"Enterprise GO TO MARKET AND NEBLIO APIV2 BETA LAUNCH. Identify and target niche areas of the market that can benefit from the simplification of blockchain technology. Examples include Healthcare records management, Supply Chain contract negotiation and validation, and online identity management applications. Based upon user-feedback and enterprise driven customer design requirements we are targeting the beta release of our Neblio API Suite v2. Driving further innovation in blockchain protocol simplification and business adoption.","type":"String"},{"key":"Q4 2018","value":"IMPLEMENTATION AND DELIVERY OF NEBLIO API SUITE V2 FOR ENTERPRISE CUSTOMERS. Focus will be on improving design requirements with our business partners to ensure enterprise customer adoption is seamlessly integrated with current enterprise processes. Iterative-based development work will continue throughout Q4 to ensure customer satisfaction and innovation in improving  business results in the wide variety of markets where our blockchain-based solutions provide inherent business value.","type":"String"},{"key":"2019+","value":"Iterative Innovation & Industry-Wide Adoption. The secure and decentralized exchange of information, credentials, records and tokens of value are all afforded to our users by the Neblio platform. Learning from 2017 and 2018 successes and missteps, we will scale the delivery of our enterprise technology beyond niche markets, integrating into a multitude of world-wide opportunities that finally bring blockchain technology to the mainstream.","type":"String"}]}}})";
 
     EXPECT_EQ(ZlibDecompress(pd->getRawMetadata()), expected);
     EXPECT_EQ(pd->getInflatedMetadata(), expected);
