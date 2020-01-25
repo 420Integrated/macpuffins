@@ -302,7 +302,7 @@ public:
 #endif // QT_NO_TOOLTIP
         copySignatureButton_SM->setText(QString());
 #ifndef QT_NO_TOOLTIP
-        signMessageButton_SM->setToolTip(QApplication::translate("SignVerifyMessageDialog", "Sign the message to prove you own this neblio address", Q_NULLPTR));
+        signMessageButton_SM->setToolTip(QApplication::translate("SignVerifyMessageDialog", "Sign the message to prove you own this macpuffins address", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         signMessageButton_SM->setText(QApplication::translate("SignVerifyMessageDialog", "&Sign Message", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
@@ -321,7 +321,7 @@ public:
         addressBookButton_VM->setText(QString());
         addressBookButton_VM->setShortcut(QApplication::translate("SignVerifyMessageDialog", "Alt+A", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        verifyMessageButton_VM->setToolTip(QApplication::translate("SignVerifyMessageDialog", "Verify the message to ensure it was signed with the specified neblio address", Q_NULLPTR));
+        verifyMessageButton_VM->setToolTip(QApplication::translate("SignVerifyMessageDialog", "Verify the message to ensure it was signed with the specified macpuffins address", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         verifyMessageButton_VM->setText(QApplication::translate("SignVerifyMessageDialog", "&Verify Message", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
