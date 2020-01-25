@@ -243,7 +243,7 @@ Value listunspent(const Array& params, bool fHelp)
             CBitcoinAddress address(input.get_str());
             if (!address.IsValid())
                 throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY,
-                                   string("Invalid neblio address: ") + input.get_str());
+                                   string("Invalid macpuffins address: ") + input.get_str());
             if (setAddress.count(address))
                 throw JSONRPCError(RPC_INVALID_PARAMETER,
                                    string("Invalid parameter, duplicated address: ") + input.get_str());
@@ -341,7 +341,7 @@ Value createrawtransaction(const Array& params, bool fHelp)
     for (const Pair& s : sendTo) {
         CBitcoinAddress address(s.name_);
         if (!address.IsValid())
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid neblio address: ") + s.name_);
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid macpuffins address: ") + s.name_);
 
         if (setAddress.count(address))
             throw JSONRPCError(RPC_INVALID_PARAMETER,
@@ -366,7 +366,7 @@ Value createrawntp1transaction(const Array& params, bool fHelp)
     if (fHelp || (params.size() != 2 && params.size() != 3 && params.size() != 4))
         throw runtime_error(
             "createrawntp1transaction [{\"txid\":txid,\"vout\":n},...] "
-            "{address:{tokenid/tokenName:tokenAmount},{address:neblAmount,...}} [NTP1 Metadata=\"\"] "
+            "{address:{tokenid/tokenName:tokenAmount},{address:pfnAmount,...}} [NTP1 Metadata=\"\"] "
             "[Encrypt-metadata=false]\n"
             "Create a transaction spending given inputs\n"
             "(array of objects containing transaction id and output number),\n"
@@ -461,16 +461,16 @@ Value createrawntp1transaction(const Array& params, bool fHelp)
     for (const NTP1SendTokensOneRecipientData& rcp : ntp1recipients) {
         CScript scriptPubKey;
         scriptPubKey.SetDestination(CBitcoinAddress(rcp.destination).Get());
-        // here we add only nebls. NTP1 tokens will be added later
-        if (rcp.tokenId == NTP1SendTxData::NEBL_TOKEN_ID) {
-            using NeblInt = int64_t;
-            NeblInt val   = 0;
-            if (rcp.amount > NTP1Int(std::numeric_limits<NeblInt>::max())) {
-                val = std::numeric_limits<NeblInt>::max();
+        // here we add only macpuffins. NTP1 tokens will be added later
+        if (rcp.tokenId == NTP1SendTxData::PFN_TOKEN_ID) {
+            using PfnInt = int64_t;
+            PfnInt val   = 0;
+            if (rcp.amount > NTP1Int(std::numeric_limits<PfnInt>::max())) {
+                val = std::numeric_limits<PfnInt>::max();
             } else if (rcp.amount < 0) {
                 val = 0;
             } else {
-                val = rcp.amount.convert_to<NeblInt>();
+                val = rcp.amount.convert_to<PfnInt>();
             }
             rawTx.vout.push_back(CTxOut(val, scriptPubKey));
         }
