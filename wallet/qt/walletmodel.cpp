@@ -171,8 +171,8 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
         if (rcp.amount <= 0) {
             return InvalidAmount;
         }
-        if (rcp.tokenId == QString::fromStdString(NTP1SendTxData::NEBL_TOKEN_ID)) {
-            // add only nebl amounts
+        if (rcp.tokenId == QString::fromStdString(NTP1SendTxData::PFN_TOKEN_ID)) {
+            // add only macpuffins amounts
             total += rcp.amount;
         }
     }
@@ -229,8 +229,8 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
         foreach (const SendCoinsRecipient& rcp, recipients) {
             CScript scriptPubKey;
             scriptPubKey.SetDestination(CBitcoinAddress(rcp.address.toStdString()).Get());
-            // here we add only nebls. NTP1 tokens will be added at CreateTransaction()
-            if (rcp.tokenId == QString::fromStdString(NTP1SendTxData::NEBL_TOKEN_ID)) {
+            // here we add only macpuffins. NTP1 tokens will be added at CreateTransaction()
+            if (rcp.tokenId == QString::fromStdString(NTP1SendTxData::PFN_TOKEN_ID)) {
                 vecSend.push_back(make_pair(scriptPubKey, rcp.amount));
             }
         }
@@ -262,7 +262,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
             SendCoinsReturn ret(StatusCode::NTP1TokenCalculationsFailed);
             ret.msg =
                 "Unable to create the transaction. The transaction created would result in an invalid "
-                "transaction. Please report your transaction details to the Neblio team. The "
+                "transaction. Please report your transaction details to the macpuffins team. The "
                 "error is: " +
                 QString(ex.what());
             return ret;
