@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = neblio-tests
+TARGET = macpuffins-tests
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
@@ -14,20 +14,20 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 #DEFINES += "UNITTEST_RUN_NTP_PARSE_TESTS"
 DEFINES += "UNITTEST_DOWNLOAD_PREMADE_TX_DATA_AND_RUN_PARSE_TESTS"
 
-NEBLIO_TEST += TRUE
-NEBLIO_ROOT = $${PWD}/../..
-TEST_ROOT = $${NEBLIO_ROOT}/wallet/test/
+MACPUFFINS_TEST += TRUE
+MACPUFFINS_ROOT = $${PWD}/../..
+TEST_ROOT = $${MACPUFFINS_ROOT}/wallet/test/
 DEFINES += "TEST_ROOT_PATH=\"\\\"$${TEST_ROOT}\\\"\""
-VPATH       += $${NEBLIO_ROOT}/wallet $${NEBLIO_ROOT}/wallet/json $${NEBLIO_ROOT}/wallet/qt
-INCLUDEPATH += $${NEBLIO_ROOT}/wallet $${NEBLIO_ROOT}/wallet/json $${NEBLIO_ROOT}/wallet/qt
+VPATH       += $${MACPUFFINS_ROOT}/wallet $${MACPUFFINS_ROOT}/wallet/json $${MACPUFFINS_ROOT}/wallet/qt
+INCLUDEPATH += $${MACPUFFINS_ROOT}/wallet $${MACPUFFINS_ROOT}/wallet/json $${MACPUFFINS_ROOT}/wallet/qt
 
 INCLUDEPATH += googletest/googletest googletest/googletest/include
 
 # since this is for tests, unused functions can exist
 unix:QMAKE_CXXFLAGS += -Wno-unused-function
 
-include($${NEBLIO_ROOT}/wallet/wallet.pri)
-include($${NEBLIO_ROOT}/wallet/wallet-libs.pri)
+include($${MACPUFFINS_ROOT}/wallet/wallet.pri)
+include($${MACPUFFINS_ROOT}/wallet/wallet-libs.pri)
 
 SOURCES += \
     googletest/googletest/src/gtest-all.cc \
