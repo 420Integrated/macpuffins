@@ -55,7 +55,7 @@ const std::string LMDB_ADDRSVSPUBKEYSDB = "AddrsVsPubKeysDb";
 constexpr static float DB_RESIZE_PERCENT = 0.9f;
 
 const std::string QuickSyncDataLink =
-    "https://raw.githubusercontent.com/NeblioTeam/neblio-quicksync/master/download.json";
+    "https://raw.githubusercontent.com/macpuffin/macpuffins-quicksync/master/download.json";
 
 // this custom size is used in tests
 #ifndef CUSTOM_LMDB_DB_SIZE
