@@ -490,12 +490,12 @@ void ParseParameters(int argc, const char* const argv[])
     }
 
     {
-        // add default neblio nodes
-        mapArgs.set("-addnode", "nebliodseed2.nebl.io");
+        // add default macpuffins nodes
+        mapArgs.set("-addnode", "macpuffinsdseed2.macpuffins.com");
         std::vector<std::string> nodes;
         mapMultiArgs.get("-addnode", nodes);
-        nodes.push_back("nebliodseed1.nebl.io");
-        nodes.push_back("nebliodseed2.nebl.io");
+        nodes.push_back("macpuffinsdseed1.macpuffins.com");
+        nodes.push_back("macpuffinsdseed2.macpuffins.com");
         mapMultiArgs.set("-addnode", nodes);
     }
 
@@ -912,7 +912,7 @@ static std::string FormatException(std::exception* pex, const char* pszThread)
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "neblio";
+    const char* pszModule = "macpuffins";
 #endif
     if (pex)
         return strprintf("EXCEPTION: %s       \n%s       \n%s in %s       \n", typeid(*pex).name(),
@@ -941,13 +941,13 @@ void PrintExceptionContinue(std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\neblio
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\neblio
-    // Mac: ~/Library/Application Support/neblio
-    // Unix: ~/.neblio
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\macpuffins
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\macpuffins
+    // Mac: ~/Library/Application Support/macpuffins
+    // Unix: ~/.macpuffins
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "neblio";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "macpuffins";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -959,10 +959,10 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     fs::create_directory(pathRet);
-    return pathRet / "neblio";
+    return pathRet / "macpuffins";
 #else
     // Unix
-    return pathRet / ".neblio";
+    return pathRet / ".macpuffins";
 #endif
 #endif
 }
@@ -1006,7 +1006,7 @@ const boost::filesystem::path& GetDataDir(bool fNetSpecific)
 
 boost::filesystem::path GetConfigFile()
 {
-    boost::filesystem::path pathConfigFile(GetArg("-conf", "neblio.conf"));
+    boost::filesystem::path pathConfigFile(GetArg("-conf", "macpuffins.conf"));
     if (!pathConfigFile.is_complete())
         pathConfigFile = GetDataDir(false) / pathConfigFile;
     return pathConfigFile;
@@ -1042,7 +1042,7 @@ void ReadConfigFile(ThreadSafeHashMap<string, string>&         mapSettingsRet,
 
 boost::filesystem::path GetPidFile()
 {
-    boost::filesystem::path pathPidFile(GetArg("-pid", "nebliod.pid"));
+    boost::filesystem::path pathPidFile(GetArg("-pid", "macpuffinsd.pid"));
     if (!pathPidFile.is_complete())
         pathPidFile = GetDataDir() / pathPidFile;
     return pathPidFile;
@@ -1162,10 +1162,10 @@ void AddTimeData(const CNetAddr& ip, int64_t nTime)
                     fDone = true;
                     string strMessage =
                         _("Warning: Please check that your computer's date and time are correct! If "
-                          "your clock is wrong neblio will not work properly.");
+                          "your clock is wrong macpuffins will not work properly.");
                     strMiscWarning = strMessage;
                     printf("*** %s\n", strMessage.c_str());
-                    uiInterface.ThreadSafeMessageBox(strMessage + " ", string("neblio"),
+                    uiInterface.ThreadSafeMessageBox(strMessage + " ", string("macpuffins"),
                                                      CClientUIInterface::OK |
                                                          CClientUIInterface::ICON_EXCLAMATION);
                 }
