@@ -98,7 +98,7 @@ HEADERS += qt/bitcoingui.h \
     qt/bitcoinunits.h \
     qt/qvaluecombobox.h \
     qt/askpassphrasedialog.h \
-    qt/neblioupdatedialog.h \
+    qt/macpuffinsupdatedialog.h \
     protocol.h \
     qt/notificator.h \
     qt/qtipcserver.h \
@@ -110,9 +110,9 @@ HEADERS += qt/bitcoingui.h \
     netbase.h \
     clientversion.h \
     threadsafety.h \
-    neblioupdater.h \
-    neblioversion.h \
-    neblioreleaseinfo.h \
+    macpuffinsupdater.h \
+    macpuffinsversion.h \
+    macpuffinsreleaseinfo.h \
     curltools.h \
     qt/messageboxwithtimer.h \
     qt/ntp1/ntp1tokenlistmodel.h \
@@ -241,7 +241,7 @@ SOURCES += qt/bitcoin.cpp \
     qt/qtipcserver.cpp \
     qt/rpcconsole.cpp \
     qt/ClickableLabel.cpp \
-    qt/neblioupdatedialog.cpp \
+    qt/macpuffinsupdatedialog.cpp \
     qt/messageboxwithtimer.cpp \
     noui.cpp \
     kernel.cpp \
@@ -259,12 +259,12 @@ SOURCES += qt/bitcoin.cpp \
     zerocoin/Params.cpp \
     zerocoin/SerialNumberSignatureOfKnowledge.cpp \
     zerocoin/SpendMetaData.cpp \
-    neblioupdater.cpp \
-    neblioversion.cpp \
+    macpuffinsupdater.cpp \
+    macpuffinsversion.cpp \
     json/json_spirit_value.cpp \
     json/json_spirit_reader.cpp \
     json/json_spirit_writer.cpp \
-    neblioreleaseinfo.cpp \
+    macpuffinsreleaseinfo.cpp \
     zerocoin/ZeroTest.cpp \
     curltools.cpp \
     qt/ntp1/ntp1tokenlistmodel.cpp \
@@ -324,9 +324,9 @@ SOURCES +=                   \
     ntp1/ntp1script_transfer.cpp
 
 
-contains(NEBLIO_REST, 1) {
-    HEADERS += nebliorest.h
-    SOURCES += nebliorest.cpp
+contains(MACPUFFINS_REST, 1) {
+    HEADERS += macpuffinsrest.h
+    SOURCES += macpuffinsrest.cpp
 }
 
 contains(USE_QRCODE, 1) {
