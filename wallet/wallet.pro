@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = neblio-qt
+TARGET = macpuffins-qt
 VERSION = 1.0.7
 INCLUDEPATH += . json qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
@@ -7,14 +7,14 @@ CONFIG += no_include_pwd
 CONFIG += thread
 QMAKE_CXXFLAGS += -std=c++11
 
-NEBLIO_ROOT = $${PWD}/../
+MACPUFFINS_ROOT = $${PWD}/../
 
-VPATH += $${NEBLIO_ROOT}/wallet/ $${NEBLIO_ROOT}/wallet/json $${NEBLIO_ROOT}/wallet/qt
+VPATH += $${MACPUFFINS_ROOT}/wallet/ $${MACPUFFINS_ROOT}/wallet/json $${MACPUFFINS_ROOT}/wallet/qt
 
 
-# use: qmake "NEBLIO_REST=1"
-contains(NEBLIO_REST, 1) {
-    DEFINES += NEBLIO_REST
+# use: qmake "MACPUFFINS_REST=1"
+contains(MACPUFFINS_REST, 1) {
+    DEFINES += MACPUFFINS_REST
     # restbed
     LIBS += -L"$(CURDIR)/restbed/distribution/library" -lrestbed
     INCLUDEPATH += "$(CURDIR)/restbed/distribution/include/"
@@ -34,5 +34,5 @@ DISTFILES +=                                \
     ci_scripts/test_linux-daemon.py         \
     ci_scripts/test_linux-gui_wallet.py     \
     ci_scripts/test_win32-gui_wallet.py     \
-    ci_scripts/neblio_ci_libs/__init__.py   \
-    ci_scripts/neblio_ci_libs/common.py
+    ci_scripts/macpuffins_ci_libs/__init__.py   \
+    ci_scripts/macpuffins_ci_libs/common.py
