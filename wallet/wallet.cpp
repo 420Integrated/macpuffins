@@ -1550,7 +1550,7 @@ CWallet::AddNTP1TokenInputsToTx(CTransaction& wtxNew, const NTP1SendTxData& ntp1
             return Input.prevout.hash == iti.input.getHash() && Input.prevout.n == iti.input.getIndex();
         });
         if (inputIt == wtxNew.vin.end()) {
-            // if this iti is for issuance, don't add it its input to NEBL inputs
+            // if this iti is for issuance, don't add it its input to MACPUFFINS inputs
             // otherwise this is not issuance, because issuance doesn't have input
             if (!iti.isNTP1TokenIssuance) {
                 // add the input only if it doesn't exist
@@ -1576,8 +1576,8 @@ CWallet::AddNTP1TokenInputsToTx(CTransaction& wtxNew, const NTP1SendTxData& ntp1
             auto& ti = iti.TIs[j];
             if (ti.outputIndex != IntermediaryTI::CHANGE_OUTPUT_FAKE_INDEX) {
                 // the outputs the come from the IntermediaryTI start at zero, but the outputs in reality
-                // are shifted by an offset because there are other outputs that are added by Neblio with
-                // only nebls, with no NTP1 tokens in them
+                // are shifted by an offset because there are other outputs that are added by MacPuffins with
+                // only PFNs, with no NTP1 tokens in them
                 ti.outputIndex += tokenOutputsOffset;
             }
 
@@ -1620,7 +1620,7 @@ int CWallet::AddNTP1TokenOutputsToTx(CTransaction& wtxNew, const NTP1SendTxData&
     return tokenOutputsOffset;
 }
 
-uint64_t GetTotalNeblsInInputs(const std::vector<NTP1OutPoint>& inputs)
+uint64_t GetTotalPfnsInInputs(const std::vector<NTP1OutPoint>& inputs)
 {
     uint64_t total = 0;
 
@@ -1707,9 +1707,9 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t>>& vecSend, C
                 if (!SelectCoins(nTotalValue, wtxNew.nTime, setCoins, nValueIn, coinControl,
                                  isNTP1Issuance)) {
                     CreateErrorMsg(errorMsg,
-                                   "Failed to collect nebls for the transaction. You are "
-                                   "probably trying to spend nebls from NTP1 outputs. NTP1 "
-                                   "outputs should have a non-zero amount of nebls. Use coin control to "
+                                   "Failed to collect PFN for the transaction. You are "
+                                   "probably trying to spend PFN from NTP1 outputs. NTP1 "
+                                   "outputs should have a non-zero amount of PFN Use coin control to "
                                    "have more control on what outputs to use for your transaction.");
                     return false;
                 }
@@ -1746,11 +1746,11 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t>>& vecSend, C
                             ntp1TxData.getWallet(), std::vector<COutPoint>(inputs.begin(), inputs.end()),
                             ntp1TxData.getNTP1TokenRecipientsList(), !takeInputsFromCoinControl);
 
-                        // calculate the total nebls in all inputs (the other place where this is
+                        // calculate the total PFNs all inputs (the other place where this is
                         // calculated is basically legacy and will be remove in the future)
                         std::vector<NTP1OutPoint> usedInputs = ntp1TxData.getUsedInputs();
 
-                        nValueIn = GetTotalNeblsInInputs(usedInputs);
+                        nValueIn = GetTotalPfnsInInputs(usedInputs);
 
                     } catch (std::exception& ex) {
                         printf("Failed to select NTP1 tokens with error: %s\n", ex.what());
@@ -1823,7 +1823,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t>>& vecSend, C
                         changeKeyID = vchPubKey.GetID();
                     }
 
-                    // create change for NEBLs, if that exists
+                    // create change for PFNs, if that exists
                     if (nChange > 0) {
                         wtxNew.vout.push_back(CTxOut(nChange, scriptChange));
                     }
@@ -1920,7 +1920,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t>>& vecSend, C
                 dPriority /= nBytes;
 
                 // Check that enough fee is included
-                int64_t NTP1Fee = ntp1TxData.getRequiredNeblsForOutputs();
+                int64_t NTP1Fee = ntp1TxData.getRequiredPfnsForOutputs();
                 int64_t nPayFee = nTransactionFee * (1 + (int64_t)nBytes / 1000) + NTP1Fee;
                 int64_t nMinFee = wtxNew.GetMinFee(1, GMF_SEND, nBytes) + NTP1Fee;
 
@@ -2293,7 +2293,7 @@ string CWallet::SendMoney(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNe
     NTP1SendTokensOneRecipientData ntp1recipient;
     ntp1recipient.amount      = nValue;
     ntp1recipient.destination = destAddress.ToString();
-    ntp1recipient.tokenId     = NTP1SendTxData::NEBL_TOKEN_ID;
+    ntp1recipient.tokenId     = NTP1SendTxData::PFN_TOKEN_ID;
 
     std::vector<NTP1SendTokensOneRecipientData> ntp1recipients(1, ntp1recipient);
 
