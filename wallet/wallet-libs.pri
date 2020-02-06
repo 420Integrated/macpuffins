@@ -122,8 +122,8 @@ contains(BITCOIN_NEED_QT_PLUGINS, 1) {
 
 
 message("Using lmdb as the blockchain database")
-!contains(NEBLIO_CONFIG, VL32) {
-    contains(compiler_info, .*x86_64.*) | contains(NEBLIO_CONFIG, VL64) {
+!contains(MACPUFFINS_CONFIG, VL32) {
+    contains(compiler_info, .*x86_64.*) | contains(MACPUFFINS_CONFIG, VL64) {
         message("Compiling LMDB for a 64-bit system")
         LMDB_32_BIT = false
     } else {
@@ -143,7 +143,7 @@ macx: INCLUDEPATH += /usr/local/opt/berkeley-db@4/include /usr/local/opt/boost/i
 SOURCES += txdb-lmdb.cpp
 #    SOURCES += $$PWD/liblmdb/mdb.c $$PWD/liblmdb/midl.c
 
-#NEBLIO_CONFIG += LMDB_TESTS
+#MACPUFFINS_CONFIG += LMDB_TESTS
 
 !win32 {
     LIBS += $$PWD/liblmdb/liblmdb.a
@@ -154,7 +154,7 @@ SOURCES += txdb-lmdb.cpp
         genlmdb.commands += "CFLAGS=-DMDB_VL32 CXXFLAGS=-DMDB_VL32"
     }
 
-#        contains( NEBLIO_CONFIG, LMDB_TESTS ) {
+#        contains( MACPUFFINS_CONFIG, LMDB_TESTS ) {
 #            genlmdb.commands += ./arena_test && ./cache_test && ./env_test && ./table_test && ./write_batch_test && ./coding_test && ./db_bench && ./fault_injection_test && ./issue178_test && ./autocompact_test && ./dbformat_test && ./filename_test && ./issue200_test && ./log_test && ./bloom_test && ./corruption_test && ./db_test && ./filter_block_test && ./recovery_test && ./version_edit_test && ./crc32c_test && ./hash_test && ./memenv_test && ./skiplist_test && ./version_set_test && ./c_test && ./env_posix_test
 #        }
 } else {
@@ -257,13 +257,13 @@ macx:HEADERS += qt/macdockiconhandler.h qt/macnotificationhandler.h
 macx:OBJECTIVE_SOURCES += qt/macdockiconhandler.mm qt/macnotificationhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
-macx:TARGET = "neblio-Qt"
+macx:TARGET = "macpuffins-Qt"
 macx:QMAKE_CFLAGS_THREAD += -pthread
 macx:QMAKE_LFLAGS_THREAD += -pthread
 macx:QMAKE_CXXFLAGS_THREAD += -pthread
 
 # do not include resources while testing
-!contains( NEBLIO_TEST, TRUE ) {
+!contains( MACPUFFINS_TEST, TRUE ) {
     macx:ICON = qt/res/icons/bitcoin.icns
     windows:RC_FILE = qt/res/bitcoin-qt.rc
 }
