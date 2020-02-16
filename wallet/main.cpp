@@ -55,17 +55,17 @@ CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 1);
 // Set PoS difficulty to standard
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 
-unsigned int nTargetSpacing         = 30;           // Block spacing 30 seconds
-unsigned int nOldTargetSpacing      = 2 * 60;       // Old Block spacing 2 minutes
-unsigned int nStakeMinAge           = 24 * 60 * 60; // Minimum stake age
-unsigned int nOldTestnetStakeMinAge = 60;           // Minimum stake age on testnet before the hard fork
-unsigned int nStakeMaxAge           = 7 * 24 * 60 * 60; // Maximum stake age 7 days
+unsigned int nTargetSpacing         = 45;               // Block spacing 45 seconds
+unsigned int nOldTargetSpacing      = 2 * 60;           // Old Block spacing 2 minutes
+unsigned int nStakeMinAge           = 3 * 24 * 60 * 60; // Minimum stake age (72 hours)
+unsigned int nOldTestnetStakeMinAge = 60;               // Minimum stake age on testnet before the hard fork
+unsigned int nStakeMaxAge           = 30 * 24 * 60 * 60; // Maximum stake age 30 days
 unsigned int nModifierInterval      = 10 * 60;          // time to elapse before new modifier is computed
 
 // static const int64_t nTargetTimespan = 16 * 60;  // 16 mins
 static const int64_t nTargetTimespan = 2 * 60 * 60; // 2 hours
 
-int nCoinbaseMaturity    = 120; // Coin Base Maturity
+int nCoinbaseMaturity    = 40; // Coin Base Maturity
 int nOldCoinbaseMaturity = 30;  // Old Coin Base Maturity
 
 uint256 nBestChainTrust   = 0;
@@ -648,16 +648,16 @@ uint256 WantedByOrphan(const CBlock* pblockOrphan)
 // miner's coin base reward
 int64_t GetProofOfWorkReward(int64_t nFees)
 {
-    // Miner reward: 2000 coin for 500 Blocks = 1,000,000 coin
-    int64_t nSubsidy = 2000 * COIN;
+    // Miner reward: 160 coin for 7500 Blocks = 1,200,000 PFN
+    int64_t nSubsidy = 160 * COIN;
 
     if (nBestHeight == 0) {
         // Total premine coin, after the first 501 blocks are mined there will be a total of 125,000,000
-        nSubsidy = 124000000 * COIN;
+        nSubsidy = 50000000 * COIN;
     }
 
-    // 0 reward for PoW blocks after 500
-    if (nBestHeight > 500) {
+    // 0 reward for PoW blocks after 7500
+    if (nBestHeight > 7500) {
         nSubsidy = 0;
     }
 
