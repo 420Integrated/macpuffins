@@ -25,7 +25,7 @@ extern CBlockIndexSmartPtr pindexGenesisBlock;
 extern bool               fUseFastIndex;
 extern boost::atomic<int> nBestHeight;
 
-static const int LAST_POW_BLOCK = 1000; // 1000 PoW Blocks to kickstart
+static const int LAST_POW_BLOCK = 7500; // 7500 PoW Blocks to kickstart
 
 static const int64_t COIN = 100000000;
 static const int64_t CENT = 1000000;
@@ -51,7 +51,7 @@ static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
  * timestamp. */
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 
-static const int64_t COIN_YEAR_REWARD = 10 * CENT; // 10%
+static const int64_t COIN_YEAR_REWARD = 17.84 * CENT; // 17.84%
 
 /** The maximum allowed OP_RETURN size in bytes (network rule) */
 static const unsigned int MAX_DATA_SIZE     = 4096;
@@ -62,9 +62,9 @@ static const unsigned int MIN_PEER_PROTO_VERSION     = 60210; // v2.1+
 static const unsigned int OLD_MIN_PEER_PROTO_VERSION = 60200; // v2.0+
 
 static const uint256
-    hashGenesisBlock("0x7286972be4dbc1463d256049b7471c252e6557e222cab9be73181d359cd28bcc");
+    hashGenesisBlock("");
 static const uint256
-    hashGenesisBlockTestNet("0x7286972be4dbc1463d256049b7471c252e6557e222cab9be73181d359cd28bcc");
+    hashGenesisBlockTestNet("");
 
 /** No amount larger than this (in satoshi) is valid */
 static const int64_t MAX_MONEY =
