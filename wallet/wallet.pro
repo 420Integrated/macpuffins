@@ -11,6 +11,9 @@ MACPUFFINS_ROOT = $${PWD}/../
 
 VPATH += $${MACPUFFINS_ROOT}/wallet/ $${MACPUFFINS_ROOT}/wallet/json $${MACPUFFINS_ROOT}/wallet/qt
 
+mac {
+	QMAKE_INFO_PLIST = $${NEBLIO_ROOT}/wallet/qt/res/Info.plist
+}
 
 # use: qmake "MACPUFFINS_REST=1"
 contains(MACPUFFINS_REST, 1) {
