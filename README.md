@@ -118,7 +118,7 @@ Options:
   -socks=<n>             Select the version of socks proxy to use (4-5, default: 5)
   -tor=<ip:port>         Use proxy to reach tor hidden services (default: same as -proxy)
   -dns                   Allow DNS lookups for -addnode, -seednode and -connect
-  -port=<port>           Listen for connections on <port> (default: 6325 or testnet: 16325)
+  -port=<port>           Listen for connections on <port> (default: 1820 or testnet: 11820)
   -maxconnections=<n>    Maintain at most <n> connections to peers (default: 125)
   -addnode=<ip>          Add a node to connect to and attempt to keep the connection open
   -connect=<ip>          Connect only to the specified node(s)
@@ -149,7 +149,7 @@ Options:
   -printtoconsole        Send trace/debug info to console instead of debug.log file
   -rpcuser=<user>        Username for JSON-RPC connections
   -rpcpassword=<pw>      Password for JSON-RPC connections
-  -rpcport=<port>        Listen for JSON-RPC connections on <port> (default: 6326 or testnet: 16326)
+  -rpcport=<port>        Listen for JSON-RPC connections on <port> (default: 1784 or testnet: 11784)
   -rpcallowip=<ip>       Allow JSON-RPC connections from specified IP address
   -rpcconnect=<ip>       Send commands to node running on <ip> (default: 127.0.0.1)
   -blocknotify=<cmd>     Execute command when the best block changes (%s in cmd is replaced by block hash)
