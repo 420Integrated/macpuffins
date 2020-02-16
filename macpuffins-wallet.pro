@@ -5,10 +5,6 @@ CONFIG += ordered
 
 SUBDIRS += wallet
 
-mac {
-	QMAKE_INFO_PLIST = wallet/qt/res/Info.plist
-}
-
 #MACPUFFINS_CONFIG += Tests
 
 contains( MACPUFFINS_CONFIG, Tests ) {
