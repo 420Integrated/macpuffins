@@ -1575,14 +1575,14 @@ bool LoadBlockIndex(bool fAllowNew)
 
         // Genesis block
 
-        // block.GetHash() == 7286972be4dbc1463d256049b7471c252e6557e222cab9be73181d359cd28bcc
-        // block.hashMerkleRoot == 203fd13214321a12b01c0d8b32c780977cf52e56ae35b7383cd389c73291aee7
-        // block.nTime = 1500674579
-        // block.nNonce = 8485
+        block.GetHash() == 
+        block.hashMerkleRoot == 
+        block.nTime = 1581883575 
+        block.nNonce = 0
 
-        const char*  pszTimestamp = "22-jan-2020 China shuts down public transit in Wuhan -CNN";
+        const char*  pszTimestamp = "16-FEB-2020 Americans evacuated from quarantined cruise arrive at Tokyo airport -CNN";
         CTransaction txNew;
-        txNew.nTime = 1500674579;
+        txNew.nTime = 1581883575 ;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 0 << CBigNum(42)
@@ -1595,9 +1595,9 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock  = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion       = 1;
-        block.nTime          = 1500674579;
+        block.nTime          = 1581883575 ;
         block.nBits          = bnProofOfWorkLimit.GetCompact();
-        block.nNonce         = !fTestNet ? 8485u : 8485u;
+        block.nNonce         = !fTestNet ? 0 : 0;
 
         if (true && (block.GetHash() != hashGenesisBlock)) {
 
