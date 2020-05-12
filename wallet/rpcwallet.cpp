@@ -480,11 +480,11 @@ Value listaddressgroupings(const Array& /*params*/, bool fHelp)
     return jsonGroupings;
 }
 
-Value udtomacpuffinaddress(const Array& params, bool fHelp)
+Value udtomacpuffinsaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
         throw runtime_error(
-            "udtomacpuffinaddress <unstoppable domain address>\n"
+            "udtomacpuffinsaddress <unstoppable domain address>\n"
             "Returns the MacPuffin address associated with the provided unstoppable domain");
 
     string strUDDomain;
@@ -495,7 +495,7 @@ Value udtomacpuffinaddress(const Array& params, bool fHelp)
         throw std::runtime_error("Invalid syntax for unstoppable domains");
     }
 
-    auto pfnAddress = GetMacpuffinAddressFromUDAddress(strUDDomain);
+    auto pfnAddress = GetMacpuffinsAddressFromUDAddress(strUDDomain);
     if (!pfnAddress) {
         throw std::runtime_error("Failed to get address from domain. Either the address is invalid or "
                                  "internet connectivity has a problem.");
