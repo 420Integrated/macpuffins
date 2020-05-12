@@ -149,7 +149,7 @@ void WalletModel::updateAddressBook(const QString& address, const QString& label
 bool WalletModel::validateAddress(const QString& address)
 {
     std::string addressInputStr = address.toStdString();
-    if (auto addr = GetMacpuffinAddressFromUDAddress(addressInputStr)) {
+    if (auto addr = GetMacpuffinsAddressFromUDAddress(addressInputStr)) {
         CBitcoinAddress addressParsed(*addr);
         return addressParsed.IsValid();
     } else {
@@ -174,7 +174,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(QList<SendCoinsRecipient>   
     for (SendCoinsRecipient& rcp : recipients) {
         const std::string address = rcp.address.toStdString();
         if (IsUDAddressSyntaxValid(address)) {
-            if (auto converted = GetMacpuffinAddressFromUDAddress(address)) {
+            if (auto converted = GetMacpuffinsAddressFromUDAddress(address)) {
                 rcp.address = QString::fromStdString(*converted);
             } else {
                 return InvalidAddress;
