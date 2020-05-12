@@ -251,6 +251,7 @@ signmessage <macpuffinsaddress> <message>
 signrawtransaction <hex string> [{"txid":txid,"vout":n,"scriptPubKey":hex},...] [<privatekey1>,...] [sighashtype="ALL"]
 stop
 submitblock <hex data> [optional-params-obj]
+udtomacpuffinsaddress <unstoppable domain address>
 validateaddress <macpuffinsaddress>
 validatepubkey <macpuffinspubkey>
 verifymessage <macpuffinsaddress> <signature> <message>
