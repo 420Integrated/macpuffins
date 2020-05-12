@@ -11,6 +11,6 @@ bool IsUDAddressSyntaxValid(const StringViewT UDDomain);
 
 boost::optional<std::string> GetUDAddressAPICall(const StringViewT UDDomain);
 
-boost::optional<std::string> GetMacpuffinAddressFromUDAddress(const StringViewT UDDomain);
+boost::optional<std::string> GetMacpuffinsAddressFromUDAddress(const StringViewT UDDomain);
 
 #endif // UDADDRESS_H
