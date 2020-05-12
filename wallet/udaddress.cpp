@@ -21,7 +21,7 @@ boost::optional<std::string> GetUDAddressAPICall(const StringViewT UDDomain)
     }
 }
 
-boost::optional<std::string> GetMacpuffinAddressFromUDAddress(const StringViewT UDDomain)
+boost::optional<std::string> GetMacpuffinsAddressFromUDAddress(const StringViewT UDDomain)
 {
     std::string UDDomainR;
     // convert the address to lower-case to avoid issues with unstoppable domain
