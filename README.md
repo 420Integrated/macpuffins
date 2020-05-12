@@ -10,9 +10,16 @@ Pull Requests Welcome
 ## Linux (debian-based)
 ### Install the following dependencies
 ```
-sudo apt-get update && sudo apt-get install qt5-default qt5-qmake qtbase5-dev-tools \
+sudo apt-get update && sudo apt-get install git python python-pip qt5-default qt5-qmake qtbase5-dev-tools \
 qttools5-dev-tools build-essential libssl-dev libdb++-dev libminiupnpc-dev \
 libqrencode-dev libcurl4-openssl-dev libldap2-dev libidn11-dev librtmp-dev libsodium-dev -y
+pip install requests
+```
+
+### Clone Repo
+```
+git clone https://github.com/macpuffin/macpuffins
+cd macpuffins
 ```
 
 ### Build OpenSSL, cURL, QREncode, and Boost
@@ -26,6 +33,8 @@ export OPENSSL_INCLUDE_PATH=$PWD/openssl_build/include/
 export OPENSSL_LIB_PATH=$PWD/openssl_build/lib/
 export BOOST_INCLUDE_PATH=$PWD/boost_build/include/
 export BOOST_LIB_PATH=$PWD/boost_build/lib/
+export QRENCODE_INCLUDE_PATH=$PWD/qrencode_build/include/
+export QRENCODE_LIB_PATH=$PWD/qrencode_build/lib/
 ```
 
 ### Build nebliod
@@ -37,7 +46,8 @@ strip ./macpuffinsd
 
 ### Build neblio-Qt
 ```
-qmake "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" "OPENSSL_INCLUDE_PATH=$PWD/openssl_build/include/" "OPENSSL_LIB_PATH=$PWD/openssl_build/lib/" "PKG_CONFIG_PATH=$PWD/curl_build/lib/pkgconfig/" macpuffins-wallet.pro
+cd wallet
+qmake "USE_UPNP=1" "USE_QRCODE=1" "RELEASE=1" "QRENCODE_INCLUDE_PATH=$QRENCODE_INCLUDE_PATH" "QRENCODE_LIB_PATH=$QRENCODE_LIB_PATH" "BOOST_INCLUDE_PATH=$BOOST_INCLUDE_PATH" "BOOST_LIB_PATH=$BOOST_LIB_PATH" "OPENSSL_INCLUDE_PATH=$OPENSSL_INCLUDE_PATH" "OPENSSL_LIB_PATH=$OPENSSL_LIB_PATH" "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" ../macpuffins-wallet.pro
 make -B -w -j4
 ```
 
